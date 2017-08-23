@@ -31,4 +31,6 @@ public abstract class AbstractGenericDao<T, U extends Serializable> {
     
     public abstract boolean delete(U id);
     
+    
+    
 }
