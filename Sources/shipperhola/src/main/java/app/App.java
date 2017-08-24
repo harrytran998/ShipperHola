@@ -1,67 +1,61 @@
+/*
+ * Copyright © 2017 XVideos Team
+ */
 package app;
-
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import controller.IndexController;
-import controller.StudentController;
-import dao.StudentDao;
+import dao.CategoryDao;
+import dao.ShippingAddressDao;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import static spark.Spark.*;
+// </editor-fold>
 
-public class Application {
-
+public class App {
+    
     // <editor-fold defaultstate="collapsed" desc="Constants">
     private static final boolean IS_RUNNING_ON_LOCALHOST = true;
     private static final String CONFIGURATION_FILE_NAME = "application.properties";
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
     private static ApplicationConfiguration configuration;
     private static TemplateEngine templateEngine;
     private static DataSource dataSource;
-    private static StudentDao studentDao;
+    private static CategoryDao categoryDao;
+    private static ShippingAddressDao shippingAddressDao;
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
-    /**
-     * Get the application's configuration object.
-     * @return The configuration object.
-     */
     public static ApplicationConfiguration getConfiguration() {
         return configuration;
     }
 
-    /**
-     * Get the application's template engine to use with Spark.
-     * @return The template engine.
-     */
     public static TemplateEngine getTemplateEngine() {
         return templateEngine;
     }
 
-    /**
-     * Get the application's data source for use in DAO classes.
-     * @return The data source.
-     */
     public static DataSource getDataSource() {
         return dataSource;
     }
 
-    /**
-     * Get the student DAO object.
-     * @return The student DAO.
-     */
-    public static StudentDao getStudentDao() {
-        return studentDao;
+    public static CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
+
+    public static ShippingAddressDao getAddressDao() {
+        return shippingAddressDao;
     }
     
+    
     // </editor-fold>
-
+       
     // <editor-fold defaultstate="collapsed" desc="Main methods">
     /**
      * Load the application's configuration from file. If configuration file does
@@ -71,7 +65,7 @@ public class Application {
         try {
             configuration = ApplicationConfiguration.fromFile(CONFIGURATION_FILE_NAME);
         } catch (IOException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             configuration = ApplicationConfiguration.fromFile(DEFAULT_CONFIGURATION_FILE_NAME);
         }
     }
@@ -82,7 +76,8 @@ public class Application {
     private static void initializeDependencies() {
         templateEngine = new ThymeleafTemplateEngine();
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
-        studentDao = new StudentDao(dataSource);
+        categoryDao = new CategoryDao(dataSource);
+        shippingAddressDao = new ShippingAddressDao(dataSource);
     }
 
     /**
@@ -103,14 +98,11 @@ public class Application {
      */
     private static void setupRoutes() {
         IndexController.setupRoutes();
-        StudentController.setupRoutes();
+        
     }
     // </editor-fold>
-
-    /**
-     * Application's main function.
-     * @param args The arguments.
-     */
+   
+    // <editor-fold defaultstate="collapsed" desc="Main Run">
     public static void main(String[] args) {
         try {
             loadConfiguration();
@@ -118,7 +110,9 @@ public class Application {
             configureServer();
             setupRoutes();
         } catch (Exception ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    // </editor-fold>
+
 }
