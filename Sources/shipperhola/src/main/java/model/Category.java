@@ -3,27 +3,29 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class Category {
-    private  int id;
+public class Category implements Serializable {
+    private Integer id;
     private String name;
 
     public Category() {
     }
 
-    public Category(int id, String name) {
+    public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,5 +41,4 @@ public class Category {
     public String toString() {
         return "Category{" + "id=" + id + ", name=" + name + '}';
     }
-    
 }

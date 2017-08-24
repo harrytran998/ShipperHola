@@ -3,7 +3,7 @@
  */
 package controller;
 import static spark.Spark.*;
-import static app.App.*;
+import static app.Application.*;
 import java.util.HashMap;
 import java.util.Map;
 import spark.Route;

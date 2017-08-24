@@ -8,7 +8,7 @@ package model;
  * @author Admin
  */
 public class ProductPicture {
-    private int id;
+    private Integer id;
     private String fileName;
     private String extension;
     private Product product;
@@ -16,18 +16,18 @@ public class ProductPicture {
     public ProductPicture() {
     }
 
-    public ProductPicture(int id, String fileName, String extension, Product product) {
+    public ProductPicture(Integer id, String fileName, String extension, Product product) {
         this.id = id;
         this.fileName = fileName;
         this.extension = extension;
         this.product = product;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

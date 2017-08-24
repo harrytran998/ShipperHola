@@ -3,27 +3,29 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class ShippingAddress {
-    private int id;
+public class ShippingAddress implements Serializable {
+    private Integer id;
     private String address;
 
     public ShippingAddress() {
     }
 
-    public ShippingAddress(int id, String address) {
+    public ShippingAddress(Integer id, String address) {
         this.id = id;
         this.address = address;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

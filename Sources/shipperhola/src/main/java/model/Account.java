@@ -3,14 +3,15 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Admin
  */
-public class Account {
-    private int id;
+public class Account implements Serializable {
+    private Integer id;
     private String username;
     private String password;
     private String fullName;
@@ -20,12 +21,12 @@ public class Account {
     private String phoneNumber;
     private String address;
     private String facebookId;
-    private boolean role;
+    private String role;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, String facebookId, boolean role) {
+    public Account(Integer id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, String facebookId, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -39,11 +40,11 @@ public class Account {
         this.role = role;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -119,11 +120,11 @@ public class Account {
         this.facebookId = facebookId;
     }
 
-    public boolean isRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(boolean role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -131,8 +132,4 @@ public class Account {
     public String toString() {
         return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullName=" + fullName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", facebookId=" + facebookId + ", role=" + role + '}';
     }
-    
-    
-    
-    
 }

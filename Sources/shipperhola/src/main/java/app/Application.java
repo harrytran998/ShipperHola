@@ -2,7 +2,6 @@
  * Copyright © 2017 XVideos Team
  */
 package app;
-// <editor-fold defaultstate="collapsed" desc="Imports">
 import controller.IndexController;
 import dao.CategoryDao;
 import dao.ShippingAddressDao;
@@ -14,9 +13,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-// </editor-fold>
 
-public class App {
+public class Application {
     
     // <editor-fold defaultstate="collapsed" desc="Constants">
     private static final boolean IS_RUNNING_ON_LOCALHOST = true;
@@ -65,7 +63,7 @@ public class App {
         try {
             configuration = ApplicationConfiguration.fromFile(CONFIGURATION_FILE_NAME);
         } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
             configuration = ApplicationConfiguration.fromFile(DEFAULT_CONFIGURATION_FILE_NAME);
         }
     }
@@ -110,7 +108,7 @@ public class App {
             configureServer();
             setupRoutes();
         } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     // </editor-fold>

@@ -3,15 +3,16 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Admin
  */
-public class Product {
-    private int id;
-    private Date date;
+public class Product implements Serializable {
+    private Integer id;
+    private Date date = new Date(System.currentTimeMillis());
     private String name;
     private String description;
     private double currentPrice;
@@ -22,7 +23,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, Date date, String name, String description, double currentPrice, boolean allowOrder, Category category, Account seller) {
+    public Product(Integer id, Date date, String name, String description, double currentPrice, boolean allowOrder, Category category, Account seller) {
         this.id = id;
         this.date = date;
         this.name = name;
@@ -33,11 +34,11 @@ public class Product {
         this.seller = seller;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
