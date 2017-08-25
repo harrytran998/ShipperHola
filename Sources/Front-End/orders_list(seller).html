@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <!-- Title -->
-        <title>Thanh toán đơn hàng</title>
+        <title>Lịch sử hàng đã xử lý - giao diện người bán</title>
         
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,900,700italic,500italic' rel='stylesheet' type='text/css'>
@@ -364,136 +364,98 @@
 				
                 <div class="col-lg-12 col-md-12 col-sm-12">
                 	<div class="breadcrumbs">
-                    	<p><a href="#">Trang chủ</a> <i class="icons icon-right-dir"></i> Thanh toán đơn hàng</p>
+                    	<p><a href="#">Trang chủ</a> <i class="icons icon-right-dir"></i>Lịch sử hàng đã xử  lí</p>
                     </div>
                 </div>
                 
 				<!-- Main Content -->
 				<section class="main-content col-lg-9 col-md-9 col-sm-9">
+					
+                    <div class="row">
+                    
+                        <!-- Heading -->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            
+                            <div class="carousel-heading">
+                                <h4>Danh sách order</h4>
+                                <div class="carousel-arrows">
+									<a href="#"><i class="icons icon-reply"></i></a>
+								</div>
+                            </div>
+                            
+                        </div>
+                        <!-- /Heading -->
+                        
+					</div>	
                     
                     
                     <div class="row">
                     	
                         <div class="col-lg-12 col-md-12 col-sm-12">
                         	
-                            <div class="carousel-heading">
-                                <h4>Thanh toán đơn hàng</h4>
-                                <div class="carousel-arrows">
-									<a href="#"><i class="icons icon-reply"></i></a>
-								</div>
-                            </div>
-                            
-                            <table class="orderinfo-table">
+							<table class="order-table">
                             	
-                                <tr>
-                                	<th>Họ và tên</th>
-                                    <td>User buyer</td>
-                                </tr> 
-                                
-                                <tr>
-                                	<th>SĐT</th>
-                                    <td>0123456789</td>
-                                </tr>
-                                
-                                <tr>
-                                	<th>Địa chỉ</th>
-                                    <td>Phòng Axxx</td>
-                                </tr>
-                                
-                                <tr>
-                                	<th>Phương thức thanh toán</th>
-                                    <td>COD</td>
-                                </tr>
+								<tr>
+									<th>Id</th>
+									<th>Ngày order</th>
+									<th class="order-status">Trạng thái</th>
+									<th>Tổng</th>
+								</tr>
 								
-                                <tr>
-                                	<th>Tổng</th>
-                                    <td><span class="price">75.000VND</span></td>
-                                </tr>                    
-                            </table>
-                            
-                        </div>
-
-                        
-                    </div>
-                    
-                    <div class="row">
-                    	
-                        
-                        
-                         <div class="col-lg-12 col-md-12 col-sm-12">
-							
-							
-							<div class="tabs">
-                            
-                                <div class="tab-heading margin-heading">
-                                    <a href="#tab1" class="button big">Tình trạng mỗi mặt hàng</a>
-                                </div>
-                                
-                                <div class="tab-content no-padding">
-                                	
-                                    <div id="tab1">
-									
-                                    	<table class="orderinfo-table">
-                                
-											<tr>
-												<th>ID</th>
-												<th>Mã sản phẩm</th>
-												<th>Tên sản phẩm</th>
-												<th>Trạng thái</th>
-												<th>Giá</th>
-												<th>Số lượng</th>
-												<th>Ghi chú</th>
-												<th>Tổng</th>
-											</tr> 
-											
-											<tr>
-												<td>1</td>
-												<td>xxxx</td>
-												<td>Sản phẩm</td>
-												<td>Đang chuyển hàng</td>
-												<td>25.000VND</td>
-												<td>1</td>
-												<td>Comment</td>
-												<td>25.000VND</td>
-											</tr>
-											
-											<tr>
-												<td>1</td>
-												<td>xxxx</td>
-												<td>Sản phẩm</td>
-												<td>Đang chuyển hàng</td>
-												<td>25.000VND</td>
-												<td>1</td>
-												<td>Comment</td>
-												<td>25.000VND</td>
-											</tr>
-
-											
-											<tr>
-												<td class="align-right" colspan="5"><span class="price big">Tổng</span></td>
-												<td><span class="price big">50.000VND</span></td>
-											</tr>
-											
-										</table>
-										
-                                    </div>
-									
-									
-								</div>
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>   
 								
-                            
-                            </div>
-							
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>  
+								
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>  
+								
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>  
+								
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>  
+								
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>  
+								
+								<tr>
+									<td class="order-number"><p><a href="#">0123264</a></p></td>
+									<td><p>2017-09-25</p></td>
+									<td><p>Đã chuyển hàng</p></td>
+									<td><span class="price">25.000VND</span></td>
+								</tr>                               
+								
+							</table>
+								
                         </div>
                         
                     </div>
-                    <div class="row">                                    
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                    	<input class="big" type="submit" value="Sửa thông tin">
-                                    	<input class="big" type="submit" value="Hủy đơn hàng">
-                                    </div>
-                                    
-                                </div>
                         
                     
 				</section>
@@ -574,40 +536,6 @@
 							
 					</div>
 					<!-- /Thể loại -->
-					
-					
-					
-					<!-- Carousel -->
-					<div class="row sidebar-box">
-						
-						<div class="col-lg-12 col-md-12 col-sm-12 sidebar-carousel">
-							
-							<!-- Slider -->
-							<section class="sidebar-slider">
-								<div class="sidebar-flexslider">
-									<ul class="slides">
-										<li>
-											<a href="#"><img src="img/sidebar-slide1.jpg" alt="Slide1"/></a>
-										</li>
-										<li>
-											<a href="#"><img src="img/sidebar-slide2.jpg" alt="Slide1"/></a>
-										</li>
-										<li>
-											<a href="#"><img src="img/sidebar-slide3.jpg" alt="Slide1"/></a>
-										</li>
-									</ul>
-								</div>
-								<div class="slider-nav"></div>
-							</section>
-							<!-- /Slider -->
-                            
-						</div>
-						
-					</div>
-					<!-- /Carousel -->
-					
-					
-					
                     
 				</aside>
 				<!-- /Sidebar -->
