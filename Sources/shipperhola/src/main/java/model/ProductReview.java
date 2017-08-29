@@ -12,17 +12,17 @@ public class ProductReview {
     private int rate;
     private String content;
     private int accountId;
-    private int productId;
+    private Product product;
 
     public ProductReview() {
     }
 
-    public ProductReview(int id, int rate, String content, int accountId, int productId) {
+    public ProductReview(int id, int rate, String content, int accountId, Product product) {
         this.id = id;
         this.rate = rate;
         this.content = content;
         this.accountId = accountId;
-        this.productId = productId;
+        this.product = product;
     }
 
     public int getId() {
@@ -57,43 +57,20 @@ public class ProductReview {
         this.accountId = accountId;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProductReview other = (ProductReview) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
     public String toString() {
-        return "ProductReview{" + "id=" + id + ", rate=" + rate + ", content=" + content + ", accountId=" + accountId + ", productId=" + productId + '}';
+        return "ProductReview{" + "id=" + id + ", rate=" + rate + ", content=" + content + ", accountId=" + accountId + ", product=" + product + '}';
     }
+
+    
     
     
 }

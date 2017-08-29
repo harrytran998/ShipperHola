@@ -15,18 +15,18 @@ public class ProductComment {
     private String content;
     private int accountId;
     private int repliedCommentId;
-    private int productId;
+    private Product product;
 
     public ProductComment() {
     }
 
-    public ProductComment(int Id, Date date, String content, int accountId, int repliedCommentId, int productId) {
+    public ProductComment(int Id, Date date, String content, int accountId, int repliedCommentId, Product product) {
         this.Id = Id;
         this.date = date;
         this.content = content;
         this.accountId = accountId;
         this.repliedCommentId = repliedCommentId;
-        this.productId = productId;
+        this.product = product;
     }
 
     public int getId() {
@@ -69,43 +69,21 @@ public class ProductComment {
         this.repliedCommentId = repliedCommentId;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + this.Id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProductComment other = (ProductComment) obj;
-        if (this.Id != other.Id) {
-            return false;
-        }
-        return true;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
     public String toString() {
-        return "ProductComment{" + "Id=" + Id + ", date=" + date + ", content=" + content + ", accountId=" + accountId + ", repliedCommentId=" + repliedCommentId + ", productId=" + productId + '}';
+        return "ProductComment{" + "Id=" + Id + ", date=" + date + ", content=" + content + ", accountId=" + accountId + ", repliedCommentId=" + repliedCommentId + ", product=" + product + '}';
     }
+    
+    
+    
     
     
     
