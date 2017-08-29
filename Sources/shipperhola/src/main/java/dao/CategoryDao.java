@@ -41,8 +41,7 @@ public class CategoryDao extends AbstractGenericDao<Category, Integer >{
 
     @Override
     public boolean update(Category category) {
-        return jdbcTemplate.update("UPDATE Category SET name = ? WHERE id = ?", category.getName(), category.getId()) > 0;
-                
+        return jdbcTemplate.update("UPDATE Category SET name = ? WHERE id = ?", category.getName(), category.getId()) > 0;      
     }
 
     @Override
