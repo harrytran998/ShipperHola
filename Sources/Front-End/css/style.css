@@ -581,6 +581,9 @@ span.quantity{
 	display:block;	
 	margin-bottom:10px;
 }
+.shopping-table .product-price{
+	color:#E74C3C;
+}
 
 .checkout-table td{
 	padding:5px;	
@@ -3945,7 +3948,6 @@ table.compare-table .tag-item:hover{
 table.order-table td{
 	padding:10px 15px;	
 }
-
 
 
 
