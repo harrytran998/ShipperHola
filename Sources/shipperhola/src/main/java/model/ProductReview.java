@@ -8,37 +8,38 @@ package model;
  * @author Quang Hiep
  */
 public class ProductReview {
-    private int id;
-    private int rate;
+
+    private Integer id;
+    private Integer rating;
     private String content;
-    private int accountId;
+    private Account account;
     private Product product;
 
     public ProductReview() {
     }
 
-    public ProductReview(int id, int rate, String content, int accountId, Product product) {
+    public ProductReview(Integer id, Integer rating, String content, Account account, Product product) {
         this.id = id;
-        this.rate = rate;
+        this.rating = rating;
         this.content = content;
-        this.accountId = accountId;
+        this.account = account;
         this.product = product;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getRate() {
-        return rate;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public String getContent() {
@@ -49,12 +50,12 @@ public class ProductReview {
         this.content = content;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Product getProduct() {
@@ -67,10 +68,7 @@ public class ProductReview {
 
     @Override
     public String toString() {
-        return "ProductReview{" + "id=" + id + ", rate=" + rate + ", content=" + content + ", accountId=" + accountId + ", product=" + product + '}';
+        return "ProductReview{" + "id=" + id + ", rating=" + rating + ", content=" + content + ", account=" + account + ", product=" + product + '}';
     }
 
-    
-    
-    
 }

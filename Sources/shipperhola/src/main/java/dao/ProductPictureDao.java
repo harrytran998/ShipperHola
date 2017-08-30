@@ -3,7 +3,6 @@
  */
 package dao;
 
-
 import java.util.List;
 import javax.sql.DataSource;
 import model.Product;
@@ -14,14 +13,15 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Admin
  */
-public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Integer>{
+public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Integer> {
+
     private static final RowMapper<ProductPicture> MAPPER = (rs, rowNum) -> new ProductPicture(
             rs.getInt("id"),
             rs.getString("fileName"),
             rs.getString("extension"),
             new Product(rs.getInt("productId"))
     );
-    
+
     public ProductPictureDao(DataSource dataSource) {
         super(dataSource);
     }
@@ -33,7 +33,7 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
 
     @Override
     public ProductPicture getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM ProductPicture WHERE id = ?", new Object[]{id} ,MAPPER);
+        return jdbcTemplate.queryForObject("SELECT * FROM ProductPicture WHERE id = ?", new Object[]{id}, MAPPER);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
 
     @Override
     public boolean delete(Integer id) {
-        return jdbcTemplate.update("DELETE FROM ProductPicture Where id = ? ", id) >0;
+        return jdbcTemplate.update("DELETE FROM ProductPicture Where id = ? ", id) > 0;
     }
-    
+
 }

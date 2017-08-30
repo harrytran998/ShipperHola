@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author Admin
  */
 public class Product implements Serializable {
+
     private Integer id;
     private Date date = new Date(System.currentTimeMillis());
     private String name;
@@ -32,6 +33,10 @@ public class Product implements Serializable {
         this.allowOrder = allowOrder;
         this.category = category;
         this.seller = seller;
+    }
+
+    public Product(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -102,6 +107,7 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" + "id=" + id + ", date=" + date + ", name=" + name + ", description=" + description + ", currentPrice=" + currentPrice + ", allowOrder=" + allowOrder + ", category=" + category + ", seller=" + seller + '}';
     }
+
     
-    
+
 }
