@@ -3,6 +3,7 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import model.Account;
@@ -54,7 +55,24 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
     @Override
     public boolean delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
-
+    }
+    
+    public List<Product> search(String keyword, Double minPrice, Double maxPrice) {
+        String sql = "SELECT * FROM Product WHERE 1 = 1";
+        List args = new ArrayList();
+        if (keyword != null) {
+            sql += " AND LOWER(name) LIKE '%' + ? + '%'";
+            args.add(keyword.toLowerCase());
+        }
+        if (minPrice != null) {
+            sql += " AND currentPrice >= ?";
+            args.add(minPrice);
+        }
+        if (maxPrice != null) {
+            sql += " AND currentPrice <= ?";
+            args.add(maxPrice);
+        }
+        return jdbcTemplate.query(sql, args.toArray(), MAPPER);
     }
 
 }

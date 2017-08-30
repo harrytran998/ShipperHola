@@ -40,17 +40,17 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
 
     @Override
     public Order getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Order WHERE id = ?", new Object[]{id}, MAPPER);
+        return jdbcTemplate.queryForObject("SELECT * FROM [Order] WHERE id = ?", new Object[]{id}, MAPPER);
     }
 
     @Override
     public boolean add(Order order) {
-        return jdbcTemplate.update("INSERT INTO Order(id, date, quantity, price, buyerAddress, buyerPhoneNumber,paymentMethod,status,buyerId,productId) Values (?,?,?,?,?,?,?,?,?,?)",order.getId(), order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
+        return jdbcTemplate.update("INSERT INTO [Order](id, date, quantity, price, buyerAddress, buyerPhoneNumber,paymentMethod,status,buyerId,productId) Values (?,?,?,?,?,?,?,?,?,?)",order.getId(), order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
     }
 
     @Override
     public boolean update(Order order) {
-        return jdbcTemplate.update("UPDATE Order SET date = ?,quantity = ?,price = ?,buyerAddress = ?,buyerPhoneNumber = ?,paymentMethod = ?,status = ?,buyerId = ? ,productId = ?  WHERE id =? ", order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
+        return jdbcTemplate.update("UPDATE [Order] SET date = ?,quantity = ?,price = ?,buyerAddress = ?,buyerPhoneNumber = ?,paymentMethod = ?,status = ?,buyerId = ? ,productId = ?  WHERE id =? ", order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
     }
 
     @Override
