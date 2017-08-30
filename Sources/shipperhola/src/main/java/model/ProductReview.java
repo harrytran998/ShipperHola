@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Quang Hiep

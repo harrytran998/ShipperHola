@@ -3,11 +3,14 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class ProductPicture {
+public class ProductPicture implements Serializable {
+
     private Integer id;
     private String fileName;
     private String extension;
@@ -59,5 +62,5 @@ public class ProductPicture {
     public String toString() {
         return "ProductPicture{" + "id=" + id + ", fileName=" + fileName + ", extension=" + extension + ", product=" + product + '}';
     }
-    
+
 }

@@ -43,7 +43,7 @@ public class Account implements Serializable {
     public Account(Integer id) {
         this.id = id;
     }
-    
+
     public Integer getId() {
         return id;
     }
