@@ -33,7 +33,7 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
 
     @Override
     public List<Product> getAll() {
-        throw new UnsupportedOperationException();
+        return jdbcTemplate.query("SELECT * FROM Product", MAPPER);
     }
 
     @Override

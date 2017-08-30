@@ -21,7 +21,7 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
             rs.getInt("rating"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
-            new Product(rs.getInt("productIdne"))
+            new Product(rs.getInt("productId"))
     );
 
     public ProductReviewDao(DataSource dataSource) {
@@ -40,12 +40,12 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
 
     @Override
     public boolean add(ProductReview productReview) {
-        return jdbcTemplate.update("INSERT INTO ProductReview(id, rating, content, accountId, productIdne) Values (?, ?, ?, ?, ?)", productReview.getId(), productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId()) > 0;
+        return jdbcTemplate.update("INSERT INTO ProductReview(id, rating, content, accountId, productId) Values (?, ?, ?, ?, ?)", productReview.getId(), productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId()) > 0;
     }
 
     @Override
     public boolean update(ProductReview productReview) {
-        return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productIdne = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId() , productReview.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productId = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId() , productReview.getId()) > 0;
     }
 
     @Override

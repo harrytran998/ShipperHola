@@ -35,7 +35,7 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
 
     @Override
     public List<Order> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
 
     @Override
     public boolean add(Order order) {
-        return jdbcTemplate.update("INSERT INTO Order(id,date,quantity,price,buyerAddress,buyerPhoneNumber,paymentMethod,status,buyerId,productId) Values (?,?,?,?,?,?,?,?,?,?)",order.getId(), order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
+        return jdbcTemplate.update("INSERT INTO Order(id, date, quantity, price, buyerAddress, buyerPhoneNumber,paymentMethod,status,buyerId,productId) Values (?,?,?,?,?,?,?,?,?,?)",order.getId(), order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
 
     @Override
     public boolean delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException();
     }
 
 }
