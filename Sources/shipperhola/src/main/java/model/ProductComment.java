@@ -3,38 +3,39 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Quang Hiep
  */
-public class ProductComment {
-    private int Id;
+public class ProductComment implements Serializable{
+    private int id;
     private Date date;
     private String content;
-    private int accountId;
-    private int repliedCommentId;
+    private Account account;
+    private ProductComment repliedComment;
     private Product product;
 
     public ProductComment() {
     }
 
-    public ProductComment(int Id, Date date, String content, int accountId, int repliedCommentId, Product product) {
-        this.Id = Id;
+    public ProductComment(int id, Date date, String content, Account account, ProductComment repliedComment, Product product) {
+        this.id = id;
         this.date = date;
         this.content = content;
-        this.accountId = accountId;
-        this.repliedCommentId = repliedCommentId;
+        this.account = account;
+        this.repliedComment = repliedComment;
         this.product = product;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public Date getDate() {
@@ -53,20 +54,20 @@ public class ProductComment {
         this.content = content;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public int getRepliedCommentId() {
-        return repliedCommentId;
+    public ProductComment getRepliedComment() {
+        return repliedComment;
     }
 
-    public void setRepliedCommentId(int repliedCommentId) {
-        this.repliedCommentId = repliedCommentId;
+    public void setRepliedComment(ProductComment repliedComment) {
+        this.repliedComment = repliedComment;
     }
 
     public Product getProduct() {
@@ -79,12 +80,8 @@ public class ProductComment {
 
     @Override
     public String toString() {
-        return "ProductComment{" + "Id=" + Id + ", date=" + date + ", content=" + content + ", accountId=" + accountId + ", repliedCommentId=" + repliedCommentId + ", product=" + product + '}';
+        return "ProductComment{" + "id=" + id + ", date=" + date + ", content=" + content + ", account=" + account + ", repliedComment=" + repliedComment + ", product=" + product + '}';
     }
-    
-    
-    
-    
     
     
 }

@@ -3,11 +3,14 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Quang Hiep
  */
-public class ProductReview {
+public class ProductReview implements Serializable {
+
     private int id;
     private int rate;
     private String content;
@@ -70,7 +73,4 @@ public class ProductReview {
         return "ProductReview{" + "id=" + id + ", rate=" + rate + ", content=" + content + ", accountId=" + accountId + ", product=" + product + '}';
     }
 
-    
-    
-    
 }

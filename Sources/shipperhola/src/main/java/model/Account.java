@@ -40,6 +40,10 @@ public class Account implements Serializable {
         this.role = role;
     }
 
+    public Account(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
