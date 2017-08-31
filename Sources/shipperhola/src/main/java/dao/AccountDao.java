@@ -50,7 +50,7 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
 
     @Override
     public boolean update(Account account) {
-        return jdbcTemplate.update("UPDATE Account SET username=?, password=?, fullName=?, gender=?, dateOfBirth=?, email=? , phoneNumber=?, address=?, facebookId=?, role=? WHERE ", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
+        return jdbcTemplate.update("UPDATE Account SET username=?, password=?, fullName=?, gender=?, dateOfBirth=?, email=? , phoneNumber=?, address=?, facebookId=?, role=? WHERE id=?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
     }
 
     @Override
