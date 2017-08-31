@@ -3,7 +3,9 @@
  */
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
 import model.Product;
@@ -40,16 +42,27 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
 
     @Override
     public boolean add(ProductReview productReview) {
-        return jdbcTemplate.update("INSERT INTO ProductReview(id, rating, content, accountId, productId) Values (?, ?, ?, ?, ?)", productReview.getId(), productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId()) > 0;
+        Map<String, Object> params = new HashMap<>();
+        params.put("rating", productReview.getRating());
+        params.put("content", productReview.getContent());
+        params.put("accountId", productReview.getAccount().getId());
+        params.put("productId", productReview.getProduct().getId());
+        Number id = simpleJdbcInsert.withTableName("ProductReview").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            productReview.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean update(ProductReview productReview) {
-        return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productId = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId() , productReview.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productId = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return jdbcTemplate.update("DELETE FROM ProductReview Where id = ? ", id) >0;
+        return jdbcTemplate.update("DELETE FROM ProductReview Where id = ? ", id) > 0;
     }
 }

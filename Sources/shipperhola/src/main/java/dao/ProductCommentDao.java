@@ -3,7 +3,9 @@
  */
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
 import model.Product;
@@ -41,7 +43,19 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
 
     @Override
     public boolean add(ProductComment productComment) {
-        return jdbcTemplate.update("INSERT INTO ProductComment(id, date, content, accountId, repliedCommentId, productId) Values (?, ?, ?, ?, ?, ?)", productComment.getId(), productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment().getId(), productComment.getProduct().getId()) > 0;
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", productComment.getDate());
+        params.put("content", productComment.getContent());
+        params.put("accountId", productComment.getAccount().getId());
+        params.put("repliedComment", productComment.getRepliedComment().getId());
+        params.put("productId", productComment.getProduct().getId());
+        Number id = simpleJdbcInsert.withTableName("ProductComment").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            productComment.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

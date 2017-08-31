@@ -4,7 +4,9 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
 import model.Category;
@@ -44,19 +46,33 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
 
     @Override
     public boolean add(Product product) {
-        return jdbcTemplate.update("INSERT INTO Product(id, date, name, description, currentPrice, allowOrder, categoryId, sellerId) Values (?, ?, ?, ?, ?, ?, ?, ?)", product.getId(), product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller()) > 0;
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", product.getDate());
+        params.put("name", product.getName());
+        params.put("description", product.getDescription());
+        params.put("currentPrice", product.getCurrentPrice());
+        params.put("allowOrder", product.isAllowOrder());
+        params.put("categoryId", product.getCategory().getId());
+        params.put("sellerId", product.getSeller().getId());
+        Number id = simpleJdbcInsert.withTableName("Product").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            product.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean update(Product product) {
-        return jdbcTemplate.update("UPDATE Product SET  date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller(), product.getId() ) > 0;
+        return jdbcTemplate.update("UPDATE Product SET  date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller(), product.getId()) > 0;
     }
 
     @Override
     public boolean delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
     }
-    
+
     public List<Product> search(String keyword, Double minPrice, Double maxPrice) {
         String sql = "SELECT * FROM Product WHERE 1 = 1";
         List args = new ArrayList();
