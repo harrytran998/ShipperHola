@@ -41,7 +41,7 @@ public class ShippingAddressDao  extends AbstractGenericDao<ShippingAddress, Int
     public boolean add(ShippingAddress shippingAddress) {
         Map<String, Object> params = new HashMap<>();
         params.put("address", shippingAddress.getAddress());
-        Number id = simpleJdbcInsert.withTableName("Category").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = simpleJdbcInsert.withTableName("ShippingAddress").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             shippingAddress.setId(id.intValue());
             return true;
