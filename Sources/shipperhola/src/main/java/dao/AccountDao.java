@@ -3,7 +3,9 @@
  */
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,8 +46,26 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
     }
 
     @Override
-    public boolean add(Account account) {
-        return jdbcTemplate.update("INSERT INTO Account(id,username,password,fullName,gender,dateOfBirth,email,phoneNumber,address,facebookId,role) Values (?,?,?,?,?,?,?,?,?,?,?)", account.getId(), account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
+     public boolean add(Account account) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", account.getUsername());
+        params.put("password", account.getPassword());
+        params.put("fullName", account.getFullName());
+        params.put("gender", account.isGender());
+        params.put("dateOfBirth", account.getDateOfBirth());
+        params.put("email", account.getEmail());
+        params.put("phoneNumber", account.getPhoneNumber());
+        params.put("address", account.getAddress());
+        params.put("facebookId", account.getFacebookId());
+        params.put("role", account.getRole());
+        
+        Number id = simpleJdbcInsert.withTableName("Account").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            account.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

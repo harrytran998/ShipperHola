@@ -3,7 +3,9 @@
  */
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
 import model.Order;
@@ -44,10 +46,27 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
     }
 
     @Override
-    public boolean add(Order order) {
-        return jdbcTemplate.update("INSERT INTO [Order](id, date, quantity, price, buyerAddress, buyerPhoneNumber,paymentMethod,status,buyerId,productId) Values (?,?,?,?,?,?,?,?,?,?)",order.getId(), order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
+      public boolean add(Order order) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", order.getDate());
+        params.put("quantity", order.getQuantity());
+        params.put("price", order.getPrice());
+        params.put("buyerAddress", order.getBuyerAddress());
+        params.put("buyerPhoneNumber", order.getBuyerPhoneNumber());
+        params.put("paymentMethod", order.getPaymentMethod());
+        params.put("status", order.getStatus());
+        params.put("buyerId", order.getBuyer().getId());
+        params.put("product", order.getProduct().getId());
+      
+        
+        Number id = simpleJdbcInsert.withTableName("Order").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            order.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
-
     @Override
     public boolean update(Order order) {
         return jdbcTemplate.update("UPDATE [Order] SET date = ?,quantity = ?,price = ?,buyerAddress = ?,buyerPhoneNumber = ?,paymentMethod = ?,status = ?,buyerId = ? ,productId = ?  WHERE id =? ", order.getDate(),order.getQuantity(),order.getPrice(), order.getBuyerAddress(),order.getBuyerPhoneNumber(),order.getPaymentMethod(),order.getStatus(), order.getBuyer().getId(),order.getProduct().getId())>0;
