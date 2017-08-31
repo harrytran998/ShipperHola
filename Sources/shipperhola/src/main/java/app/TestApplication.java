@@ -27,7 +27,7 @@ public class TestApplication {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         CategoryDao categoryDao = new CategoryDao(dataSource);
         categoryDao.getAll().forEach(System.out::println);
-        categoryDao.add(new Category(5,"Đồ Uống"));
+        categoryDao.add(new Category(null,"Do Shit"));
 
         
 //        CartItemDao cartItemDao = new CartItemDao(dataSource);

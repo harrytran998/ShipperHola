@@ -4,7 +4,9 @@
 package dao;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import model.Category;
 import org.springframework.jdbc.core.RowMapper;
@@ -36,7 +38,15 @@ public class CategoryDao extends AbstractGenericDao<Category, Integer >{
 
     @Override
     public boolean add(Category category) {
-        return jdbcTemplate.update("INSERT INTO Category(id, name) VALUES(?, ?)", category.getId(), category.getName()) > 0;
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", category.getName());
+        Number id = simpleJdbcInsert.withTableName("Category").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            category.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

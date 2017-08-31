@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  * Abstract class for quick construction of DAO classes.
@@ -16,9 +17,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public abstract class AbstractGenericDao<T, U extends Serializable> {
     protected final JdbcTemplate jdbcTemplate;
-
+    protected final SimpleJdbcInsert simpleJdbcInsert;
+    
     public AbstractGenericDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
     }
     
     public abstract List<T> getAll();
