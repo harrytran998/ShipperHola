@@ -4,8 +4,11 @@
 package dao;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
+import model.Category;
 import model.ShippingAddress;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -36,7 +39,15 @@ public class ShippingAddressDao  extends AbstractGenericDao<ShippingAddress, Int
 
     @Override
     public boolean add(ShippingAddress shippingAddress) {
-        return jdbcTemplate.update("INSERT INTO ShippingAddress(id, address) VALUES(?, ?)", shippingAddress.getId(),shippingAddress.getAddress()) > 0;
+        Map<String, Object> params = new HashMap<>();
+        params.put("address", shippingAddress.getAddress());
+        Number id = simpleJdbcInsert.withTableName("ShippingAddress").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        if (id != null) {
+            shippingAddress.setId(id.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

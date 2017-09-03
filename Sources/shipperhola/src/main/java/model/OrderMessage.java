@@ -5,33 +5,35 @@ package model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  *
- * @author Quang Hiep
+ * @author PC
  */
-public class ProductComment implements Serializable{
-    private int id;
+public class OrderMessage implements Serializable {
+
+    private Integer id;
     private Date date;
     private String content;
     private Account account;
-    private ProductComment repliedComment;
-    private Product product;
+    private OrderMessage repliedMessage;
+    private Order order;
 
-    public ProductComment() {
+    public OrderMessage() {
     }
 
-    public ProductComment(Integer id) {
+    public OrderMessage(Integer id) {
         this.id = id;
     }
 
-    public ProductComment(Integer id, Date date, String content, Account account, ProductComment repliedComment, Product product) {
+    public OrderMessage(Integer id, Date date, String content, Account account, OrderMessage repliedMessage, Order order) {
         this.id = id;
         this.date = date;
         this.content = content;
         this.account = account;
-        this.repliedComment = repliedComment;
-        this.product = product;
+        this.repliedMessage = repliedMessage;
+        this.order = order;
     }
 
     public Integer getId() {
@@ -66,26 +68,25 @@ public class ProductComment implements Serializable{
         this.account = account;
     }
 
-    public ProductComment getRepliedComment() {
-        return repliedComment;
+    public OrderMessage getRepliedMessage() {
+        return repliedMessage;
     }
 
-    public void setRepliedComment(ProductComment repliedComment) {
-        this.repliedComment = repliedComment;
+    public void setRepliedMessage(OrderMessage repliedMessage) {
+        this.repliedMessage = repliedMessage;
     }
 
-    public Product getProduct() {
-        return product;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
     public String toString() {
-        return "ProductComment{" + "id=" + id + ", date=" + date + ", content=" + content + ", account=" + account + ", repliedComment=" + repliedComment + ", product=" + product + '}';
+        return "OrderMessage{" + "id=" + id + ", date=" + date + ", content=" + content + ", account=" + account + ", repliedMessage=" + repliedMessage + ", order=" + order + '}';
     }
-    
-    
+
 }

@@ -3,42 +3,45 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Quang Hiep
  */
 public class ProductReview {
-    private int id;
-    private int rate;
+
+    private Integer id;
+    private Integer rating;
     private String content;
-    private int accountId;
-    private int productId;
+    private Account account;
+    private Product product;
 
     public ProductReview() {
     }
 
-    public ProductReview(int id, int rate, String content, int accountId, int productId) {
+    public ProductReview(Integer id, Integer rating, String content, Account account, Product product) {
         this.id = id;
-        this.rate = rate;
+        this.rating = rating;
         this.content = content;
-        this.accountId = accountId;
-        this.productId = productId;
+        this.account = account;
+        this.product = product;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getRate() {
-        return rate;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public String getContent() {
@@ -49,51 +52,25 @@ public class ProductReview {
         this.content = content;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProductReview other = (ProductReview) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
     public String toString() {
-        return "ProductReview{" + "id=" + id + ", rate=" + rate + ", content=" + content + ", accountId=" + accountId + ", productId=" + productId + '}';
+        return "ProductReview{" + "id=" + id + ", rating=" + rating + ", content=" + content + ", account=" + account + ", product=" + product + '}';
     }
-    
-    
+
 }
