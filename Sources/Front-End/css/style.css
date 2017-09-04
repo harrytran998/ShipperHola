@@ -356,6 +356,12 @@ li.purple .box-dropdown:after{
 	font-size:14px;
 }
 
+.iconic-input input[type="password"]{
+	width:100%;
+	background:#f7f7f7;
+	font-size:14px;
+}
+
 .iconic-input .icons{
 	position:absolute;
 	color:#7a8188!important;
@@ -553,6 +559,9 @@ span.spanish-flag{
 	font-size:13px;
 }
 
+/* ========================= */
+/*       CART SELLER        */
+/* ========================= */
 .cart-table{
 	width:350px;
 	font-size:13px;	
@@ -3108,6 +3117,12 @@ a .banner-item{
 	background:#f7f7f7;
 	font-size:14px;
 }
+.page-content input[type="password"]{
+	width:100%;
+	background:#f7f7f7;
+	font-size:14px;
+	
+}
 
 .page-content textarea{
 	width:100%;
@@ -4374,7 +4389,16 @@ input[type="text"], select{
 	-ms-transition:background 0.3s;
 	-o-transition:background 0.3s;
 }
-
+input[type="password"]{
+	padding:5px 10px;
+	border:1px solid #e6e6e6;
+	height:40px;
+	transition:background 0.3s;
+	-webkit-transition:background 0.3s;
+	-moz-transition:background 0.3s;
+	-ms-transition:background 0.3s;
+	-o-transition:background 0.3s;
+}
 input[type="submit"], input[type="reset"]{
 	background:#2ecc71;
 	color:#fff;

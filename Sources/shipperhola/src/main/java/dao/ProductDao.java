@@ -72,8 +72,7 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
     public boolean delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
     }
-
-    public List<Product> search(String keyword, Double minPrice, Double maxPrice) {
+    public List<Product> search(String keyword, Double minPrice, Double maxPrice, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) {
         String sql = "SELECT * FROM Product WHERE 1 = 1";
         List args = new ArrayList();
         if (keyword != null) {
@@ -88,7 +87,17 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
             sql += " AND currentPrice <= ?";
             args.add(maxPrice);
         }
+        if (orderColumn != null) {
+            sql += String.format(" ORDER BY %s %s", orderColumn, ascending ? "ASC" : "DESC");
+        }
+        if (offsetRecords != null) {
+            sql += " OFFSET ? ROWS";
+            args.add(offsetRecords);
+        }
+        if (fetchRecords != null) {
+            sql += " FETCH NEXT ? ROWS ONLY";
+            args.add(fetchRecords);
+        }
         return jdbcTemplate.query(sql, args.toArray(), MAPPER);
     }
-
 }

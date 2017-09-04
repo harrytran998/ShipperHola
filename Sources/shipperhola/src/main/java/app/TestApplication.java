@@ -26,8 +26,9 @@ public class TestApplication {
         ApplicationConfiguration configuration = ApplicationConfiguration.fromFile(Application.CONFIGURATION_FILE_NAME);
         DriverManagerDataSource dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         CategoryDao categoryDao = new CategoryDao(dataSource);
-        categoryDao.getAll().forEach(System.out::println);
-        categoryDao.add(new Category(null,"Do Shit"));
+        
+//        categoryDao.add(new Category(null,"Do Shit"));
+//        categoryDao.getAll().forEach(System.out::println);
 
         
 //        CartItemDao cartItemDao = new CartItemDao(dataSource);
@@ -35,10 +36,10 @@ public class TestApplication {
 //        ProductCommentDao productCommentDao = new ProductCommentDao(dataSource);
 //        productCommentDao.getByAccountId(1).forEach(System.out::println);
 //
-//        ProductDao productDao = new ProductDao(dataSource);
-//        productDao.search(null, null, null).forEach(System.out::println);
+        ProductDao productDao = new ProductDao(dataSource);
+        productDao.search(null, null, null, "currentPrice", true, 2, 2).forEach(System.out::println);
 //        ProductPictureDao productPictureDao = new ProductPictureDao(dataSource);
-//        
+        
 
           
 //        System.out.println(productPictureDao.getById(1));
