@@ -78,7 +78,7 @@
                                             <br class="clearfix">
                                         </div>
                                         <div class="footer">
-                                            <a class="button pull-right" href="create_an_account.html">Đăng ký tài khoản</a>
+                                            <a class="button pull-right" href="create_an_account(buyer).html">Đăng ký tài khoản</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -100,14 +100,14 @@
                 <div class="row">
 
                     <div id="logo" class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="home.html"><img src="img/logo.png" th:src="@{~/resources/img/logo.png}" alt="Logo"></a>
+                        <a href="index.html"><img src="img/logo.png" th:src="@{~/resources/img/logo.png}" alt="Logo"></a>
                     </div>
 
                     <nav id="middle-navigation" class="col-lg-8 col-md-8 col-sm-8">
                         <ul class="pull-right">
 
                             <li class="red">
-                                <a href="wishlist.html"><i class="icons icon-heart-empty"></i>Yêu thích</a>
+                                <a href="wishlist(buyer).html"><i class="icons icon-heart-empty"></i>Yêu thích</a>
                             </li>
                             <li class="orange"><a href="order_info.html"><i class="icons icon-basket-2"></i>Giỏ hàng</a>
                                 <ul id="cart-dropdown" class="box-dropdown parent-arrow">
@@ -224,7 +224,7 @@
                     </li>
 
                     <li class="red">
-                        <a href="category_v1.html">
+                        <a href="category(buyer).html">
                                         <i class="icons icon-camera-7"></i>
                                         <span class="nav-caption">Đồ mặn</span>
                                         <span class="nav-description">Cơm, bún, mì, thịt, xôi, bánh mì,...</span>
@@ -263,7 +263,7 @@
                     </li>
 
                     <li class="orange">
-                        <a href="category_v1.html">
+                        <a href="category(buyer).html">
                                         <i class="icons icon-mobile-6"></i>
                                         <span class="nav-caption">Đồ uống</span>
                                         <span class="nav-description">Cafe, sữa chua, đồ uống có ga,...</span>
@@ -354,6 +354,136 @@
     <!-- Kết thúc phần Header -->
 
 
+    <!-- Mở đầu Footer -->
+    <!-- Footer -->
+    <footer th:fragment="footer" id="footer" class="row">
+        <!-- Upper Footer -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="upper-footer">
+                <div class="row">
+                    <!-- Newsletter -->
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <form id="newsletter" action="php/newsletter.php">
+                            <h4>Nhận thông báo</h4>
+                            <input type="text" name="newsletter-email" placeholder="Nhập địa chỉ email">
+                            <input type="submit" name="newsletter-submit" value="Đăng kí">
+                        </form>
+                    </div>
+                    <!-- /Newsletter -->
+
+
+                    <!-- Social Media -->
+                    <div class="col-lg-5 col-md-5 col-sm-5 social-media">
+                        <h4>Kết nối</h4>
+                        <ul>
+                            <li class="social-googleplus tooltip-hover" data-toggle="tooltip" data-placement="top" title="Google+"><a href="#"></a></li>
+                            <li class="social-facebook tooltip-hover" data-toggle="tooltip" data-placement="top" title="Facebook"><a href="#"></a></li>
+                            <li class="social-pinterest tooltip-hover" data-toggle="tooltip" data-placement="top" title="Pinterest"><a href="#"></a></li>
+                            <li class="social-twitter tooltip-hover" data-toggle="tooltip" data-placement="top" title="Twitter"><a href="#"></a></li>
+                            <li class="social-youtube tooltip-hover" data-toggle="tooltip" data-placement="top" title="Youtube"><a href="#"></a></li>
+                        </ul>
+                    </div>
+                    <!-- /Social Media -->
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /Upper Footer -->
+
+
+
+        <!-- Main Footer -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="main-footer">
+                <div class="row">
+                    <!-- The Service -->
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <h4>Dịch vụ</h4>
+                        <ul>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Tài khoản của tôi</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Lịch sử order</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Giỏ hàng của tôi</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Thể loại</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Tìm kiếm sản phẩm</a></li>
+                        </ul>
+                    </div>
+                    <!-- /The Service -->
+
+
+                    <!-- Like us on Facebook -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 facebook-iframe">
+                        <h4>Facebook</h4>
+                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffu.jsclub%2F&width=270&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId"
+                            width="270" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    </div>
+                    <!-- /Like us on Facebook -->
+
+
+                    <!-- Information -->
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <h4>Thông tin</h4>
+                        <ul>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Feedback</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Cửa hàng</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Chính sách bảo mật</a></li>
+                            <li><a href="#"><i class="icons icon-right-dir"></i> Điều khoản</a></li>
+                        </ul>
+                    </div>
+                    <!-- /Information -->
+
+
+                    <!-- Contact Us -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 contact-footer-info">
+                        <h4>Liên hệ với chúng tôi</h4>
+                        <ul>
+                            <li><i class="icons icon-location"></i> Đại học FPT,<br>Thạch Hòa, Thạch Thất, Hà Nội</li>
+                            <li><i class="icons icon-phone"></i> 0123456789</li>
+                            <li><i class="icons icon-mail-alt"></i><a href="mailto:mail@company.com"> mail@companyname.com</a></li>
+                            <li><i class="icons icon-skype"></i> FU Hòa Lạc</li>
+                        </ul>
+                    </div>
+                    <!-- /Contact Us -->
+                </div>
+            </div>
+        </div>
+        <!-- /Main Footer -->
+
+
+
+        <!-- Lower Footer -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="lower-footer">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p class="copyright">Copyright 2017 <a href="#">XvideosTeam</a>. All Rights Reserved.</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <ul class="payment-list">
+                            <li class="payment1"></li>
+                            <li class="payment2"></li>
+                            <li class="payment3"></li>
+                            <li class="payment4"></li>
+                            <li class="payment5"></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /Lower Footer -->
+
+    </footer>
+    <!-- Footer -->
+    <!-- Kết thúc Footer -->
+
+
+    <!-- Sidebar -->
+
     <!-- Thể loại -->
     <div th:fragment="category" class="row sidebar-box purple">
 
@@ -426,8 +556,6 @@
     </div>
     <!-- /Thể loại -->
 
-
-
     <!-- Quảng cáo sidebar -->
     <div th:fragment="ads" class="row sidebar-box">
 
@@ -451,15 +579,13 @@
                 <div class="slider-nav"></div>
             </section>
             <!-- /Slider -->
-
         </div>
-
     </div>
     <!-- /Quảng cáo sidebar -->
 
 
     <!-- Bán chạy nhất -->
-    <div th:fragment="bestSeller" class="row sidebar-box red">
+    <div th:fragment="bestseller" class="row sidebar-box red">
 
         <div class="col-lg-12 col-md-12 col-sm-12">
 
@@ -506,7 +632,7 @@
 
 
     <!-- Tag -->
-    <div th:fragment="tag" class="row sidebar-box green">
+    <div th:fragment="keyWord" class="row sidebar-box green">
 
         <div class="col-lg-12 col-md-12 col-sm-12">
 
@@ -531,9 +657,8 @@
     <!-- /Tag -->
 
 
-
     <!-- Nổi bật -->
-    <div th:fragment="hightLights" class="row products-row sidebar-box orange">
+    <div th:fragment="highLights" class="row products-row sidebar-box orange">
 
         <div class="col-lg-12 col-md-12 col-sm-12">
 
@@ -563,34 +688,34 @@
 
                         <div class="product-image">
                             <img src="img/products/sample1.jpg" th:src="@{~/resources/img/products/sample1.jpg" alt="Product1">
-                            <a href="products_page_v1.html" class="product-hover">
-                                                            <i class="icons icon-eye-1"></i> Xem nhanh
-                                                        </a>
+                            <a href="products(buyer)" class="product-hover">
+                                                    <i class="icons icon-eye-1"></i> Xem nhanh
+                                                </a>
                         </div>
 
                         <div class="product-info">
-                            <h5><a href="products_page_v1.html">Sản phẩm</a></h5>
+                            <h5><a href="products(buyer)">Sản phẩm</a></h5>
                             <span class="price">25.000VND</span>
                             <div class="rating readonly-rating" data-score="4"></div>
                         </div>
 
                         <div class="product-actions">
                             <span class="add-to-cart">
-                                                            <span class="action-wrapper">
-                                                                <i class="icons icon-basket-2"></i>
-                                                                <span class="action-name">Đặt hàng</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-basket-2"></i>
+                                                        <span class="action-name">Đặt hàng</span>
                             </span>
                             </span>
                             <span class="add-to-favorites">
-                                                            <span class="action-wrapper">
-                                                                <i class="icons icon-heart-empty"></i>
-                                                                <span class="action-name">Yêu thích</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-heart-empty"></i>
+                                                        <span class="action-name">Yêu thích</span>
                             </span>
                             </span>
                             <span class="add-to-compare">
-                                                            <span class="action-wrapper">
-                                                                <i class="icons icon-docs"></i>
-                                                                <span class="action-name">Chi tiết</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-docs"></i>
+                                                        <span class="action-name">Chi tiết</span>
                             </span>
                             </span>
                         </div>
@@ -608,33 +733,34 @@
 
                         <div class="product-image">
                             <img src="img/products/sample2.jpg" th:src="@{~/resources/img/products/sample2.jpg" alt="Product1">
-                            <a href="products_page_v1.html" class="product-hover">
-                            <i class="icons icon-eye-1"></i> Xem nhanh1</a>
+                            <a href="products(buyer)" class="product-hover">
+                                                    <i class="icons icon-eye-1"></i> Xem nhanh
+                                                </a>
                         </div>
 
                         <div class="product-info">
-                            <h5><a href="products_page_v1.html">Sản phẩm</a></h5>
+                            <h5><a href="products(buyer)">Sản phẩm</a></h5>
                             <span class="price">25.000VND</span>
                             <div class="rating readonly-rating" data-score="4"></div>
                         </div>
 
                         <div class="product-actions">
                             <span class="add-to-cart">
-                                <span class="action-wrapper">
-                                <i class="icons icon-basket-2"></i>
-                                <span class="action-name">Đặt hàng</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-basket-2"></i>
+                                                        <span class="action-name">Đặt hàng</span>
                             </span>
                             </span>
                             <span class="add-to-favorites">
-                                <span class="action-wrapper">
-                                <i class="icons icon-heart-empty"></i>
-                                <span class="action-name">Yêu thích</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-heart-empty"></i>
+                                                        <span class="action-name">Yêu thích</span>
                             </span>
                             </span>
                             <span class="add-to-compare">
-                                <span class="action-wrapper">
-                                <i class="icons icon-docs"></i>
-                                <span class="action-name">Chi tiết</span>
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-docs"></i>
+                                                        <span class="action-name">Chi tiết</span>
                             </span>
                             </span>
                         </div>
@@ -653,457 +779,6 @@
     </div>
     <!-- /Nổi bật -->
 
-
-
-    <!-- Mở đầu Footer -->
-    <!-- Footer -->
-    <footer th:fragment="footer" id="footer" class="row">
-
-        <!-- Upper Footer -->
-        <div class="col-lg-12 col-md-12 col-sm-12">
-
-            <div id="upper-footer">
-
-                <div class="row">
-
-                    <!-- Newsletter -->
-                    <div class="col-lg-7 col-md-7 col-sm-7">
-                        <form id="newsletter" action="php/newsletter.php">
-                            <h4>Nhận thông báo</h4>
-                            <input type="text" name="newsletter-email" placeholder="Nhập địa chỉ email">
-                            <input type="submit" name="newsletter-submit" value="Đăng kí">
-                        </form>
-                    </div>
-                    <!-- /Newsletter -->
-
-
-                    <!-- Social Media -->
-                    <div class="col-lg-5 col-md-5 col-sm-5 social-media">
-                        <h4>Kết nối</h4>
-                        <ul>
-                            <li class="social-googleplus tooltip-hover" data-toggle="tooltip" data-placement="top" title="Google+"><a href="#"></a></li>
-                            <li class="social-facebook tooltip-hover" data-toggle="tooltip" data-placement="top" title="Facebook"><a href="#"></a></li>
-                            <li class="social-pinterest tooltip-hover" data-toggle="tooltip" data-placement="top" title="Pinterest"><a href="#"></a></li>
-                            <li class="social-twitter tooltip-hover" data-toggle="tooltip" data-placement="top" title="Twitter"><a href="#"></a></li>
-                            <li class="social-youtube tooltip-hover" data-toggle="tooltip" data-placement="top" title="Youtube"><a href="#"></a></li>
-                        </ul>
-                    </div>
-                    <!-- /Social Media -->
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Upper Footer -->
-
-
-
-        <!-- Main Footer -->
-        <div class="col-lg-12 col-md-12 col-sm-12">
-
-            <div id="main-footer">
-
-                <div class="row">
-
-                    <!-- The Service -->
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <h4>Dịch vụ</h4>
-                        <ul>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Tài khoản của tôi</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Lịch sử order</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Giỏ hàng của tôi</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Thể loại</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Tìm kiếm sản phẩm</a></li>
-                        </ul>
-                    </div>
-                    <!-- /The Service -->
-
-
-                    <!-- Like us on Facebook -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 facebook-iframe">
-                        <h4>Facebook</h4>
-                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffu.jsclub%2F&width=270&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId"
-                            width="270" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                    </div>
-
-                    <!-- /Like us on Facebook -->
-
-
-                    <!-- Information -->
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <h4>Thông tin</h4>
-                        <ul>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Feedback</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Cửa hàng</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Chính sách bảo mật</a></li>
-                            <li><a href="#"><i class="icons icon-right-dir"></i> Điều khoản</a></li>
-                        </ul>
-                    </div>
-                    <!-- /Information -->
-
-
-                    <!-- Contact Us -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 contact-footer-info">
-                        <h4>Liên hệ với chúng tôi</h4>
-                        <ul>
-                            <li><i class="icons icon-location"></i> Đại học FPT,<br>Thạch Hòa, Thạch Thất, Hà Nội</li>
-                            <li><i class="icons icon-phone"></i> 0123456789</li>
-                            <li><i class="icons icon-mail-alt"></i><a href="mailto:mail@company.com"> mail@companyname.com</a></li>
-                            <li><i class="icons icon-skype"></i> FU Hòa Lạc</li>
-                        </ul>
-                    </div>
-                    <!-- /Contact Us -->
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Main Footer -->
-
-
-
-        <!-- Lower Footer -->
-        <div class="col-lg-12 col-md-12 col-sm-12">
-
-            <div id="lower-footer">
-
-                <div class="row">
-
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <p class="copyright">Copyright 2017 <a href="#">XvideosTeam</a>. All Rights Reserved.</p>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <ul class="payment-list">
-                            <li class="payment1"></li>
-                            <li class="payment2"></li>
-                            <li class="payment3"></li>
-                            <li class="payment4"></li>
-                            <li class="payment5"></li>
-                        </ul>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Lower Footer -->
-
-    </footer>
-    <!-- Footer -->
-    <!-- Kết thúc Footer -->
-
-
-    <!-- Sidebar -->
-    <aside class="sidebar col-lg-3 col-md-3 col-sm-3  col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
-
-        <!-- Thể loại -->
-        <div th:fragment="category" class="row sidebar-box purple">
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-
-                <div class="sidebar-box-heading">
-                    <i class="icons icon-folder-open-empty"></i>
-                    <h4>Thể loại</h4>
-                </div>
-
-                <div class="sidebar-box-content">
-                    <ul>
-                        <li><a href="#">Đồ mặn <i class="icons icon-right-dir"></i></a>
-                            <ul class="sidebar-dropdown">
-                                <li>
-                                    <ul>
-                                        <li><a href="#">Dom A</a></li>
-                                        <li><a href="#">Dom B</a></li>
-                                        <li><a href="#">Dom C</a></li>
-                                        <li><a href="#">Dom D</a></li>
-                                        <li><a href="#">Dom F</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Đồ ngọt <i class="icons icon-right-dir"></i></a>
-                            <ul class="sidebar-dropdown">
-                                <li>
-                                    <ul>
-                                        <li><a href="#">Dom A</a></li>
-                                        <li><a href="#">Dom B</a></li>
-                                        <li><a href="#">Dom C</a></li>
-                                        <li><a href="#">Dom D</a></li>
-                                        <li><a href="#">Dom F</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Đồ uống <i class="icons icon-right-dir"></i></a>
-                            <ul class="sidebar-dropdown">
-                                <li>
-                                    <ul>
-                                        <li><a href="#">Dom A</a></li>
-                                        <li><a href="#">Dom B</a></li>
-                                        <li><a href="#">Dom C</a></li>
-                                        <li><a href="#">Dom D</a></li>
-                                        <li><a href="#">Dom F</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Khác <i class="icons icon-right-dir"></i></a>
-                            <ul class="sidebar-dropdown">
-                                <li>
-                                    <ul>
-                                        <li><a href="#">Dom A</a></li>
-                                        <li><a href="#">Dom B</a></li>
-                                        <li><a href="#">Dom C</a></li>
-                                        <li><a href="#">Dom D</a></li>
-                                        <li><a href="#">Dom F</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Thể loại -->
-
-
-        <!-- Quảng cáo sidebar -->
-        <div th:fragment="ads" class="row sidebar-box">
-
-            <div class="col-lg-12 col-md-12 col-sm-12 sidebar-carousel">
-
-                <!-- Slider -->
-                <section class="sidebar-slider">
-                    <div class="sidebar-flexslider">
-                        <ul class="slides">
-                            <li>
-                                <a href="#"><img src="img/sidebar-slide1.jpg"  th:src="@{~/resources/img/sidebar-slide1.jpg" alt="Slide1"/></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="img/sidebar-slide2.jpg" th:src="@{~/resources/img/sidebar-slide2.jpg" alt="Slide1"/></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="img/sidebar-slide3.jpg" th:src="@{~/resources/img/sidebar-slide3.jpg" alt="Slide1"/></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="slider-nav"></div>
-                </section>
-                <!-- /Slider -->
-
-            </div>
-
-        </div>
-        <!-- /Quảng cáo sidebar -->
-
-
-        <!-- Bán chạy nhất -->
-        <div th:fragment="bestseller" class="row sidebar-box red">
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-
-                <div class="sidebar-box-heading">
-                    <i class="icons icon-award-2"></i>
-                    <h4>Bán chạy nhất</h4>
-                </div>
-
-                <div class="sidebar-box-content">
-                    <table class="bestsellers-table">
-
-                        <tr>
-                            <td class="product-thumbnail"><a href="#"><img src="img/products/sample1.jpg" th:src="@{~/resources/img/products/sample1.jpg" alt="Product1"></a></td>
-                            <td class="product-info">
-                                <p><a href="#">Sản phẩm</a></p>
-                                <span class="price">25.000VND</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="product-thumbnail"><a href="#"><img src="img/products/sample2.jpg" th:src="@{~/resources/img/products/sample2.jpg" alt="Product1"></a></td>
-                            <td class="product-info">
-                                <p><a href="#">Sản phẩm</a></p>
-                                <span class="price">25.000VND</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="product-thumbnail"><a href="#"><img src="img/products/sample3.jpg" th:src="@{~/resources/img/products/sample3.jpg" alt="Product1"></a></td>
-                            <td class="product-info">
-                                <p><a href="#">Sản phẩm</a></p>
-                                <div class="rating readonly-rating" data-score="4"></div>
-                                <span class="price"> 25.000VND</span>
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Bán chạy nhất -->
-
-
-        <!-- Tag -->
-        <div th:fragment="tag" class="row sidebar-box green">
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-
-                <div class="sidebar-box-heading">
-                    <i class="icons icon-tag-6"></i>
-                    <h4>Tags</h4>
-                </div>
-
-                <div class="sidebar-box-content sidebar-padding-box">
-                    <a href="#" class="tag-item">cơm</a>
-                    <a href="#" class="tag-item">nước ngọt</a>
-                    <a href="#" class="tag-item">sting</a>
-                    <a href="#" class="tag-item">coca</a>
-                    <a href="#" class="tag-item">thuốc lá</a>
-                    <a href="#" class="tag-item">laptop</a>
-                    <a href="#" class="tag-item">smartphone</a>
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /Tag -->
-
-
-        <!-- Nổi bật -->
-        <div th:fragment="highlights" class="row products-row sidebar-box orange">
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-
-                <!-- Carousel Heading -->
-                <div class="carousel-heading no-margin">
-
-                    <h4><i class="icons icon-magic"></i> Nổi bật</h4>
-                    <div class="carousel-arrows">
-                        <i class="icons icon-left-dir"></i>
-                        <i class="icons icon-right-dir"></i>
-                    </div>
-
-                </div>
-                <!-- /Carousel Heading -->
-
-            </div>
-
-            <!-- Carousel -->
-            <div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
-
-                <div class="owl-carousel" data-max-items="1">
-
-                    <!-- Slide -->
-                    <div>
-                        <!-- Carousel Item -->
-                        <div class="product">
-
-                            <div class="product-image">
-                                <img src="img/products/sample1.jpg" th:src="@{~/resources/img/products/sample1.jpg" alt="Product1">
-                                <a href="products_page_v1.html" class="product-hover">
-                                                    <i class="icons icon-eye-1"></i> Xem nhanh
-                                                </a>
-                            </div>
-
-                            <div class="product-info">
-                                <h5><a href="products_page_v1.html">Sản phẩm</a></h5>
-                                <span class="price">25.000VND</span>
-                                <div class="rating readonly-rating" data-score="4"></div>
-                            </div>
-
-                            <div class="product-actions">
-                                <span class="add-to-cart">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-basket-2"></i>
-                                                        <span class="action-name">Đặt hàng</span>
-                                </span>
-                                </span>
-                                <span class="add-to-favorites">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-heart-empty"></i>
-                                                        <span class="action-name">Yêu thích</span>
-                                </span>
-                                </span>
-                                <span class="add-to-compare">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-docs"></i>
-                                                        <span class="action-name">Chi tiết</span>
-                                </span>
-                                </span>
-                            </div>
-
-                        </div>
-                        <!-- /Carousel Item -->
-                    </div>
-                    <!-- /Slide -->
-
-
-                    <!-- Slide -->
-                    <div>
-                        <!-- Carousel Item -->
-                        <div class="product">
-
-                            <div class="product-image">
-                                <img src="img/products/sample2.jpg" th:src="@{~/resources/img/products/sample2.jpg" alt="Product1">
-                                <a href="products_page_v1.html" class="product-hover">
-                                                    <i class="icons icon-eye-1"></i> Xem nhanh
-                                                </a>
-                            </div>
-
-                            <div class="product-info">
-                                <h5><a href="products_page_v1.html">Sản phẩm</a></h5>
-                                <span class="price">25.000VND</span>
-                                <div class="rating readonly-rating" data-score="4"></div>
-                            </div>
-
-                            <div class="product-actions">
-                                <span class="add-to-cart">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-basket-2"></i>
-                                                        <span class="action-name">Đặt hàng</span>
-                                </span>
-                                </span>
-                                <span class="add-to-favorites">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-heart-empty"></i>
-                                                        <span class="action-name">Yêu thích</span>
-                                </span>
-                                </span>
-                                <span class="add-to-compare">
-                                                    <span class="action-wrapper">
-                                                        <i class="icons icon-docs"></i>
-                                                        <span class="action-name">Chi tiết</span>
-                                </span>
-                                </span>
-                            </div>
-
-                        </div>
-                        <!-- /Carousel Item -->
-                    </div>
-                    <!-- /Slide -->
-
-                </div>
-
-            </div>
-            <!-- / Carousel -->
-
-
-        </div>
-        <!-- /Nổi bật -->
-
-
-    </aside>
-    <!-- /Sidebar -->
-
-    </div>
-    <!-- /Content -->
 
 
 
