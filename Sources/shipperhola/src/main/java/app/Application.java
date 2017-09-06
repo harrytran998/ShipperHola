@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -60,7 +61,11 @@ public class Application {
      * Initialize application's dependencies.
      */
     private static void initializeDependencies() {
-        templateEngine = new ThymeleafTemplateEngine();
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateEngine = new ThymeleafTemplateEngine(templateResolver);
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
 
     }
