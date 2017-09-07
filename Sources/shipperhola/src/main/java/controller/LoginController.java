@@ -12,8 +12,6 @@ package controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import static spark.Spark.*;
 import static app.Application.*;
 import java.sql.SQLException;
@@ -41,7 +39,7 @@ public class LoginController {
             return ex.getMessage();
         }
         setCurrentLogin(request, username);
-      
+
         return null;
     };
 
@@ -52,9 +50,9 @@ public class LoginController {
         if (password == null || password.isEmpty()) {
             throw new Exception("No password provided.");
         }
-      Account account;
+        Account account;
         try {
-      account =  getAccount().getByUsername(username);
+            account = getAccountDao().getByUsername(username);
         } catch (SQLException ex) {
             throw new Exception("Error while querying from the database", ex);
         }
@@ -64,10 +62,8 @@ public class LoginController {
         if (!account.getPassword().equals(password)) {
             throw new Exception("Incorrect password.");
         }
-   
-    }
 
-   
+    }
 
     public static void setupRoutes() {
         path("/index", () -> {

@@ -8,33 +8,32 @@ import controller.LoginController;
 import controller.RegisterController;
 import dao.AccountDao;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import static spark.Spark.*;
 import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import util.view.IViewManager;
+import util.view.ThymeleafViewManager;
 
 public class Application {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+    
     // <editor-fold defaultstate="collapsed" desc="Constants">
     public static final boolean IS_RUNNING_ON_LOCALHOST = true;
     public static final String CONFIGURATION_FILE_NAME = "application.properties";
     public static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
+    // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
     private static ApplicationConfiguration configuration;
     private static TemplateEngine templateEngine;
+    private static IViewManager viewManager;
     private static DataSource dataSource;
-    private static AccountDao account;
+    private static AccountDao accountDao;
 
-    public static AccountDao getAccount() {
-        return account;
-    }
-    
-   
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
     public static ApplicationConfiguration getConfiguration() {
@@ -45,8 +44,16 @@ public class Application {
         return templateEngine;
     }
 
+    public static IViewManager getViewManager() {
+        return viewManager;
+    }
+
     public static DataSource getDataSource() {
         return dataSource;
+    }
+
+    public static AccountDao getAccountDao() {
+        return accountDao;
     }
 
     // </editor-fold>
@@ -61,7 +68,7 @@ public class Application {
         try {
             configuration = ApplicationConfiguration.fromFile(CONFIGURATION_FILE_NAME);
         } catch (IOException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.getMessage());
             configuration = ApplicationConfiguration.fromFile(DEFAULT_CONFIGURATION_FILE_NAME);
         }
     }
@@ -75,8 +82,9 @@ public class Application {
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateEngine = new ThymeleafTemplateEngine(templateResolver);
+        viewManager = new ThymeleafViewManager();
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
-
+        accountDao = new AccountDao(dataSource);
     }
 
     /**
@@ -110,7 +118,7 @@ public class Application {
             configureServer();
             setupRoutes();
         } catch (Exception ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
     }
     // </editor-fold>
