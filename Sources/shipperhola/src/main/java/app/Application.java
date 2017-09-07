@@ -4,6 +4,9 @@
 package app;
 
 import controller.IndexController;
+import controller.LoginController;
+import controller.RegisterController;
+import dao.AccountDao;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +24,17 @@ public class Application {
     public static final String CONFIGURATION_FILE_NAME = "application.properties";
     public static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
+        // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
     private static ApplicationConfiguration configuration;
     private static TemplateEngine templateEngine;
     private static DataSource dataSource;
+    private static AccountDao account;
 
+    public static AccountDao getAccount() {
+        return account;
+    }
+    
+   
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
     public static ApplicationConfiguration getConfiguration() {
@@ -88,7 +97,8 @@ public class Application {
      */
     private static void setupRoutes() {
         IndexController.setupRoutes();
-
+        LoginController.setupRoutes();
+        RegisterController.setupRoutes();
     }
 
     // </editor-fold>

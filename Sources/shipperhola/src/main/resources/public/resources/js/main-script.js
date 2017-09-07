@@ -1019,3 +1019,7 @@ $(document).ready(function(){
 	
 	
 });
+
+$(document).ready(function() {
+    $('form#loginForm input[name="redirectUrl"]').val(window.location.href);
+});

@@ -3,6 +3,7 @@
  */
 package dao;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +46,12 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
         return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE id = ?", new Object[]{id}, MAPPER);
     }
 
+    public Account getByUsername(String username) throws SQLException {
+        return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE username = ?", new Object[]{username}, MAPPER);
+    }
+
     @Override
-     public boolean add(Account account) {
+    public boolean add(Account account) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account.getUsername());
         params.put("password", account.getPassword());
@@ -58,7 +63,7 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
         params.put("address", account.getAddress());
         params.put("facebookId", account.getFacebookId());
         params.put("role", account.getRole());
-        
+
         Number id = simpleJdbcInsert.withTableName("Account").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             account.setId(id.intValue());
@@ -70,12 +75,12 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
 
     @Override
     public boolean update(Account account) {
-        return jdbcTemplate.update("UPDATE Account SET username=?, password=?, fullName=?, gender=?, dateOfBirth=?, email=? , phoneNumber=?, address=?, facebookId=?, role=? WHERE id=?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
+        return jdbcTemplate.update("UPDATE Account SET username = ?, password= ?, fullName=  ?, gender= ?, dateOfBirth= ?, email= ? , phoneNumber= ?, address= ?, facebookId= ?, role= ? WHERE id= ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
     }
 
     @Override
     public boolean delete(Integer id) {
-        throw new UnsupportedOperationException(); 
+        throw new UnsupportedOperationException();
     }
 
 }
