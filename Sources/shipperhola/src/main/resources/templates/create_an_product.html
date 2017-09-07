@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <!-- Title -->
-        <title>Chi tiết sản phẩm</title>
+        <title>Creat product - giao diện người bán</title>
         
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,900,700italic,500italic' rel='stylesheet' type='text/css'>
@@ -37,13 +37,13 @@
     </head>
     
     
-     <body>
+    <body>
 		
 		<!-- Container -->
 		<div class="container">
 			
 			<!-- Header -->
-            <header th:replace="template :: header"></header>
+            <header th:replace="templates :: header"></header>
             <!-- /Header -->
 			
 			
@@ -53,7 +53,7 @@
                 
                 <div class="col-lg-12 col-md-12 col-sm-12">
                 	<div class="breadcrumbs">
-                    	<p><a href="#">Trang chủ</a> <i class="icons icon-right-dir"></i> <a href="#"> Sản phẩm</a></p>
+                    	<p><a href="index.html" th:href="@{~/resources/index.html}">Trang chủ</a> <i class="icons icon-right-dir"></i> <a href="#">Tạo sản phẩm bán</a></p>
                     </div>
                 </div>
                 
@@ -122,276 +122,95 @@
 								
 								<div class="col-lg-7 col-md-7 col-sm-7 product-single-info">
 									
-									<h2>Sản phẩm</h2>
-									<div class="rating-box">
-										<div class="rating readonly-rating" data-score="4"></div>
-										<span>3 Đánh giá</span>
-									</div>
-									<table>
-										<tr>
-											<td>Trạng thái</td>
-											<td><span>Nhận order</span></td>
-										</tr>
-										<tr>
-											<td>Người bán</td>
-											<td><a href="#">User người bán</a></td>
-										</tr>
-										<tr>
-											<td>Mã sản phẩm</td>
-											<td>xxx</td>
-										</tr>
-									</table>
+									<h1 class="name-tag">Sản phẩm</h1>
 									
-									<span class="price">25.000VND</span>
+									
+									
+									<div class="rating-box ">
+										<div class="rating readonly-rating" data-score="4"></div>
+										<span><span>3</span> Nhận xét</span>
+															
+									</div>
 									
 									<table class="product-actions-single">
 										<tr>
-
-											<td>Số phòng:</td>
+											<td>Người bán</td>
+											<td><a href="#">User seller</a></td>
+										</tr>
+										<tr>
+											<td>Tải ảnh lên</td>
 											<td>
-												<input type="text" name="">
+												<input type="button" class="upload-picture" name="upload-picture" value="Chọn ảnh"> 
+											</td>	
+										</tr>
+										<tr >
+											<td>Tình trạng</td>
+											<td>
+												<select class="product-status">
+													  <option value="Nhận order">Nhận order</option>
+													  <option value="Ngưng order">Ngưng order</option>
+												</select>
 											</td>
 										</tr>
 										<tr>
-											<td>Ghi chú:</td>
-											<td><textarea name="contact-message"></textarea></td>
+											<td>Giá :</td>
+											<td>
+												<input class="product-price-seller" type="text" name="product-price-seller">
+												<span class="product-price"> VND </span>
+											</td>
 										</tr>
 										<tr>
-											<td>Số lượng:</td>
+											<td>Số lượng  :</td>
 											<td>
-												<div class="numeric-input">
-													<input type="text" value="1">
-													<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-													<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-												</div>
+												<input class="product-number-seller" type="text" name="product-number-seller">
+												<span> sản phẩm</span>
+											</td>
+										</tr>										
+									
+										<tr>
+											<td>
+												<label name="cart-note">Mô tả mặt hàng</label>
+											</td>
+											<td> 
+												<textarea name="product-description"></textarea>
+											</td>
+										</tr>
+
+										<tr>
+											<td>Thời gian bán</td>
+
+											<td>
+												<span> Từ  :</span>
+												<input class="time-begin" type="time" name="time-begin">
+												<span> Đến  :</span>
+												<input class="time-end" type="time" name="time-end">
+											</td>
+										</tr>
+
+										<tr>
+											<td>
 												<a href="#">
 													<span class="add-to-cart">
 														<span class="action-wrapper">
 															<i class="icons icon-basket-2"></i>
-																<span class="action-name">Đặt hàng</span>
-															</span >
+															<span class="action-name">Bán hàng</span>
+														</span >
 													</span>
 												</a>
 											</td>
-										</tr>
+											
 									</table> 
 									
-									<div class="product-actions">
-										<span class="add-to-favorites">
-											<span class="action-wrapper">
-												<i class="icons icon-heart-empty"></i>
-												<span class="action-name">Yêu thích</span>
-											</span>
-										</span>
-										<span class="green product-action">
-											<span class="action-wrapper">
-												<i class="icons icon-info"></i>
-												<span class="action-name">Đặt câu hỏi</span>
-											</span>
-										</span>
-									</div>
 									
-									<div class="social-share">
-											<iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=112&layout=button&action=like&size=small&show_faces=true&share=true&height=65&appId" width="112" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-
-								</div>
-								
-							</div>
-							
-						</div>
-						<!-- /Product -->
-						
-						
-						<!-- Product Tabs -->
-						<div class="row">
-							
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								
-								<div class="tabs">
-								
-									<div class="tab-heading">
-										<a href="#tab1" class="button big">Mô tả sản phẩm</a>
-										<a href="#tab2" class="button big">Đánh giá</a>
-										<a href="#tab3" class="button big">Bình luận</a>
-									</div>
 									
-									<div class="page-content tab-content">
-										
-										<div id="tab1">
-											Mô tả sản phẩm
-										</div>
-										
-										<div id="tab2">
-											
-											<div class="row">
-												
-												<div class="col-lg-6 col-md-6 col-sm-6">
-													<div class="category-results">
-														<p>Results 1-6 of 6</p>
-													</div>
-												</div>
-												
-												<div class="col-lg-6 col-md-6 col-sm-6">
-													<div class="pagination">
-														<a href="#"><div class="previous"><i class="icons icon-left-dir"></i></div></a>
-														<a href="#"><div class="page-button">1</div></a>
-														<a href="#"><div class="page-button">2</div></a>
-														<a href="#"><div class="page-button">3</div></a>
-														<a href="#"><div class="next"><i class="icons icon-right-dir"></i></div></a>
-													</div>
-												</div>
-											
-											</div>
-											
-											<ul class="comments">
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons green icon-thumbs-up-alt"></i>
-													<i class="icons sum no-pointer green-sum">1</i>
-													<i class="icons red icon-thumbs-down-alt"></i>
-													<i class="icons icon-reply"></i>
-													<div class="rating-box">
-														<div class="rating readonly-rating" data-score="4"></div>
-													</div>
-													<br>
-													<p>Đánh giá của người dùng</p>
-													
-												</li>
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons green icon-thumbs-up-alt"></i>
-													<i class="icons sum no-pointer">0</i>
-													<i class="icons red icon-thumbs-down-alt"></i>
-													<i class="icons icon-reply"></i>
-													<div class="rating-box">
-														<div class="rating readonly-rating" data-score="4"></div>
-													</div>
-													<br>
-													<p>Đánh giá của người dùng</p>
-													
-													<ul>
-														<li>
-															<p><strong><a href="#">User người dùng</a></strong></p>
-															<p>Đánh giá của người dùng</p>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons green icon-thumbs-up-alt"></i>
-													<i class="icons sum no-pointer red-sum">-2</i>
-													<i class="icons red icon-thumbs-down-alt"></i>
-													<i class="icons icon-reply"></i>
-													<div class="rating-box">
-														<div class="rating readonly-rating" data-score="4"></div>
-													</div>
-													<br>
-													<p>Đánh giá của người dùng</p>
-													
-												</li>
-											</ul>
-											
-											<h3>ĐÁNH GIÁ SẢN PHẨM</h3>
-											<p>Hãy viết một đánh giá cho sản phẩm</p>
-											<textarea id="review-textarea"></textarea>
-											<div class="rating-box">
-												Rating: 
-												<div class="rating rate" data-score="3"></div>
-											</div>
-											<div class="char-counter">
-												<label>Chữ ký</label>
-												<input data-target="#review-textarea" type="text">
-											</div>
-											<br>
-											<input type="submit" class="dark-blue big" value="Hoàn thành">
-											
-											
-										</div>
-										
-										<div id="tab3">
-											<ul class="comments">
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons icon-reply"></i>
-													<p>Đánh giá của người dùng</p>
-													
-												</li>
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons icon-reply"></i>
-													<p>Đánh giá của người dùng</p>
-													
-													<ul>
-														<li>
-															<p><strong><a href="#">User người dùng</a></strong></p>
-															<p>Đánh giá của người dùng</p>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<p><strong><a href="#">User người dùng</a></strong></p>
-													<span class="date">2017-9-20 22:22</span>
-													<i class="icons icon-reply"></i>
-													<p>Đánh giá của người dùng</p>
-												</li>
-											</ul>
-											<a href="#" class="button home-green"><i class="icons icon-spinner"></i>Tải lại danh sách bình luận</a>
-											<br/><br/>
-											<div class="row">
-												
-												<div class="col-lg-6 col-md-6 col-sm-8">
-													<h3>VIẾT MỘT BÌNH LUẬN</h3>
-													<label>Tên(bắt buộc)</label>
-													<input type="text">
-													<br><br>
-													<label>Email( bắt buộc)</label>
-													<input type="text">
-													<br><br>
-													<label>Link facebook</label>
-													<input type="text">
-													<br><br>
-													<label>Hãy viết bình luận ở đây(bắt buộc)</label>
-													<textarea></textarea>
-													<br><br>
-													<input id="comments-checkbox" type="checkbox"><label for="comments-checkbox">Xác nhận</label>
-													<br><br>
-													<img src="img/captcha.jpg" alt="">
-													<br><br>
-													<div class="row">
-														
-														<div class="col-lg-6 col-md-6 col-sm-6">
-															<label><a href="#">Refresh</a></label>
-															<input type="text">
-														</div>
-														
-													</div>
-													<br>
-													<input type="submit" value="Hoàn thành" class="dark-blue big">
-													
-												</div>
-												
-											</div>
-											
-										</div>
-										
-									</div>
+									
 									
 								</div>
 								
 							</div>
 							
 						</div>
-						<!-- /Product Tabs -->
-					
-					</div>
-                    
-                    
-					<!-- New Collection -->
+						<!-- New Collection -->
 					<div class="products-row row">
 						
 						<!-- Carousel Heading -->
@@ -707,12 +526,7 @@
                     <div th:replace="template :: best_sell"></div>
                     <!-- /Best sell -->
 					
-					
-					<!-- Highlights -->
-                    <div th:replace="template :: highlights"></div>
-                    <!-- /Highlights -->
-					
-					
+
 				</aside>
 				<!-- /Sidebar -->
 				
@@ -782,6 +596,7 @@
         <script src="js/main-script.js"></script>
         
 
+		
     </body>
     
 </html>

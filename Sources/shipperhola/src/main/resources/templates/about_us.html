@@ -49,7 +49,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="breadcrumbs">
-                        <p><a href="#">Trang chủ</a> <i class="icons icon-right-dir"></i>Giới thiệu</p>
+                        <p><a href="index.html" th:href="@{~/resources/index.html}">Trang chủ</a> <i class="icons icon-right-dir"></i>Giới thiệu</p>
                     </div>
                 </div>
 
@@ -111,107 +111,14 @@
                 <!-- Sidebar -->
                 <aside class="sidebar col-lg-3 col-md-3 col-sm-3 right-sidebar">
 
-                    <!-- Thể loại -->
-                    <div class="row sidebar-box purple">
-
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-
-                            <div class="sidebar-box-heading">
-                                <i class="icons icon-folder-open-empty"></i>
-                                <h4>Thể loại</h4>
-                            </div>
-
-                            <div class="sidebar-box-content">
-                                <ul>
-                                    <li><a href="#">Đồ mặn <i class="icons icon-right-dir"></i></a>
-                                        <ul class="sidebar-dropdown">
-                                            <li>
-                                                <ul>
-                                                    <li><a href="#">Dom A</a></li>
-                                                    <li><a href="#">Dom B</a></li>
-                                                    <li><a href="#">Dom C</a></li>
-                                                    <li><a href="#">Dom D</a></li>
-                                                    <li><a href="#">Dom F</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Đồ ngọt <i class="icons icon-right-dir"></i></a>
-                                        <ul class="sidebar-dropdown">
-                                            <li>
-                                                <ul>
-                                                    <li><a href="#">Dom A</a></li>
-                                                    <li><a href="#">Dom B</a></li>
-                                                    <li><a href="#">Dom C</a></li>
-                                                    <li><a href="#">Dom D</a></li>
-                                                    <li><a href="#">Dom F</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Đồ uống <i class="icons icon-right-dir"></i></a>
-                                        <ul class="sidebar-dropdown">
-                                            <li>
-                                                <ul>
-                                                    <li><a href="#">Dom A</a></li>
-                                                    <li><a href="#">Dom B</a></li>
-                                                    <li><a href="#">Dom C</a></li>
-                                                    <li><a href="#">Dom D</a></li>
-                                                    <li><a href="#">Dom F</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Khác <i class="icons icon-right-dir"></i></a>
-                                        <ul class="sidebar-dropdown">
-                                            <li>
-                                                <ul>
-                                                    <li><a href="#">Dom A</a></li>
-                                                    <li><a href="#">Dom B</a></li>
-                                                    <li><a href="#">Dom C</a></li>
-                                                    <li><a href="#">Dom D</a></li>
-                                                    <li><a href="#">Dom F</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- /Thể loại -->
+                    <!-- Category -->
+                    <div th:replace="template :: category"></div>
+                    <!-- /Category -->
 
 
-                    <!-- Carousel -->
-                    <div class="row sidebar-box">
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 sidebar-carousel">
-
-                            <!-- Slider -->
-                            <section class="sidebar-slider">
-                                <div class="sidebar-flexslider">
-                                    <ul class="slides">
-                                        <li>
-                                            <a href="#"><img src="img/sidebar-slide1.jpg" alt="Slide1"/></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="img/sidebar-slide2.jpg" alt="Slide1"/></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="img/sidebar-slide3.jpg" alt="Slide1"/></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="slider-nav"></div>
-                            </section>
-                            <!-- /Slider -->
-
-                        </div>
-
-                    </div>
-                    <!-- /Carousel -->
+                    <!-- Banner sidebar -->
+                    <div th:replace="template :: banner_sidebar"></div>
+                    <!-- /Banner sidebar -->
 
                 </aside>
                 <!-- /Sidebar -->
@@ -222,171 +129,12 @@
 
 
             <!-- Banner -->
-            <section class="banner">
-
-                <div class="left-side-banner banner-item icon-on-right gray">
-                    <h4>0123456789</h4>
-                    <p>Từ thứ 2 - chủ nhật</p>
-                    <i class="icons icon-phone-outline"></i>
-                </div>
-
-                <a href="#">
-                    <div class="middle-banner banner-item icon-on-left light-blue">
-                        <h4>Free shipping</h4>
-                        <p>tất cả các orders </p>
-                        <span class="button">Đọc tiếp</span>
-                        <i class="icons icon-truck-1"></i>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="right-side-banner banner-item orange">
-                        <h4>Quảng cáo</h4>
-                        <p>trên web</p>
-                        <span class="button">Đăng kí</span>
-                    </div>
-                </a>
-
-            </section>
+            <section th:replace="template :: banner"></section>
             <!-- /Banner -->
 
 
             <!-- Footer -->
-            <footer id="footer" class="row">
-
-                <!-- Upper Footer -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-
-                    <div id="upper-footer">
-
-                        <div class="row">
-
-                            <!-- Newsletter -->
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <form id="newsletter" action="php/newsletter.php">
-                                    <h4>Nhận thông báo</h4>
-                                    <input type="text" name="newsletter-email" placeholder="Nhập địa chỉ email">
-                                    <input type="submit" name="newsletter-submit" value="Đăng kí">
-                                </form>
-                            </div>
-                            <!-- /Newsletter -->
-
-
-                            <!-- Social Media -->
-                            <div class="col-lg-5 col-md-5 col-sm-5 social-media">
-                                <h4>Kết nối</h4>
-                                <ul>
-                                    <li class="social-googleplus tooltip-hover" data-toggle="tooltip" data-placement="top" title="Google+"><a href="#"></a></li>
-                                    <li class="social-facebook tooltip-hover" data-toggle="tooltip" data-placement="top" title="Facebook"><a href="#"></a></li>
-                                    <li class="social-pinterest tooltip-hover" data-toggle="tooltip" data-placement="top" title="Pinterest"><a href="#"></a></li>
-                                    <li class="social-twitter tooltip-hover" data-toggle="tooltip" data-placement="top" title="Twitter"><a href="#"></a></li>
-                                    <li class="social-youtube tooltip-hover" data-toggle="tooltip" data-placement="top" title="Youtube"><a href="#"></a></li>
-                                </ul>
-                            </div>
-                            <!-- /Social Media -->
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /Upper Footer -->
-
-
-
-                <!-- Main Footer -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-
-                    <div id="main-footer">
-
-                        <div class="row">
-
-                            <!-- The Service -->
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <h4>Dịch vụ</h4>
-                                <ul>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Tài khoản của tôi</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Lịch sử order</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Giỏ hàng của tôi</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Thể loại</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Tìm kiếm sản phẩm</a></li>
-                                </ul>
-                            </div>
-                            <!-- /The Service -->
-
-
-                            <!-- Like us on Facebook -->
-                            <div class="col-lg-3 col-md-3 col-sm-6 facebook-iframe">
-                                <h4>Facebook</h4>
-                                <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffu.jsclub%2F&width=270&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="270" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                            </div>
-
-                            <!-- /Like us on Facebook -->
-
-
-                            <!-- Information -->
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <h4>Thông tin</h4>
-                                <ul>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Feedback</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Cửa hàng</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Chính sách bảo mật</a></li>
-                                    <li><a href="#"><i class="icons icon-right-dir"></i> Điều khoản</a></li>
-                                </ul>
-                            </div>
-                            <!-- /Information -->
-
-
-                            <!-- Contact Us -->
-                            <div class="col-lg-3 col-md-3 col-sm-6 contact-footer-info">
-                                <h4>Liên hệ với chúng tôi</h4>
-                                <ul>
-                                    <li><i class="icons icon-location"></i> Đại học FPT,<br>Thạch Hòa, Thạch Thất, Hà Nội</li>
-                                    <li><i class="icons icon-phone"></i> 0123456789</li>
-                                    <li><i class="icons icon-mail-alt"></i><a href="mailto:mail@company.com"> mail@companyname.com</a></li>
-                                    <li><i class="icons icon-skype"></i> FU Hòa Lạc</li>
-                                </ul>
-                            </div>
-                            <!-- /Contact Us -->
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /Main Footer -->
-
-
-
-                <!-- Lower Footer -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-
-                    <div id="lower-footer">
-
-                        <div class="row">
-
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <p class="copyright">Copyright 2017 <a href="#">XvideosTeam</a>. All Rights Reserved.</p>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <ul class="payment-list">
-                                    <li class="payment1"></li>
-                                    <li class="payment2"></li>
-                                    <li class="payment3"></li>
-                                    <li class="payment4"></li>
-                                    <li class="payment5"></li>
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /Lower Footer -->
-
-            </footer>
+            <footer th:replace="template :: footer"></footer>
             <!-- Footer -->
 
 
