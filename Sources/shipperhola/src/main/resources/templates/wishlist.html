@@ -1,37 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- Title -->
-        <title>Danh sách yêu thích</title>
-        
-		<!-- Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,900,700italic,500italic' rel='stylesheet' type='text/css'>
-		
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/perfect-scrollbar.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-		<link rel="stylesheet" href="css/fontello.css">
-   		<link rel="stylesheet" href="css/animation.css">
-		<link rel="stylesheet" href="css/chosen.css">
-        
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<link rel="stylesheet" href="css/ie.css">
-        <![endif]-->
-		<!--[if IE 7]>
-			<link rel="stylesheet" href="css/fontello-ie7.css">
-		<![endif]-->
-        
-    </head>
+
+    <head th:replace="templatesAll :: head"></head>
     
     
     <body>
@@ -40,8 +12,13 @@
 		<div class="container">
 			
 			<!-- Header -->
+<<<<<<< Updated upstream
             <header th:replace="templates :: header"></header>
             <!-- /Header -->
+=======
+			<header th:replace="templatesAll :: header"></header>
+			<!-- /Header -->
+>>>>>>> Stashed changes
 			
 			
 			<!-- Content -->
@@ -352,6 +329,7 @@
                     <div th:replace="template :: category"></div>
                     <!-- /Category -->
 
+<<<<<<< Updated upstream
 					<!-- Best sell -->
                     <div th:replace="template :: best_sell"></div>
                     <!-- /Best sell -->
@@ -360,6 +338,85 @@
 					<!-- Banner sidebar -->
                     <div th:replace="template :: banner_sidebar"></div>
                     <!-- /Banner sidebar -->
+=======
+					
+					<!-- Carousel -->
+					<div class="row sidebar-box">
+						
+						<div class="col-lg-12 col-md-12 col-sm-12 sidebar-carousel">
+							
+							<!-- Slider -->
+							<section class="sidebar-slider">
+								<div class="sidebar-flexslider">
+									<ul class="slides">
+										<li>
+											<a href="#"><img src="img/sidebar-slide1.jpg" alt="Slide1"/></a>
+										</li>
+										<li>
+											<a href="#"><img src="img/sidebar-slide2.jpg" alt="Slide1"/></a>
+										</li>
+										<li>
+											<a href="#"><img src="img/sidebar-slide3.jpg" alt="Slide1"/></a>
+										</li>
+									</ul>
+								</div>
+								<div class="slider-nav"></div>
+							</section>
+							<!-- /Slider -->
+                            
+						</div>
+						
+					</div>
+					<!-- /Carousel -->
+
+					<!-- Bán chạy nhất -->
+					<div class="row sidebar-box red">
+						
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							
+							<div class="sidebar-box-heading">
+                            <i class="icons icon-award-2"></i>
+								<h4>Bán chạy nhất</h4>
+							</div>
+							
+							<div class="sidebar-box-content">
+								<table class="bestsellers-table">
+									
+									<tr>
+										<td class="product-thumbnail"><a href="#"><img src="img/products/sample1.jpg" alt="Product1"></a></td>
+										<td class="product-info">
+											<p><a href="#">Sản phẩm</a></p>
+											<span class="price">25.000VND</span>
+										</td>
+									</tr>
+									
+									<tr>
+										<td class="product-thumbnail"><a href="#"><img src="img/products/sample2.jpg" alt="Product1"></a></td>
+										<td class="product-info">
+											<p><a href="#">Sản phẩm</a></p>
+											<span class="price">25.000VND</span>
+										</td>
+									</tr>
+									
+									<tr>
+										<td class="product-thumbnail"><a href="#"><img src="img/products/sample3.jpg" alt="Product1"></a></td>
+										<td class="product-info">
+											<p><a href="#">Sản phẩm</a></p>
+                                            <div class="rating readonly-rating" data-score="4"></div>
+											<span class="price"> 25.000VND</span>
+										</td>
+									</tr>
+									
+								</table>
+							</div>
+							
+						</div>
+						
+					</div>
+					<!-- /Bán chạy nhất -->
+					
+					
+>>>>>>> Stashed changes
 					
 					
 				</aside>
@@ -376,8 +433,13 @@
 
 			
 			<!-- Footer -->
+<<<<<<< Updated upstream
             <footer th:replace="template :: footer"></footer>
             <!-- Footer -->
+=======
+			<foote th:replace="templatesAll :: footer" id="footer" class="row"></footer>
+			<!-- Footer -->
+>>>>>>> Stashed changes
 			
             
             <div id="back-to-top">

@@ -3742,7 +3742,15 @@ table .fit-cell{
 	width:1%;	
 }
 
-
+/* ==================================== */
+/*               SEARCH                 */
+/* ==================================== */
+.list-search-item{
+	margin-left: 50px;
+}
+.list-search-item .owl-carousel .row .product{
+	padding: 1em;
+}
 
 
 
@@ -5066,6 +5074,7 @@ input[type="checkbox"]:checked + label:before{
 	.button-row .button{
 		margin-bottom:2px;
 	}
+	
 }
 
 
@@ -5092,3 +5101,4 @@ input[type="checkbox"]:checked + label:before{
   #main-navigation>ul { display: none }
   
 }
+

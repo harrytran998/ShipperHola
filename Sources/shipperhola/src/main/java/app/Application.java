@@ -5,8 +5,10 @@ package app;
 
 import controller.IndexController;
 import controller.LoginController;
+import controller.ProductSearchController;
 import controller.RegisterController;
 import dao.AccountDao;
+import dao.ProductDao;
 import java.io.IOException;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -33,6 +35,8 @@ public class Application {
     private static IViewManager viewManager;
     private static DataSource dataSource;
     private static AccountDao accountDao;
+    private static ProductDao productDao;
+    
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
@@ -52,6 +56,9 @@ public class Application {
         return dataSource;
     }
 
+    public static ProductDao getProductDao() {
+        return productDao;
+    }
     public static AccountDao getAccountDao() {
         return accountDao;
     }
@@ -107,6 +114,7 @@ public class Application {
         IndexController.setupRoutes();
         LoginController.setupRoutes();
         RegisterController.setupRoutes();
+        ProductSearchController.setupRoutes();
     }
 
     // </editor-fold>
