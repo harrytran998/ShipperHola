@@ -40,7 +40,7 @@
                                 <li><a href="cart_buyer.html" th:href="@{~/resources/cart_buyer.html}">Danh sách order</a></li>
                                 <li><a href="payment_order.html" th:href="@{~/resources/payment_order.html}">Checkout</a></li>
                                 <li><a href="about_us.html" th:href="@{~/resources/payment_order.html}">About Us</a></li>
-                                <li><a href="contact.html" th:href="@{~/resources/payment_order.html}">Liên hệ</a></li>
+                                <li><a href="contact.html" th:href="@{~/resources/contact.html}">Liên hệ</a></li>
                             </ul>
                         </nav>
 
@@ -50,6 +50,8 @@
                                     <ul id="login-dropdown" class="box-dropdown">
                                         <li>
                                             <div class="box-wrapper">
+                                                <form id="loginForm" th:action="@{~/login}" action="#"    method="POST">
+                                                    <input type="hidden" name="redirectUrl"/>
                                                 <h4>ĐĂNG NHẬP</h4>
                                                 <div class="iconic-input">
                                                     <input type="text" placeholder="Username">
@@ -72,6 +74,7 @@
                                                     <br>
                                                 </div>
                                                 <br class="clearfix">
+                                                </form>
                                             </div>
                                             <div class="footer">
                                                 <a class="button pull-right" href="create_an_account.html">Đăng ký tài khoản</a>
@@ -79,7 +82,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="#"><i class="icons icon-lock"></i> Đăng ký</a></li>
+                                <li><a href="create_an_account.html" th:href="@{~/resources/create_an_account}"><i class="icons icon-lock"></i> Đăng ký</a></li>
                             </ul>
                         </nav>
 

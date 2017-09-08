@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright © 2017 XVideos Team
  */
 package controller;
@@ -23,7 +23,7 @@ public class RegisterController {
     public static final Route DO_REGISTER = (request, response) -> {
         String username = request.queryParams("username");
         String password = request.queryParams("password");
-        String fullName = request.queryParams("username");
+        String fullName = request.queryParams("fullName");
         boolean gender = Boolean.parseBoolean(request.queryParams("gender"));
         Date dateOfBirth = null;
         try {
@@ -38,12 +38,12 @@ public class RegisterController {
         String facebookId = request.queryParams("facebookId");
         String role = request.queryParams("role");
         
-        response.redirect("/create_an_account");
+        response.redirect("/");
         return null; //
     };
 
     public static void setupRoutes() {
-        path("/index", () -> {
+        path("/index/create_an_account", () -> {
             get("", VIEW_REGISTER);
             post("", DO_REGISTER);
         });

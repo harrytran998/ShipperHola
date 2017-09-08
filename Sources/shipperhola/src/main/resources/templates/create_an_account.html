@@ -61,12 +61,15 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 register-account">
 
                             <div class="carousel-heading no-margin">
+                               
                                 <h4>Đăng kí</h4>
                             </div>
-
+                             
                             <div class="page-content">
-                                <div class="row">
-
+                                 <form id="registerForm" action="#" th:action="@{~/register}" method="POST">
+                                                    <input type="hidden"/>
+                            	<div class="row">
+                                    
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <p>Email*</p>
                                     </div>
@@ -191,6 +194,7 @@
                                     </div>
 
                                 </div>
+                                 </form>
                             </div>
 
                         </div>
