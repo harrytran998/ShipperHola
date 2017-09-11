@@ -198,6 +198,21 @@ span.red, span.error{
 	border:none;
 }
 
+#top-header #user-welcome-area li:after{
+	content: '';
+    display: block;
+	height:10px;
+	position:absolute;
+	top:7px;
+	right:0;
+	border-right:1px solid #bdc3c7;
+}
+
+#top-header #user-welcome-area li:last-child:after{
+	display:none;
+	border:none;
+}
+
 #top-header li a{
 	color:#1f2228;
 	font-size:13px;
@@ -252,7 +267,7 @@ li.purple .box-dropdown:after{
 	line-height:20px;
 	top:200%;
 	padding-top:13px !important;
-	z-inex:9999;
+	z-index:9999;
 	overflow:hidden;
 	width:0;
 	height:0;
@@ -350,7 +365,7 @@ li.purple .box-dropdown:after{
 	width:350px;	
 }
 
-.iconic-input input[type="text"]{
+.iconic-input input[type="text"],input[type="password"]{
 	width:100%;
 	background:#f7f7f7;
 	font-size:14px;
@@ -4372,7 +4387,7 @@ table.coupon-table td.fit-cell{
     color:#7a8188;
 }
 
-input[type="text"], select{
+input[type="text"], input[type="password"], select{
 	padding:5px 10px;
 	border:1px solid #e6e6e6;
 	height:40px;

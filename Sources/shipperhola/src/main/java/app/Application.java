@@ -89,7 +89,7 @@ public class Application {
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateEngine = new ThymeleafTemplateEngine(templateResolver);
-        viewManager = new ThymeleafViewManager();
+        viewManager = new ThymeleafViewManager(null, null, !IS_RUNNING_ON_LOCALHOST);
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         accountDao = new AccountDao(dataSource);
     }
