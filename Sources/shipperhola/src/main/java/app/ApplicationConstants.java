@@ -8,5 +8,5 @@ package app;
  * @author nhattq
  */
 public class ApplicationConstants {
-    public static final String INDEX_VIEW_NAME = "create_an_account";
+    public static final String INDEX_VIEW_NAME = "index";
 }
