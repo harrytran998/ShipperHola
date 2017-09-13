@@ -7,6 +7,7 @@ import controller.IndexController;
 import controller.LoginController;
 import controller.ProductController;
 import controller.RegisterController;
+import controller.TestController;
 import dao.AccountDao;
 import dao.CategoryDao;
 import dao.ProductDao;
@@ -118,6 +119,7 @@ public class Application {
      * Setup routes from all controllers.
      */
     private static void setupRoutes() {
+        TestController.setupRoutes();
         IndexController.setupRoutes();
         LoginController.setupRoutes();
         RegisterController.setupRoutes();

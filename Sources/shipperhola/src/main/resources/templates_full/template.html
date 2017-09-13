@@ -584,12 +584,11 @@
             <!-- /Lower Footer -->
         </footer>
         <!-- Footer -->
-
-        <div id="back-to-top">
+        <div id="back-to-top" th:fragment="backToTopButton">
             <i class="icon-up-dir"></i>
         </div>
     </div>
-    <div th:fragment="commonScript">
+    <div th:fragment="commonScripts">
         <!-- JavaScript -->
         <script src="../public/resources/js/modernizr.min.js" th:src="@{~/resources/js/modernizr.min.js}"></script>
         <script src="../public/resources/js/jquery-1.11.0.min.js" th:src="@{~/resources/js/jquery-1.11.0.min.js}"></script>
