@@ -27,9 +27,9 @@ public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     
     // <editor-fold defaultstate="collapsed" desc="Constants">
-    public static final boolean IS_RUNNING_ON_LOCALHOST = true;
-    public static final String CONFIGURATION_FILE_NAME = "application.properties";
-    public static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
+    private static final boolean IS_RUNNING_ON_LOCALHOST = true;
+    private static final String CONFIGURATION_FILE_NAME = "application.properties";
+    private static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
     private static ApplicationConfiguration configuration;
