@@ -26,12 +26,12 @@ public class ProductController {
         try {
             extractParamsAndValidate(request);
             List<Product> products = getProductDao().search(
-                    (String) request.attribute("keyword"), 
-                    (Double) request.attribute("minPrice"),
-                    (Double) request.attribute("maxPrice"),
-                    (Date) request.attribute("minDate"),
-                    (Date) request.attribute("maxDate"),
-                    (Integer) request.attribute("categoryId"),
+                    request.<String>attribute("keyword"), 
+                    request.<Double>attribute("minPrice"),
+                    request.<Double>attribute("maxPrice"),
+                    request.<Date>attribute("minDate"),
+                    request.<Date>attribute("maxDate"),
+                    request.<Integer>attribute("categoryId"),
                     null,
                     true,
                     null, 
