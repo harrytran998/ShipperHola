@@ -36,8 +36,8 @@ public class TestApplication {
 //        ProductCommentDao productCommentDao = new ProductCommentDao(dataSource);
 //        productCommentDao.getByAccountId(1).forEach(System.out::println);
 //
-        ProductDao productDao = new ProductDao(dataSource);
-        productDao.search(null, null, null, "currentPrice", true, 2, 2).forEach(System.out::println);
+//        ProductDao productDao = new ProductDao(dataSource);
+//        productDao.search(null, null, null, "currentPrice", true, 2, 2).forEach(System.out::println);
 //        ProductPictureDao productPictureDao = new ProductPictureDao(dataSource);
         
 

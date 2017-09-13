@@ -5,9 +5,10 @@ package app;
 
 import controller.IndexController;
 import controller.LoginController;
-import controller.ProductSearchController;
+import controller.ProductController;
 import controller.RegisterController;
 import dao.AccountDao;
+import dao.CategoryDao;
 import dao.ProductDao;
 import java.io.IOException;
 import javax.sql.DataSource;
@@ -36,7 +37,7 @@ public class Application {
     private static DataSource dataSource;
     private static AccountDao accountDao;
     private static ProductDao productDao;
-    
+    private static CategoryDao categoryDao;
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
@@ -61,6 +62,10 @@ public class Application {
     }
     public static AccountDao getAccountDao() {
         return accountDao;
+    }
+
+    public static CategoryDao getCategoryDao() {
+        return categoryDao;
     }
 
     // </editor-fold>
@@ -92,6 +97,8 @@ public class Application {
         viewManager = new ThymeleafViewManager(null, null, !IS_RUNNING_ON_LOCALHOST);
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         accountDao = new AccountDao(dataSource);
+        productDao = new ProductDao(dataSource);
+        categoryDao = new CategoryDao(dataSource);
     }
 
     /**
@@ -114,7 +121,7 @@ public class Application {
         IndexController.setupRoutes();
         LoginController.setupRoutes();
         RegisterController.setupRoutes();
-        ProductSearchController.setupRoutes();
+        ProductController.setupRoutes();
     }
 
     // </editor-fold>

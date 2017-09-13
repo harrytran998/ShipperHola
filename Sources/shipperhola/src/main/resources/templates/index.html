@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2017 XVideos Team
+-->
+<html>
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Home</h1>
+        <h2>Categories</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}">1</td>
+                <td th:text="${category.name}">Food</td>
+                <td><a href="#" th:href="@{~/products/search(categoryId=${category.id})}">Search</a></td>
+            </tr>
+        </table>
+    </body>
+</html>

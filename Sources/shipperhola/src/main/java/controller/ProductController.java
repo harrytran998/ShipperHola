@@ -4,90 +4,77 @@
 package controller;
 
 import static app.Application.*;
-import java.util.Date;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import model.Product;
 import spark.Request;
 import spark.Route;
 import static spark.Spark.*;
-import static spark.Spark.modelAndView;
+import static app.ApplicationConstants.*;
+import model.Category;
+import spark.Filter;
+import spark.utils.StringUtils;
 
 /**
  *
  * @author nhattq
  */
-public class ProductSearchController {
+public class ProductController {
     
     public static final Route VIEW_SEARCH_PAGE = (request, response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return getTemplateEngine().render(modelAndView(model, "search"));
-    };
-    
-    
-    public static final Route DO_SEARCH = (request, response) -> {
         try {
-            Map<String, Object> params = extractAndValidate(request);
+            extractParamsAndValidate(request);
             List<Product> products = getProductDao().search(
-                    (String) params.get("keyword"), 
-                    (Double) params.get("minPrice"),
-                    (Double) params.get("maxPrice"),
+                    (String) request.attribute("keyword"), 
+                    (Double) request.attribute("minPrice"),
+                    (Double) request.attribute("maxPrice"),
+                    (Date) request.attribute("minDate"),
+                    (Date) request.attribute("maxDate"),
+                    (Integer) request.attribute("categoryId"),
                     null,
                     true,
                     null, 
                     null
             );
+            request.attribute("products", products);
+            return getViewManager().renderForRequest(request, PRODUCT_SEARCH_VIEW_NAME);
         } catch (Exception ex) {
             return ex.getMessage();
         }
-        return null;
     };
     
-    private static Map<String, Object> extractAndValidate(Request request) throws Exception {
-        Map<String, Object> params = new HashMap<>();
+    public static final Filter EMBED_DATA_TO_REQUEST = (request, response) -> {
+        List<Category> categories = getCategoryDao().getAll();
+        request.attribute("categories", categories);
+    };
+    
+    private static void extractParamsAndValidate(Request request) throws Exception {
+        String keyword = request.queryParams("keyword");
         String minPriceStr = request.queryParams("minPrice");
         String maxPriceStr = request.queryParams("maxPrice");
         String minDateStr = request.queryParams("minDate");
         String maxDateStr = request.queryParams("maxDate");
-        
-        Date minDate, maxDate;
-        Double maxPrice, minPrice;
-        try {
-            minPrice = Double.parseDouble(minPriceStr);
-            maxPrice = Double.parseDouble(maxPriceStr);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            minDate = sdf.parse(minPriceStr);
-            maxDate = sdf.parse(maxDateStr);
-        } catch (NumberFormatException ex) {
-            throw new Exception(ex);
-        }
-        if (minPrice < 0 || maxPrice <0) {
-            throw new Exception("Must be >= 0");
-        }
-        if (minPrice > maxPrice) {
-            throw new Exception("Min Price can't be greater than Max Price");
-        }
-        if (minDate.compareTo(maxDate) > 0) {
-            throw new Exception("Mindate can't be greater than MaxDate");
-        }
-        Calendar calendar = Calendar.getInstance();
-        if (maxDate.compareTo(calendar.getTime()) > 0) {
-            throw new Exception("Mindate can't be greater than Current time");
-        }
-        params.put("minPrice", minPrice);
-        params.put("maxPrice", maxPrice);
-        params.put("minDate", minDate);
-        params.put("maxDate", maxDate);
-        return params;
+        String categoryIdStr = request.queryParams("categoryId");
+        keyword = StringUtils.isEmpty(keyword) ? null : keyword;
+        Double minPrice = StringUtils.isEmpty(minPriceStr) ? null : Double.parseDouble(minPriceStr);
+        Double maxPrice = StringUtils.isEmpty(maxPriceStr) ? null : Double.parseDouble(maxPriceStr);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date minDate = StringUtils.isEmpty(minDateStr) ? null : new Date(sdf.parse(minDateStr).getTime());
+        Date maxDate = StringUtils.isEmpty(maxDateStr) ? null : new Date(sdf.parse(maxDateStr).getTime());
+        Integer categoryId = StringUtils.isEmpty(categoryIdStr) ? null : Integer.parseInt(categoryIdStr);
+        request.attribute("keyword", keyword);
+        request.attribute("minPrice", minPrice);
+        request.attribute("maxPrice", maxPrice);
+        request.attribute("minDate", minDate);
+        request.attribute("maxDate", maxDate);
+        request.attribute("categoryId", categoryId);
     }
     
     public static void setupRoutes() {
-        path("/search", () -> {
-            get("", VIEW_SEARCH_PAGE);
-            post("", DO_SEARCH);
+        path("/products", () -> {
+            before("/*", EMBED_DATA_TO_REQUEST);
+            get("/search", VIEW_SEARCH_PAGE);
         });
     }
     

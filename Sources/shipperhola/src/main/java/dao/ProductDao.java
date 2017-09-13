@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +75,7 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
     public boolean delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
     }
-    public List<Product> search(String keyword, Double minPrice, Double maxPrice, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) {
+    public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) {
         String sql = "SELECT * FROM Product WHERE 1 = 1";
         List args = new ArrayList();
         if (keyword != null) {
@@ -88,6 +89,18 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
         if (maxPrice != null) {
             sql += " AND currentPrice <= ?";
             args.add(maxPrice);
+        }
+        if (minDate != null) {
+            sql += " AND date >= ?";
+            args.add(minDate);
+        }
+        if (maxDate != null) {
+            sql += " AND date <= ?";
+            args.add(maxDate);
+        }
+        if (categoryId != null) {
+            sql += " AND categoryId = ?";
+            args.add(categoryId);
         }
         if (orderColumn != null) {
             sql += String.format(" ORDER BY %s %s", orderColumn, ascending ? "ASC" : "DESC");

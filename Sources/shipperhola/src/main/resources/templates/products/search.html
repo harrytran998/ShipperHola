@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2017 XVideos Team
+-->
+<html>
+
+<head>
+    <title>Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Search</h1>
+    <h2>Search form</h2>
+    <form action="#" th:action="@{~/products/search}" method="GET">
+        <table>
+            <tr>
+                <td>Keyword</td>
+                <td><input type="text" name="keyword" th:value="${keyword}"></td>
+            </tr>
+            <tr>
+                <td>Min price</td>
+                <td><input type="number" name="minPrice" th:value="${minPrice}"></td>
+            </tr>
+            <tr>
+                <td>Max price</td>
+                <td><input type="number" name="maxPrice" th:value="${maxPrice}"></td>
+            </tr>
+            <tr>
+                <td>Min date</td>
+                <td><input type="date" name="minDate" th:value="${minDate}"></td>
+            </tr>
+            <tr>
+                <td>Max date</td>
+                <td><input type="date" name="maxDate" th:value="${maxDate}"></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="categoryId">
+                        <option th:value="null" th:selected="${categoryId == null}">Tất cả</option>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == categoryId}">Food</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+    <h2>Result</h2>
+    <p th:if="${products.size() == 0}">No product match your search.</p>
+    <table th:if="${products.size() > 0}">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Current price</th>
+            <th>Allow order</th>
+            <th>Category ID</th>
+            <th>Seller ID</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.date}"></td>
+            <td th:text="${product.currentPrice}"></td>
+            <td th:text="${product.allowOrder}"></td>
+            <td th:text="${product.category.id}"></td>
+            <td th:text="${product.seller.id}"></td>
+            <td><a href="#" th:href="@{~/products/detail(id=${product.id})}">Detail</a></td>
+        </tr>
+    </table>
+</body>
+
+</html>
