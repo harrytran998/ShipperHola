@@ -3,12 +3,13 @@
  */
 package dao;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -36,18 +37,25 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
     }
 
     @Override
-    public List<Account> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+    public List<Account> getAll() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Account getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE id = ?", new Object[]{id}, MAPPER);
+    public Account getById(Integer id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
-    public Account getByUsername(String username) throws SQLException {
-        return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE username = ?", new Object[]{username}, MAPPER);
+    public Account getByUsername(String username) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE username = ?", new Object[]{username}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -74,12 +82,12 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
     }
 
     @Override
-    public boolean update(Account account) {
+    public boolean update(Account account) throws DataAccessException {
         return jdbcTemplate.update("UPDATE Account SET username = ?, password= ?, fullName=  ?, gender= ?, dateOfBirth= ?, email= ? , phoneNumber= ?, address= ?, facebookId= ?, role= ? WHERE id= ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 

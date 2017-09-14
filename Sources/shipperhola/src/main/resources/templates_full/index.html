@@ -8,7 +8,13 @@
     <!-- Container -->
     <div class="container">
         <!-- Header -->
-        <header th:replace="template :: header" />
+        <header class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div th:replace="template :: topHeader(${currentLoginAccount})"></div>
+                <div th:replace="template :: mainHeader"></div>
+                <div th:replace="template :: mainNavigation"></div>
+            </div>
+        </header>
         <!-- /Header -->
         <!-- Contents -->
         <div class="row content">

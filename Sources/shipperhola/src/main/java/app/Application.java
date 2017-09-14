@@ -5,12 +5,14 @@ package app;
 
 import controller.IndexController;
 import controller.LoginController;
+import controller.LogoutController;
 import controller.ProductController;
 import controller.RegisterController;
 import controller.TestController;
 import dao.AccountDao;
 import dao.CategoryDao;
 import dao.ProductDao;
+import filter.AuthenticationFilter;
 import java.io.IOException;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -24,10 +26,10 @@ import util.view.IViewManager;
 import util.view.ThymeleafViewManager;
 
 public class Application {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-    
+
     // <editor-fold defaultstate="collapsed" desc="Constants">
-    private static final boolean IS_RUNNING_ON_LOCALHOST = true;
     private static final String CONFIGURATION_FILE_NAME = "application.properties";
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
@@ -61,6 +63,7 @@ public class Application {
     public static ProductDao getProductDao() {
         return productDao;
     }
+
     public static AccountDao getAccountDao() {
         return accountDao;
     }
@@ -95,7 +98,7 @@ public class Application {
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateEngine = new ThymeleafTemplateEngine(templateResolver);
-        viewManager = new ThymeleafViewManager(null, null, !IS_RUNNING_ON_LOCALHOST);
+        viewManager = new ThymeleafViewManager(null, null, configuration.isThymeleafCacheable());
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         accountDao = new AccountDao(dataSource);
         productDao = new ProductDao(dataSource);
@@ -106,22 +109,33 @@ public class Application {
      * Configure Spark server.
      */
     private static void configureServer() {
-        if (IS_RUNNING_ON_LOCALHOST) {
+        // Set static file location
+        if (configuration.isDevelopmentMode()) {
             String projectDir = System.getProperty("user.dir");
             String staticDir = "/src/main/resources/public";
             staticFiles.externalLocation(projectDir + staticDir);
         } else {
             staticFiles.location("/public");
         }
+        // Get Heroku assigned port
+        Integer serverPort;
+        try {
+            serverPort = Integer.parseInt(new ProcessBuilder().environment().get("PORT"));
+        } catch (NumberFormatException ex) {
+            serverPort = configuration.getServerPort();
+        }
+        port(serverPort);
     }
 
     /**
      * Setup routes from all controllers.
      */
-    private static void setupRoutes() {
+    private static void setupRoutesAndFilters() {
+        AuthenticationFilter.setupFilters();
         TestController.setupRoutes();
         IndexController.setupRoutes();
         LoginController.setupRoutes();
+        LogoutController.setupRoutes();
         RegisterController.setupRoutes();
         ProductController.setupRoutes();
     }
@@ -133,7 +147,7 @@ public class Application {
             loadConfiguration();
             initializeDependencies();
             configureServer();
-            setupRoutes();
+            setupRoutesAndFilters();
         } catch (Exception ex) {
             LOGGER.error(null, ex);
         }

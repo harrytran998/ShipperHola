@@ -29,13 +29,11 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="row" th:fragment="header">
+        <header class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <!-- Top Header -->
-                <div id="top-header">
+                <div id="top-header" th:fragment="topHeader(currentLoginAccount)">
                     <div class="row">
-                        <!-- This nav will only show when the user is logged in -->
-                        <!-- TODO: Implement conditional display of nav -->
                         <nav id="top-navigation" class="col-lg-7 col-md-7 col-sm-7">
                             <ul class="pull-left">
                                 <li><a href="#" th:href="@{~/me}">Tài khoản của tôi</a></li>
@@ -44,31 +42,30 @@
                                 <li><a href="#" th:href="@{~/contact}">Liên hệ</a></li>
                             </ul>
                         </nav>
-                        <nav id="user-welcome-area" class="col-lg-5 col-md-5 col-sm-5">
+                        <nav id="user-welcome-area" class="col-lg-5 col-md-5 col-sm-5" th:if="${currentLoginAccount != null}">
                             <ul class="pull-right">
-                                <li><a href="#">Xin chào, ABC!</a></li>
+                                <li><a href="#" th:text="${'Xin chào, ' + currentLoginAccount.fullName + '!'}">Xin chào, ABC!</a></li>
                                 <li><a href="#" th:href="@{~/logout}">Đăng xuất</a></li>
                             </ul>
                         </nav>
-                        <nav id="login-register-area" class="col-lg-5 col-md-5 col-sm-5">
+                        <nav id="login-register-area" class="col-lg-5 col-md-5 col-sm-5" th:if="${currentLoginAccount == null}">
                             <ul class="pull-right">
                                 <li class="purple">
                                     <a href="#"><i class="icons icon-user-1"></i> Đăng nhập</a>
                                     <ul id="login-dropdown" class="box-dropdown">
                                         <li>
                                             <div class="box-wrapper">
-                                                <form id="login-form" action="#" method="POST" th:action="@{~/login}">
+                                                <form id="login-form">
                                                     <h4>ĐĂNG NHẬP</h4>
                                                     <div class="iconic-input">
                                                         <input type="text" name="username" placeholder="Tên người dùng" maxlength="30" required>
                                                         <i class="icons icon-user-1"></i>
                                                     </div>
                                                     <div class="iconic-input">
-                                                        <input type="password" name="password" placeholder="Mật khẩu" maxlength="255" required>
+                                                        <input type="password" name="password" placeholder="Mật khẩu" maxlength="30" required>
                                                         <i class="icons icon-key-1"></i>
                                                     </div>
-                                                    <br/>
-                                                    <br/>
+                                                    <p id="login-form-error-message" class="text-danger"></p>
                                                     <div class="pull-left">
                                                         <input type="submit" class="orange" value="Đăng nhập">
                                                     </div>
@@ -88,7 +85,7 @@
                 </div>
                 <!-- /Top Header -->
                 <!-- Main Header -->
-                <div id="main-header">
+                <div id="main-header" th:fragment="mainHeader">
                     <div class="row">
                         <div id="logo" class="col-lg-4 col-md-4 col-sm-4">
                             <a href="#" th:href="@{~/}"><img src="../public/resources/img/logo.png" th:src="@{~/resources/img/logo.png}" alt="Logo"></a>
@@ -107,7 +104,7 @@
                 </div>
                 <!-- /Main Header -->
                 <!-- Main Navigation -->
-                <nav id="main-navigation" class="style1">
+                <nav id="main-navigation" class="style1" th:fragment="mainNavigation">
                     <ul>
                         <li class="home-green current-item">
                             <a>

@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 import model.Product;
 import model.ProductPicture;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -29,13 +31,17 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
     }
 
     @Override
-    public List<ProductPicture> getAll() {
+    public List<ProductPicture> getAll() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ProductPicture getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM ProductPicture WHERE id = ?", new Object[]{id}, MAPPER);
+    public ProductPicture getById(Integer id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ProductPicture WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -54,12 +60,12 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
     }
 
     @Override
-    public boolean update(ProductPicture productPicture) {
+    public boolean update(ProductPicture productPicture) throws DataAccessException {
         return jdbcTemplate.update("UPDATE ProductPicture SET  fileName = ?, extension = ? , productId = ? WHERE id = ?", productPicture.getFileName(), productPicture.getExtension(), productPicture.getProduct().getId(), productPicture.getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM ProductPicture Where id = ? ", id) > 0;
     }
 

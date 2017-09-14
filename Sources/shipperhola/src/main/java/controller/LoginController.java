@@ -3,22 +3,15 @@
  */
 package controller;
 
-/**
- *
- * @author PC
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import static spark.Spark.*;
 import static app.Application.*;
-import java.sql.SQLException;
-import java.util.HashMap;
 import model.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import spark.Route;
-import static util.LoginUtil.setCurrentLogin;
+import spark.utils.StringUtils;
+import util.LoginUtil;
 
 /**
  *
@@ -26,35 +19,34 @@ import static util.LoginUtil.setCurrentLogin;
  */
 public class LoginController {
 
-    public static final Route VIEW_LOGIN_PAGE = (request, response) -> {
-        return getTemplateEngine().render(modelAndView(new HashMap(), "/index"));
-    };
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     public static final Route DO_LOGIN = (request, response) -> {
         String username = request.queryParams("username");
         String password = request.queryParams("password");
         try {
-            validateLogin(username, password);
+            Account account = validateLogin(username, password);
+            LoginUtil.setCurrentLogin(request, account.getId());
+            return "Login successful.";
         } catch (Exception ex) {
+            response.status(400);
             return ex.getMessage();
         }
-        setCurrentLogin(request, username);
-
-        return null;
     };
 
-    private static void validateLogin(String username, String password) throws Exception {
-        if (username == null || username.isEmpty()) {
-            throw new Exception("No username provided.");
+    private static Account validateLogin(String username, String password) throws Exception {
+        if (StringUtils.isEmpty(username)) {
+            throw new Exception("Username is empty.");
         }
-        if (password == null || password.isEmpty()) {
-            throw new Exception("No password provided.");
+        if (StringUtils.isEmpty(password)) {
+            throw new Exception("Password is empty.");
         }
-        Account account;
+        Account account = null;
         try {
             account = getAccountDao().getByUsername(username);
-        } catch (SQLException ex) {
-            throw new Exception("Error while querying from the database", ex);
+        } catch (DataAccessException ex) {
+            LOGGER.error(null, ex);
+            throw new Exception("Error while querying from the database.");
         }
         if (account == null) {
             throw new Exception("Username doesn't exist.");
@@ -62,15 +54,11 @@ public class LoginController {
         if (!account.getPassword().equals(password)) {
             throw new Exception("Incorrect password.");
         }
-
+        return account;
     }
 
     public static void setupRoutes() {
-        path("/index", () -> {
-            get("", VIEW_LOGIN_PAGE);
-            post("", DO_LOGIN);
-        });
-
+        post("/login", DO_LOGIN);
     }
 
 }

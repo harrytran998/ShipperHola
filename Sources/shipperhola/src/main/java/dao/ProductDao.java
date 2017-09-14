@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright © 2017 XVideos Team
  */
@@ -14,6 +12,8 @@ import javax.sql.DataSource;
 import model.Account;
 import model.Category;
 import model.Product;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -38,13 +38,17 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> getAll() throws DataAccessException {
         return jdbcTemplate.query("SELECT * FROM Product", MAPPER);
     }
 
     @Override
-    public Product getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Product WHERE id = ?", new Object[]{id}, MAPPER);
+    public Product getById(Integer id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Product WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -67,15 +71,16 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
     }
 
     @Override
-    public boolean update(Product product) {
+    public boolean update(Product product) throws DataAccessException {
         return jdbcTemplate.update("UPDATE Product SET  date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller(), product.getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
     }
-    public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) {
+
+    public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) throws DataAccessException {
         String sql = "SELECT * FROM Product WHERE 1 = 1";
         List args = new ArrayList();
         if (keyword != null) {

@@ -3,37 +3,42 @@
  */
 package dao;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import model.Category;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
  * @author Admin
  */
-public class CategoryDao extends AbstractGenericDao<Category, Integer >{
-    
+public class CategoryDao extends AbstractGenericDao<Category, Integer> {
+
     private static final RowMapper<Category> MAPPER = (rs, rowNum) -> new Category(
             rs.getInt("id"),
             rs.getString("name")
     );
-    
-    public CategoryDao(DataSource dataSource){
+
+    public CategoryDao(DataSource dataSource) {
         super(dataSource);
     }
 
     @Override
-    public List<Category> getAll() {
+    public List<Category> getAll() throws DataAccessException {
         return jdbcTemplate.query("SELECT * FROM Category", MAPPER);
     }
 
     @Override
-    public Category getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Category WHERE id = ?", new Object[]{id} ,MAPPER);
+    public Category getById(Integer id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Category WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -50,15 +55,13 @@ public class CategoryDao extends AbstractGenericDao<Category, Integer >{
     }
 
     @Override
-    public boolean update(Category category) {
-        return jdbcTemplate.update("UPDATE Category SET name = ? WHERE id = ?", category.getName(), category.getId()) > 0;      
+    public boolean update(Category category) throws DataAccessException {
+        return jdbcTemplate.update("UPDATE Category SET name = ? WHERE id = ?", category.getName(), category.getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer  id) {
-        return jdbcTemplate.update("DELETE FROM Category WHERE id = ?", id) >0;
+    public boolean delete(Integer id) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM Category WHERE id = ?", id) > 0;
     }
-    
-    
-        
+
 }

@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import model.Account;
-import model.Category;
 import model.Order;
 import model.OrderMessage;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -33,13 +34,17 @@ public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
     }
 
     @Override
-    public List<OrderMessage> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<OrderMessage> getAll() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public OrderMessage getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM OrderMessage WHERE id = ?", new Object[]{id}, MAPPER);
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM OrderMessage WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -58,13 +63,14 @@ public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
             return false;
         }
     }
+
     @Override
-    public boolean update(OrderMessage orderMessage) {
+    public boolean update(OrderMessage orderMessage) throws DataAccessException {
         return jdbcTemplate.update("UPDATE OrderMessage SET  date = ?, content = ? , accountId = ?, repliedMessageId=?, orderId=?  WHERE id = ?", orderMessage.getDate(), orderMessage.getContent(), orderMessage.getAccount().getId(), orderMessage.getRepliedMessage(), orderMessage.getOrder().getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM OrderMessage Where id = ? ", id) > 0;
     }
 }

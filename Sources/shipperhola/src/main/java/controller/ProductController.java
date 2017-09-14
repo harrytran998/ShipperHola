@@ -4,6 +4,7 @@
 package controller;
 
 import static app.Application.*;
+import filter.PrepareDataFilters;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -11,9 +12,6 @@ import model.Product;
 import spark.Request;
 import spark.Route;
 import static spark.Spark.*;
-import static app.ApplicationConstants.*;
-import model.Category;
-import spark.Filter;
 import spark.utils.StringUtils;
 
 /**
@@ -38,15 +36,11 @@ public class ProductController {
                     null
             );
             request.attribute("products", products);
-            return getViewManager().renderForRequest(request, PRODUCT_SEARCH_VIEW_NAME);
+            return getViewManager().renderForRequest(request, "products/search");
         } catch (Exception ex) {
+            response.status(400);
             return ex.getMessage();
         }
-    };
-    
-    public static final Filter EMBED_DATA_TO_REQUEST = (request, response) -> {
-        List<Category> categories = getCategoryDao().getAll();
-        request.attribute("categories", categories);
     };
     
     private static void extractParamsAndValidate(Request request) throws Exception {
@@ -73,7 +67,7 @@ public class ProductController {
     
     public static void setupRoutes() {
         path("/products", () -> {
-            before("/*", EMBED_DATA_TO_REQUEST);
+            before(PrepareDataFilters.EMBED_CATEGORIES_TO_REQUEST);
             get("/search", VIEW_SEARCH_PAGE);
         });
     }

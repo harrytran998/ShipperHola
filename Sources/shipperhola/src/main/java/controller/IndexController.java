@@ -2,19 +2,18 @@ package controller;
 
 import spark.Route;
 import static app.Application.*;
+import filter.PrepareDataFilters;
 import static spark.Spark.*;
-import static app.ApplicationConstants.*;
-import java.util.List;
-import model.Category;
 
 public class IndexController {
     public static final Route VIEW_INDEX_PAGE = (request, response) -> {
-        List<Category> categories = getCategoryDao().getAll();
-        request.attribute("categories", categories);
-        return getViewManager().renderForRequest(request, INDEX_VIEW_NAME);
+        return getViewManager().renderForRequest(request, "index");
     };
     
     public static void setupRoutes() {
-        get("/", VIEW_INDEX_PAGE);
+        path("/", () -> {
+            before(PrepareDataFilters.EMBED_CATEGORIES_TO_REQUEST);
+            get("", VIEW_INDEX_PAGE);
+        });
     }
 }

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import model.Account;
 import model.Product;
 import model.ProductReview;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -31,12 +32,12 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
     }
 
     @Override
-    public List<ProductReview> getAll() {
+    public List<ProductReview> getAll() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ProductReview getById(Integer id) {
+    public ProductReview getById(Integer id) throws DataAccessException {
         return jdbcTemplate.queryForObject("SELECT * FROM ProductReview WHERE id = ?", new Object[]{id}, MAPPER);
     }
 
@@ -57,12 +58,12 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
     }
 
     @Override
-    public boolean update(ProductReview productReview) {
+    public boolean update(ProductReview productReview) throws DataAccessException {
         return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productId = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM ProductReview Where id = ? ", id) > 0;
     }
 }

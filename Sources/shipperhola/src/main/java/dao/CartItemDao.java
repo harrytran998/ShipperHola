@@ -3,14 +3,12 @@
  */
 package dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import model.Account;
 import model.CartItem;
 import model.Product;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -31,37 +29,36 @@ public class CartItemDao extends AbstractGenericDao<CartItem, Integer> {
     }
 
     @Override
-    public List<CartItem> getAll() {
+    public List<CartItem> getAll() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
-    public List<CartItem> getbyAccountId(int accountId) {
-        return jdbcTemplate.query("SELECT * FROM CartItem WHERE accountId = ?",  new Object[]{accountId} , MAPPER);
+    public List<CartItem> getbyAccountId(int accountId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM CartItem WHERE accountId = ?", new Object[]{accountId}, MAPPER);
     }
 
     @Override
-    public CartItem getById(Integer id) {
+    public CartItem getById(Integer id) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
-    
-    
+
     @Override
-    public boolean add(CartItem cartItem) {
-        return jdbcTemplate.update("INSERT INTO CartItem(accountId, productId, quantity, note) VALUES(?, ?, ?, ?)", cartItem.getAccount().getId(), cartItem.getProduct().getId(), cartItem.getQuantity(), cartItem.getNote()) >0;
+    public boolean add(CartItem cartItem) throws DataAccessException {
+        return jdbcTemplate.update("INSERT INTO CartItem(accountId, productId, quantity, note) VALUES(?, ?, ?, ?)", cartItem.getAccount().getId(), cartItem.getProduct().getId(), cartItem.getQuantity(), cartItem.getNote()) > 0;
     }
 
     @Override
-    public boolean update(CartItem cartItem) {
-        return jdbcTemplate.update("UPDATE CartItem SET quantity = ?, note  = ? WHERE accountId = ? AND productId = ?", cartItem.getQuantity(), cartItem.getNote(), cartItem.getAccount().getId(), cartItem.getProduct().getId()) >0;
+    public boolean update(CartItem cartItem) throws DataAccessException {
+        return jdbcTemplate.update("UPDATE CartItem SET quantity = ?, note  = ? WHERE accountId = ? AND productId = ?", cartItem.getQuantity(), cartItem.getNote(), cartItem.getAccount().getId(), cartItem.getProduct().getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
-        throw  new UnsupportedOperationException();
+    public boolean delete(Integer id) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
     }
-    
-    public  boolean deleteByAccountId_ProducId(int accountId, int productId){
-        return jdbcTemplate.update("DELETE FROM CartItem WHERE accountId = ? AND productId = ?",accountId, productId) > 0;
+
+    public boolean deleteByAccountAndProduct(int accountId, int productId) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM CartItem WHERE accountId = ? AND productId = ?", accountId, productId) > 0;
     }
 
 }

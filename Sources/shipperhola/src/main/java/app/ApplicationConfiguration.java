@@ -13,11 +13,15 @@ import java.util.Properties;
  * @author Le Cao Nguyen
  */
 public class ApplicationConfiguration {
-
+    public static final int DEFAULT_SERVER_PORT = 4567;
+    
+    private static final String DEVELOPMENT_MODE_KEY = "developmentMode";
     private static final String DATA_SOURCE_URL_KEY = "dataSource.url";
     private static final String DATA_SOURCE_USER_KEY = "dataSource.user";
     private static final String DATA_SOURCE_PASSWORD_KEY = "dataSource.password";
-
+    private static final String THYMELEAF_CACHEABLE_KEY = "thymeleaf.cacheable";
+    private static final String SERVER_PORT_KEY = "server.port";
+    
     private final Properties properties;
 
     /**
@@ -48,7 +52,17 @@ public class ApplicationConfiguration {
     }
 
     /**
+     * Check whether the application will be run in development mode.
+     *
+     * @return True/False
+     */
+    public boolean isDevelopmentMode() {
+        return Boolean.parseBoolean(properties.getProperty(DEVELOPMENT_MODE_KEY));
+    }
+
+    /**
      * Get the JDBC URL to connect to the data source.
+     *
      * @return The URL.
      */
     public String getDataSourceUrl() {
@@ -57,6 +71,7 @@ public class ApplicationConfiguration {
 
     /**
      * Get the username to connect to the data source.
+     *
      * @return The username.
      */
     public String getDataSourceUser() {
@@ -65,9 +80,32 @@ public class ApplicationConfiguration {
 
     /**
      * Get the password to connect to the data source.
+     *
      * @return The password.
      */
     public String getDataSourcePassword() {
         return properties.getProperty(DATA_SOURCE_PASSWORD_KEY);
+    }
+
+    /**
+     * Check whether the Thymeleaf template engine will be configured to cache
+     * the template files.
+     * 
+     * @return True/False
+     */
+    public boolean isThymeleafCacheable() {
+        return Boolean.parseBoolean(properties.getProperty(THYMELEAF_CACHEABLE_KEY));
+    }
+    
+    /**
+     * Return Spark server port.
+     * @return Port number.
+     */
+    public int getServerPort() {
+        try {
+            return Integer.parseUnsignedInt(properties.getProperty(SERVER_PORT_KEY));
+        } catch (NumberFormatException ex) {
+            return DEFAULT_SERVER_PORT;
+        }
     }
 }

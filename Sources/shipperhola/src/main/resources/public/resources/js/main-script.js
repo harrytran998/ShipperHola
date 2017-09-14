@@ -697,5 +697,22 @@ $(document).ready(function () {
 	}
 
 	/* Login Form */
-	$('form#loginForm input[name="redirectUrl"]').val(window.location.href);
+	$('form#login-form').submit(function(event) {
+		event.preventDefault();
+		var username = $('form#login-form input[name="username"]').val();
+		var password = $('form#login-form input[name="password"]').val();
+		var redirectUrl = window.location.href;
+		$.ajax({
+			url: '/login',
+			method: "POST",
+			data: {
+				username: username,
+				password: password
+			}
+		}).done(function(data, textStatus, jqXHR) {
+			window.location.reload();
+		}).fail(function(data, textStatus, jqXHR) {
+			$('p#login-form-error-message').html(data.responseText);
+		});
+	});
 });

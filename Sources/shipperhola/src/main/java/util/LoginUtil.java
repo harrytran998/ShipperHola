@@ -10,11 +10,13 @@ import spark.Request;
  * @author PC
  */
 public class LoginUtil {
-     public static String getCurrentLogin(Request request) {
-        return request.session().<String>attribute("currentLogin");
+    public static final String CURRENT_LOGIN_ATTRIBUTE = "currentLogin";
+    
+    public static Integer getCurrentLogin(Request request) {
+        return request.session().<Integer>attribute(CURRENT_LOGIN_ATTRIBUTE);
     }
 
-    public static void setCurrentLogin(Request request, String username) {
-        request.session().attribute("currentLogin", username);
+    public static void setCurrentLogin(Request request, Integer accountId) {
+        request.session().attribute(CURRENT_LOGIN_ATTRIBUTE, accountId);
     }
 }

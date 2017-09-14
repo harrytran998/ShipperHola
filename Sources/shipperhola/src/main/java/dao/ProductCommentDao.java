@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 import model.Account;
 import model.Product;
 import model.ProductComment;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -32,13 +34,17 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
     }
 
     @Override
-    public List<ProductComment> getAll() {
+    public List<ProductComment> getAll() throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public ProductComment getById(Integer id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM ProductComment WHERE id = ?", new Object[]{id}, MAPPER);
+    public ProductComment getById(Integer id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ProductComment WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -59,12 +65,12 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
     }
 
     @Override
-    public boolean update(ProductComment productComment) {
+    public boolean update(ProductComment productComment) throws DataAccessException {
         return jdbcTemplate.update("UPDATE ProductComment SET  date = ?, content = ? , accountId = ?, repliedCommentId = ?, productId = ? WHERE id = ?", productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment().getId(), productComment.getProduct().getId(), productComment.getId()) > 0;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM ProductComment Where id = ? ", id) > 0;
     }
 
