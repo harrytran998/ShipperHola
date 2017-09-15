@@ -30,7 +30,6 @@ public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     // <editor-fold defaultstate="collapsed" desc="Constants">
-    private static final String CONFIGURATION_FILE_NAME = "application.properties";
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "application.default.properties";
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
@@ -75,18 +74,23 @@ public class Application {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Setup methods">
     /**
-     * Load the application's configuration from file. If configuration file
-     * does
+     * Load the application's configuration by looking at the startup arguments.
+     * If the configuration file is not specified, use the default configuration
+     * file in resource directory.
      *
-     * @throws IOException
+     * @param args The startup arguments
+     * @throws IOException If there is error during loading the configuration
+     * file.
      */
-    private static void loadConfiguration() throws IOException {
-        try {
-            configuration = ApplicationConfiguration.fromFile(CONFIGURATION_FILE_NAME);
-        } catch (IOException ex) {
-            LOGGER.error(ex.getMessage());
-            configuration = ApplicationConfiguration.fromFile(DEFAULT_CONFIGURATION_FILE_NAME);
+    private static void loadConfiguration(String[] args) throws IOException {
+        String configurationFileName = DEFAULT_CONFIGURATION_FILE_NAME;
+        if (args != null && args.length > 0) {
+            configurationFileName = args[0];
+            LOGGER.info("Using configuration file: {0}", configurationFileName);
+        } else {
+            LOGGER.info("Using default configuration file.");
         }
+        configuration = ApplicationConfiguration.fromFile(configurationFileName);
     }
 
     /**
@@ -142,9 +146,18 @@ public class Application {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Main methods">
+    /**
+     * Start the application.<br/>
+     * The configuration file can be specified as the first argument. For
+     * example:<br/>
+     * java -jar application.jar application.properties
+     *
+     * @param args The startup arguments, which may contains the path to
+     * configuration file.
+     */
     public static void main(String[] args) {
         try {
-            loadConfiguration();
+            loadConfiguration(args);
             initializeDependencies();
             configureServer();
             setupRoutesAndFilters();
