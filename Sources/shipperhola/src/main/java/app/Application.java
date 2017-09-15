@@ -86,7 +86,7 @@ public class Application {
         String configurationFileName = DEFAULT_CONFIGURATION_FILE_NAME;
         if (args != null && args.length > 0) {
             configurationFileName = args[0];
-            LOGGER.info("Using configuration file: {0}", configurationFileName);
+            LOGGER.info("Using configuration file: {}.", configurationFileName);
         } else {
             LOGGER.info("Using default configuration file.");
         }
