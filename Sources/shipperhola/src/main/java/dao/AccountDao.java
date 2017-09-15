@@ -16,19 +16,19 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author PC
  */
-public class AccountDao extends AbstractGenericDao<Account, Integer> {
+public class AccountDao extends BaseDao {
 
     private static final RowMapper<Account> MAPPER = (rs, rowNum) -> new Account(
             rs.getInt("id"),
             rs.getString("username"),
             rs.getString("password"),
-            rs.getString("fullname"),
+            rs.getString("fullName"),
             rs.getBoolean("gender"),
             rs.getDate("dateOfBirth"),
             rs.getString("email"),
             rs.getString("phoneNumber"),
             rs.getString("address"),
-            rs.getString("facebookId"),
+            rs.getLong("facebookId"),
             rs.getString("role")
     );
 
@@ -36,13 +36,11 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
         super(dataSource);
     }
 
-    @Override
     public List<Account> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return jdbcTemplate.query("SELECT * FROM Account", MAPPER);
     }
 
-    @Override
-    public Account getById(Integer id) throws DataAccessException {
+    public Account getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
@@ -58,8 +56,7 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
         }
     }
 
-    @Override
-    public boolean add(Account account) {
+    public boolean add(Account account) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account.getUsername());
         params.put("password", account.getPassword());
@@ -81,14 +78,7 @@ public class AccountDao extends AbstractGenericDao<Account, Integer> {
         }
     }
 
-    @Override
     public boolean update(Account account) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE Account SET username = ?, password= ?, fullName=  ?, gender= ?, dateOfBirth= ?, email= ? , phoneNumber= ?, address= ?, facebookId= ?, role= ? WHERE id= ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
+        return jdbcTemplate.update("UPDATE Account SET username = ?, password = ?, fullName =  ?, gender = ?, dateOfBirth = ?, email = ?, phoneNumber = ?, address = ?, facebookId = ?, role = ? WHERE id = ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
     }
-
-    @Override
-    public boolean delete(Integer id) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
 }

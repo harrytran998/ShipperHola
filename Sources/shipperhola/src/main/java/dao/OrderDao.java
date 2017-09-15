@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author PC
  */
-public class OrderDao extends AbstractGenericDao<Order, Integer> {
+public class OrderDao extends BaseDao {
 
     private static final RowMapper<Order> MAPPER = (rs, rowNum) -> new Order(
             rs.getInt("id"),
@@ -37,22 +37,27 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
         super(dataSource);
     }
 
-    @Override
-    public List<Order> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+    public List<Order> getAll() throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM [Order]", MAPPER);
     }
 
-    @Override
-    public Order getById(Integer id) throws DataAccessException {
+    public Order getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM [Order] WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
             return null;
         }
     }
+    
+    public List<Order> getByBuyer(int buyerId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM [Order] WHERE buyerId = ?", new Object[]{buyerId}, MAPPER);
+    }
+    
+    public List<Order> getByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM [Order] WHERE productId = ?", new Object[]{productId}, MAPPER);
+    }
 
-    @Override
-    public boolean add(Order order) {
+    public boolean add(Order order) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("date", order.getDate());
         params.put("quantity", order.getQuantity());
@@ -62,7 +67,7 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
         params.put("paymentMethod", order.getPaymentMethod());
         params.put("status", order.getStatus());
         params.put("buyerId", order.getBuyer().getId());
-        params.put("product", order.getProduct().getId());
+        params.put("productId", order.getProduct().getId());
 
         Number id = simpleJdbcInsert.withTableName("Order").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
@@ -73,14 +78,8 @@ public class OrderDao extends AbstractGenericDao<Order, Integer> {
         }
     }
 
-    @Override
     public boolean update(Order order) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE [Order] SET date = ?,quantity = ?,price = ?,buyerAddress = ?,buyerPhoneNumber = ?,paymentMethod = ?,status = ?,buyerId = ? ,productId = ?  WHERE id =? ", order.getDate(), order.getQuantity(), order.getPrice(), order.getBuyerAddress(), order.getBuyerPhoneNumber(), order.getPaymentMethod(), order.getStatus(), order.getBuyer().getId(), order.getProduct().getId()) > 0;
-    }
-
-    @Override
-    public boolean delete(Integer id) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+        return jdbcTemplate.update("UPDATE [Order] SET date = ?, quantity = ?, price = ?, buyerAddress = ?, buyerPhoneNumber = ?, paymentMethod = ?, status = ?, buyerId = ?, productId = ? WHERE id = ?", order.getDate(), order.getQuantity(), order.getPrice(), order.getBuyerAddress(), order.getBuyerPhoneNumber(), order.getPaymentMethod(), order.getStatus(), order.getBuyer().getId(), order.getProduct().getId(), order.getId()) > 0;
     }
 
 }

@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author PC
  */
-public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
+public class OrderMessageDao extends BaseDao {
 
     private static final RowMapper<OrderMessage> MAPPER = (rs, rowNum) -> new OrderMessage(
             rs.getInt("id"),
@@ -33,13 +33,7 @@ public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
         super(dataSource);
     }
 
-    @Override
-    public List<OrderMessage> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public OrderMessage getById(Integer id) {
+    public OrderMessage getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM OrderMessage WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
@@ -47,8 +41,11 @@ public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
         }
     }
 
-    @Override
-    public boolean add(OrderMessage orderMessage) {
+    public List<OrderMessage> getByOrder(int orderId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM OrderMessage WHERE orderId = ?", new Object[]{orderId}, MAPPER);
+    }
+
+    public boolean add(OrderMessage orderMessage) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("date", orderMessage.getDate());
         params.put("content", orderMessage.getContent());
@@ -64,13 +61,11 @@ public class OrderMessageDao extends AbstractGenericDao<OrderMessage, Integer> {
         }
     }
 
-    @Override
     public boolean update(OrderMessage orderMessage) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE OrderMessage SET  date = ?, content = ? , accountId = ?, repliedMessageId=?, orderId=?  WHERE id = ?", orderMessage.getDate(), orderMessage.getContent(), orderMessage.getAccount().getId(), orderMessage.getRepliedMessage(), orderMessage.getOrder().getId()) > 0;
+        return jdbcTemplate.update("UPDATE OrderMessage SET date = ?, content = ?, accountId = ?, repliedMessageId = ?, orderId = ? WHERE id = ?", orderMessage.getDate(), orderMessage.getContent(), orderMessage.getAccount().getId(), orderMessage.getRepliedMessage(), orderMessage.getOrder().getId(), orderMessage.getId()) > 0;
     }
 
-    @Override
-    public boolean delete(Integer id) throws DataAccessException {
-        return jdbcTemplate.update("DELETE FROM OrderMessage Where id = ? ", id) > 0;
+    public boolean delete(int id) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM OrderMessage WHERE id = ?", id) > 0;
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Admin
  */
-public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Integer> {
+public class ProductPictureDao extends BaseDao {
 
     private static final RowMapper<ProductPicture> MAPPER = (rs, rowNum) -> new ProductPicture(
             rs.getInt("id"),
@@ -30,13 +30,7 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
         super(dataSource);
     }
 
-    @Override
-    public List<ProductPicture> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public ProductPicture getById(Integer id) throws DataAccessException {
+    public ProductPicture getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM ProductPicture WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
@@ -44,7 +38,10 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
         }
     }
 
-    @Override
+    public List<ProductPicture> getByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM ProductPicture WHERE productId = ?", new Object[]{productId}, MAPPER);
+    }
+
     public boolean add(ProductPicture productPicture) {
         Map<String, Object> params = new HashMap<>();
         params.put("fileName", productPicture.getFileName());
@@ -59,14 +56,15 @@ public class ProductPictureDao extends AbstractGenericDao<ProductPicture, Intege
         }
     }
 
-    @Override
     public boolean update(ProductPicture productPicture) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductPicture SET  fileName = ?, extension = ? , productId = ? WHERE id = ?", productPicture.getFileName(), productPicture.getExtension(), productPicture.getProduct().getId(), productPicture.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductPicture SET fileName = ?, extension = ?, productId = ? WHERE id = ?", productPicture.getFileName(), productPicture.getExtension(), productPicture.getProduct().getId(), productPicture.getId()) > 0;
     }
 
-    @Override
-    public boolean delete(Integer id) throws DataAccessException {
-        return jdbcTemplate.update("DELETE FROM ProductPicture Where id = ? ", id) > 0;
+    public boolean delete(int id) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM ProductPicture WHERE id = ?", id) > 0;
     }
 
+    public boolean deleteByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM ProductPicture WHERE productId = ?", productId) > 0;
+    }
 }

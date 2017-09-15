@@ -11,17 +11,18 @@ import model.Account;
 import model.Product;
 import model.ProductReview;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
  * @author Quang Hiep
  */
-public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer> {
+public class ProductReviewDao extends BaseDao {
 
     private static final RowMapper<ProductReview> MAPPER = (rs, rowNum) -> new ProductReview(
             rs.getInt("id"),
-            rs.getInt("rating"),
+            rs.getDouble("rating"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
             new Product(rs.getInt("productId"))
@@ -31,18 +32,23 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
         super(dataSource);
     }
 
-    @Override
-    public List<ProductReview> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+    public ProductReview getById(int id) throws DataAccessException {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ProductReview WHERE id = ?", new Object[]{id}, MAPPER);
+        } catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
     }
 
-    @Override
-    public ProductReview getById(Integer id) throws DataAccessException {
-        return jdbcTemplate.queryForObject("SELECT * FROM ProductReview WHERE id = ?", new Object[]{id}, MAPPER);
+    public List<ProductReview> getByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM ProductReview WHERE productId = ?", new Object[]{productId}, MAPPER);
     }
-
-    @Override
-    public boolean add(ProductReview productReview) {
+    
+    public double getAverageRatingsByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.queryForObject("SELECT AVG(rating) FROM ProductReview WHERE productId = ?", new Object[]{productId}, Double.class);
+    }
+    
+    public boolean add(ProductReview productReview) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("rating", productReview.getRating());
         params.put("content", productReview.getContent());
@@ -57,13 +63,15 @@ public class ProductReviewDao extends AbstractGenericDao<ProductReview, Integer>
         }
     }
 
-    @Override
     public boolean update(ProductReview productReview) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductReview SET  rating = ?, content = ? , accountId = ? , productId = ?  WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductReview SET rating = ?, content = ?, accountId = ?, productId = ? WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
     }
 
-    @Override
-    public boolean delete(Integer id) throws DataAccessException {
-        return jdbcTemplate.update("DELETE FROM ProductReview Where id = ? ", id) > 0;
+    public boolean delete(int id) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM ProductReview WHERE id = ?", id) > 0;
+    }
+    
+    public boolean deleteByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM ProductReview WHERE productId = ?", productId) > 0;
     }
 }

@@ -62,7 +62,4 @@ public class CartItem implements Serializable{
         return "CartItem{" + "account=" + account + ", product=" + product + ", quantity=" + quantity + ", note=" + note + '}';
     }
     
-    
-    
-            
 }

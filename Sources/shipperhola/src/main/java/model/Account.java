@@ -11,6 +11,9 @@ import java.sql.Date;
  * @author Admin
  */
 public class Account implements Serializable {
+    public static final String USER_ROLE = "user";
+    public static final String ADMIN_ROLE = "admin";
+    
     private Integer id;
     private String username;
     private String password;
@@ -20,13 +23,13 @@ public class Account implements Serializable {
     private String email;
     private String phoneNumber;
     private String address;
-    private String facebookId;
+    private Long facebookId;
     private String role;
 
     public Account() {
     }
 
-    public Account(Integer id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, String facebookId, String role) {
+    public Account(Integer id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, Long facebookId, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -116,11 +119,11 @@ public class Account implements Serializable {
         this.address = address;
     }
 
-    public String getFacebookId() {
+    public Long getFacebookId() {
         return facebookId;
     }
 
-    public void setFacebookId(String facebookId) {
+    public void setFacebookId(Long facebookId) {
         this.facebookId = facebookId;
     }
 

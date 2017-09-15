@@ -20,7 +20,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Quang Hiep
  */
-public class ProductDao extends AbstractGenericDao<Product, Integer> {
+public class ProductDao extends BaseDao {
 
     private static final RowMapper<Product> MAPPER = (rs, rowNum) -> new Product(
             rs.getInt("id"),
@@ -37,22 +37,23 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
         super(dataSource);
     }
 
-    @Override
     public List<Product> getAll() throws DataAccessException {
         return jdbcTemplate.query("SELECT * FROM Product", MAPPER);
     }
 
-    @Override
-    public Product getById(Integer id) throws DataAccessException {
+    public Product getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM Product WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
             return null;
         }
     }
+    
+    public List<Product> getBySeller(int sellerId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM Product WHERE sellerId = ?", new Object[]{sellerId}, MAPPER);
+    }
 
-    @Override
-    public boolean add(Product product) {
+    public boolean add(Product product) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("date", product.getDate());
         params.put("name", product.getName());
@@ -70,14 +71,12 @@ public class ProductDao extends AbstractGenericDao<Product, Integer> {
         }
     }
 
-    @Override
     public boolean update(Product product) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE Product SET  date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller(), product.getId()) > 0;
+        return jdbcTemplate.update("UPDATE Product SET date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller().getId(), product.getId()) > 0;
     }
 
-    @Override
-    public boolean delete(Integer id) throws DataAccessException {
-        return jdbcTemplate.update("DELETE FROM Product Where id = ? ", id) > 0;
+    public boolean delete(int id) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM Product WHERE id = ?", id) > 0;
     }
 
     public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) throws DataAccessException {

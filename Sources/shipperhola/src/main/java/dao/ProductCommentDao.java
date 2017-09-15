@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Quang Hiep
  */
-public class ProductCommentDao extends AbstractGenericDao<ProductComment, Integer> {
+public class ProductCommentDao extends BaseDao {
 
     private static final RowMapper<ProductComment> MAPPER = (rs, rowNum) -> new ProductComment(
             rs.getInt("id"),
@@ -33,13 +33,7 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
         super(dataSource);
     }
 
-    @Override
-    public List<ProductComment> getAll() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public ProductComment getById(Integer id) throws DataAccessException {
+    public ProductComment getById(int id) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM ProductComment WHERE id = ?", new Object[]{id}, MAPPER);
         } catch (IncorrectResultSizeDataAccessException ex) {
@@ -47,13 +41,16 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
         }
     }
 
-    @Override
-    public boolean add(ProductComment productComment) {
+    public List<ProductComment> getByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.query("SELECT * FROM ProductComment WHERE productId = ?", new Object[]{productId}, MAPPER);
+    }
+
+    public boolean add(ProductComment productComment) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("date", productComment.getDate());
         params.put("content", productComment.getContent());
         params.put("accountId", productComment.getAccount().getId());
-        params.put("repliedComment", productComment.getRepliedComment().getId());
+        params.put("repliedCommentId", productComment.getRepliedComment().getId());
         params.put("productId", productComment.getProduct().getId());
         Number id = simpleJdbcInsert.withTableName("ProductComment").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
@@ -64,14 +61,12 @@ public class ProductCommentDao extends AbstractGenericDao<ProductComment, Intege
         }
     }
 
-    @Override
     public boolean update(ProductComment productComment) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductComment SET  date = ?, content = ? , accountId = ?, repliedCommentId = ?, productId = ? WHERE id = ?", productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment().getId(), productComment.getProduct().getId(), productComment.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductComment SET date = ?, content = ?, accountId = ?, repliedCommentId = ?, productId = ? WHERE id = ?", productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment().getId(), productComment.getProduct().getId(), productComment.getId()) > 0;
     }
 
-    @Override
     public boolean delete(Integer id) throws DataAccessException {
-        return jdbcTemplate.update("DELETE FROM ProductComment Where id = ? ", id) > 0;
+        return jdbcTemplate.update("DELETE FROM ProductComment WHERE id = ?", id) > 0;
     }
 
 }

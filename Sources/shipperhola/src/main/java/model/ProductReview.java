@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ProductReview {
 
     private Integer id;
-    private Integer rating;
+    private double rating;
     private String content;
     private Account account;
     private Product product;
@@ -20,7 +20,7 @@ public class ProductReview {
     public ProductReview() {
     }
 
-    public ProductReview(Integer id, Integer rating, String content, Account account, Product product) {
+    public ProductReview(Integer id, double rating, String content, Account account, Product product) {
         this.id = id;
         this.rating = rating;
         this.content = content;
@@ -36,11 +36,11 @@ public class ProductReview {
         this.id = id;
     }
 
-    public Integer getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
