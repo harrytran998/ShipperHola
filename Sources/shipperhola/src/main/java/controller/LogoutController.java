@@ -15,7 +15,7 @@ public class LogoutController {
     public static final Route DO_LOGOUT = (request, response) -> {
         request.session().invalidate();
         response.redirect("/");
-        return null;
+        return "Logout successful.";
     };
 
     public static void setupRoutes() {

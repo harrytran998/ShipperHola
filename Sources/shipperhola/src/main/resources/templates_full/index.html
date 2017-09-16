@@ -12,7 +12,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div th:replace="template :: topHeader(${currentLoginAccount})"></div>
                 <div th:replace="template :: mainHeader"></div>
-                <div th:replace="template :: mainNavigation"></div>
+                <div th:replace="template :: mainNavigation(${topSearchKeywords})"></div>
             </div>
         </header>
         <!-- /Header -->
@@ -31,24 +31,18 @@
             <!-- Sidebar -->
             <aside class="sidebar col-lg-3 col-md-3 col-sm-3 col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
                 <!-- Category -->
-                <div th:replace="template :: categoryMenu"></div>
+                <div th:replace="template :: categoryBox(${categories})"></div>
                 <!-- /Category -->
-                <!-- Banner sidebar -->
-                <div th:replace="template :: bannerBox"></div>
-                <!-- /Banner sidebar -->
                 <!-- Best-sellers -->
                 <div th:replace="template :: productListBox"></div>
                 <!-- /Best-sellers -->
                 <!-- Search keywords -->
-                <div th:replace="template :: tagListBox"></div>
+                <div th:replace="template :: searchKeywordsBox(${topSearchKeywords})"></div>
                 <!-- /Search keywords -->
             </aside>
             <!-- /Sidebar -->
         </div>
         <!-- /Content -->
-        <!-- Banner -->
-        <section th:replace="template :: bottomBanner" />
-        <!-- /Banner -->
         <!-- Footer -->
         <footer th:replace="template :: footer" />
         <!-- Footer -->

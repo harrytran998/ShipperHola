@@ -12,7 +12,8 @@ import controller.TestController;
 import dao.AccountDao;
 import dao.CategoryDao;
 import dao.ProductDao;
-import filter.AuthenticationFilter;
+import dao.SearchKeywordDao;
+import filter.PrepareDataFilters;
 import java.io.IOException;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -40,7 +41,8 @@ public class Application {
     private static AccountDao accountDao;
     private static ProductDao productDao;
     private static CategoryDao categoryDao;
-
+    private static SearchKeywordDao searchKeywordDao;
+    
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
     public static ApplicationConfiguration getConfiguration() {
@@ -69,6 +71,10 @@ public class Application {
 
     public static CategoryDao getCategoryDao() {
         return categoryDao;
+    }
+
+    public static SearchKeywordDao getSearchKeywordDao() {
+        return searchKeywordDao;
     }
 
     // </editor-fold>
@@ -107,6 +113,7 @@ public class Application {
         accountDao = new AccountDao(dataSource);
         productDao = new ProductDao(dataSource);
         categoryDao = new CategoryDao(dataSource);
+        searchKeywordDao = new SearchKeywordDao(dataSource);
     }
 
     /**
@@ -135,7 +142,7 @@ public class Application {
      * Setup routes from all controllers.
      */
     private static void setupRoutesAndFilters() {
-        AuthenticationFilter.setupFilters();
+        PrepareDataFilters.setupFilters();
         TestController.setupRoutes();
         IndexController.setupRoutes();
         LoginController.setupRoutes();

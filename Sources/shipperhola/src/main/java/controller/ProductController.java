@@ -67,7 +67,7 @@ public class ProductController {
     
     public static void setupRoutes() {
         path("/products", () -> {
-            before(PrepareDataFilters.EMBED_CATEGORIES_TO_REQUEST);
+            before(PrepareDataFilters.EMBED_COMMON_DATA_INTO_REQUEST);
             get("/search", VIEW_SEARCH_PAGE);
         });
     }
