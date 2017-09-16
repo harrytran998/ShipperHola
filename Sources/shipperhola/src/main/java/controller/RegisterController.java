@@ -3,11 +3,12 @@
  */
 package controller;
 
-import app.Application;
-import static app.Application.getTemplateEngine;
+import static app.Application.*;
 import java.sql.Date;
-import java.util.HashMap;
 import model.Account;
+import org.springframework.dao.DataAccessException;
+import org.springframework.util.StringUtils;
+import spark.Request;
 import spark.Route;
 import static spark.Spark.*;
 
@@ -17,41 +18,70 @@ import static spark.Spark.*;
  */
 public class RegisterController {
 
-    public static final Route VIEW_REGISTER = (request, response) -> {
-
-        return getTemplateEngine().render(modelAndView(new HashMap(), "/register"));
+    public static final Route VIEW_REGISTER_PAGE = (request, response) -> {
+        return getViewManager().renderForRequest(request, "register");
     };
 
     public static final Route DO_REGISTER = (request, response) -> {
-        String idStr = request.queryParams("id");
-        Integer id = Integer.parseInt(idStr);
+        boolean registerSuccess = false;
+        String registerResultMessage = null;
+        try {
+            Account account = extractParamsAndValidate(request);
+            if (getAccountDao().isUsernameExist(account.getUsername())) {
+                throw new Exception("Username already exists.");
+            }
+            registerSuccess = getAccountDao().add(account);
+            registerResultMessage = registerSuccess ? "Register successful." : "Could not register account to the database.";
+        } catch (DataAccessException ex) {
+            registerResultMessage = "Could not register account to the database.";
+        } catch (Exception ex) {
+            registerResultMessage = ex.getMessage();
+        }
+        request.attribute("registerSuccess", registerSuccess);
+        request.attribute("registerResultMessage", registerResultMessage);
+        return getViewManager().renderForRequest(request, "register");
+    };
+    
+    private static Account extractParamsAndValidate(Request request) throws Exception {
         String username = request.queryParams("username");
         String password = request.queryParams("password");
         String fullName = request.queryParams("fullName");
-        boolean gender = Boolean.parseBoolean(request.queryParams("gender"));
-        Date dateOfBirth = null;
-        try {
-            dateOfBirth = Date.valueOf(request.queryParams("dateOfBirth"));
-        } catch (IllegalArgumentException ex) {
-            return "<h3>Error while adding account to database</h3>";
-
-        }
+        String genderStr = request.queryParams("gender");
+        String dateOfBirthStr = request.queryParams("dateOfBirth");
         String email = request.queryParams("email");
         String phoneNumber = request.queryParams("phoneNumber");
         String address = request.queryParams("address");
-        String facebookId    = request.queryParams("facebookId");
-
-        String role = request.queryParams("role");
-        Application.getAccountDao().add(new Account(id, username,
-                password, fullName, gender, dateOfBirth, email,
-                phoneNumber, address, facebookId, role));
-        response.redirect("/register");
-        return null; //
-    };
+        String facebookUrl = request.queryParams("facebookUrl");
+        boolean gender = Boolean.parseBoolean(genderStr);
+        Date dateOfBirth = StringUtils.isEmpty(dateOfBirthStr) ? null : Date.valueOf(dateOfBirthStr);
+        
+        request.attribute("username", username);
+        request.attribute("fullName", fullName);
+        request.attribute("gender", gender);
+        request.attribute("dateOfBirth", dateOfBirth);
+        request.attribute("email", email);
+        request.attribute("phoneNumber", phoneNumber);
+        request.attribute("address", address);
+        request.attribute("facebookUrl", facebookUrl);
+        
+        return new Account(
+                null,
+                username,
+                password,
+                fullName,
+                gender,
+                dateOfBirth,
+                email,
+                phoneNumber,
+                address,
+                facebookUrl,
+                Account.USER_ROLE
+        );
+    }
 
     public static void setupRoutes() {
         path("/register", () -> {
-            get("", VIEW_REGISTER);
+            get("", VIEW_REGISTER_PAGE);
             post("", DO_REGISTER);
         });
     }
