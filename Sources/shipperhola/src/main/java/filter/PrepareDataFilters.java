@@ -5,7 +5,9 @@ package filter;
 
 import static app.Application.*;
 import static spark.Spark.*;
+import app.Application;
 import java.util.List;
+import model.CartItem;
 import model.Account;
 import model.Category;
 import model.SearchKeyword;
@@ -26,6 +28,12 @@ public class PrepareDataFilters {
         request.attribute("categories", categories);
         request.attribute("topSearchKeywords", topSearchKeywords);
     };
+    
+    public static final Filter EMBED_CARTITEM_TO_REQUEST = (request, response) -> {
+        List<CartItem> cartItems = Application.getCartItemDao().getByAccount();
+        request.attribute("cartItems", cartItems);
+    };
+    
     
     public static void setupFilters() {
         before(EMBED_COMMON_DATA_INTO_REQUEST);

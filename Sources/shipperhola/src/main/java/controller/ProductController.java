@@ -30,10 +30,10 @@ public class ProductController {
                     request.<Date>attribute("minDate"),
                     request.<Date>attribute("maxDate"),
                     request.<Integer>attribute("categoryId"),
-                    null,
-                    true,
-                    null, 
-                    null
+                    request.<String>attribute("orderColum"),
+                    request.<Boolean>attribute("ascending"),
+                    request.<Integer>attribute("offsetRecords"),
+                    request.<Integer>attribute("fetchRecords")
             );
             request.attribute("products", products);
             return getViewManager().renderForRequest(request, "products/search");
@@ -50,6 +50,7 @@ public class ProductController {
         String minDateStr = request.queryParams("minDate");
         String maxDateStr = request.queryParams("maxDate");
         String categoryIdStr = request.queryParams("categoryId");
+        
         keyword = StringUtils.isEmpty(keyword) ? null : keyword;
         Double minPrice = StringUtils.isEmpty(minPriceStr) ? null : Double.parseDouble(minPriceStr);
         Double maxPrice = StringUtils.isEmpty(maxPriceStr) ? null : Double.parseDouble(maxPriceStr);
@@ -63,6 +64,19 @@ public class ProductController {
         request.attribute("minDate", minDate);
         request.attribute("maxDate", maxDate);
         request.attribute("categoryId", categoryId);
+        String orderColum = "date"; //defaut
+        boolean ascending = false; //defaut
+        String orderBy = null;
+        String [] split = orderColum.split("_");
+        if(orderColum != null){
+            
+        }
+        String offsetRecordsStr = request.queryParams("offsetRecords");
+        Integer offsetRecords = StringUtils.isEmpty(categoryIdStr) ? null : Integer.parseInt(offsetRecordsStr);
+        
+        String fetchRecordsStr = request.queryParams("fetchRecords");
+        Integer fetchRecords = StringUtils.isEmpty(fetchRecordsStr) ? null : Integer.parseInt(fetchRecordsStr);
+        
     }
     
     public static void setupRoutes() {

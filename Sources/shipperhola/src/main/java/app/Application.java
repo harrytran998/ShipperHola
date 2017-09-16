@@ -10,6 +10,7 @@ import controller.ProductController;
 import controller.RegisterController;
 import controller.TestController;
 import dao.AccountDao;
+import dao.CartItemDao;
 import dao.CategoryDao;
 import dao.ProductDao;
 import dao.SearchKeywordDao;
@@ -43,6 +44,8 @@ public class Application {
     private static CategoryDao categoryDao;
     private static SearchKeywordDao searchKeywordDao;
     
+    private static CartItemDao cartItemDao;
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
     public static ApplicationConfiguration getConfiguration() {
@@ -72,6 +75,11 @@ public class Application {
     public static CategoryDao getCategoryDao() {
         return categoryDao;
     }
+
+    public static CartItemDao getCartItemDao() {
+        return cartItemDao;
+    }
+    
 
     public static SearchKeywordDao getSearchKeywordDao() {
         return searchKeywordDao;
@@ -114,6 +122,7 @@ public class Application {
         productDao = new ProductDao(dataSource);
         categoryDao = new CategoryDao(dataSource);
         searchKeywordDao = new SearchKeywordDao(dataSource);
+        cartItemDao = new CartItemDao(dataSource);
     }
 
     /**
