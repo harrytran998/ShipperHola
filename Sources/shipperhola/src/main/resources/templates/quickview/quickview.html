@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2017 XVideos Team
+-->
+<html>
+    <head>
+        <title>quickview</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="#" th:action="@{~/products/quickview}" method="GET">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Current price</th>
+                    <th>Allow order</th>
+                    <th>Category ID</th>
+                    <th>Seller ID</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.date}"></td>
+                    <td th:text="${product.currentPrice}"></td>
+                    <td th:text="${product.allowOrder}"></td>
+                    <td th:text="${product.category.id}"></td>
+                    <td th:text="${product.seller.id}"></td>
+                <tr>
+                    <td><button type="submit">Art to cart</button></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Detail</button></td>
+                </tr>
+
+            </table>
+
+        </form>
+    </body>
+</html>
