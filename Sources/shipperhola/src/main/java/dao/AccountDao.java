@@ -48,6 +48,10 @@ public class AccountDao extends BaseDao {
         }
     }
 
+    public boolean isUsernameExist(String username) throws DataAccessException {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Account WHERE username = ?", new Object[]{username}, Long.class) > 0;
+    }
+    
     public Account getByUsername(String username) throws DataAccessException {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM Account WHERE username = ?", new Object[]{username}, MAPPER);
