@@ -13,16 +13,14 @@ public class ProductPicture implements Serializable {
 
     private Integer id;
     private String fileName;
-    private String extension;
     private Product product;
 
     public ProductPicture() {
     }
 
-    public ProductPicture(Integer id, String fileName, String extension, Product product) {
+    public ProductPicture(Integer id, String fileName, Product product) {
         this.id = id;
         this.fileName = fileName;
-        this.extension = extension;
         this.product = product;
     }
 
@@ -42,14 +40,6 @@ public class ProductPicture implements Serializable {
         this.fileName = fileName;
     }
 
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
-
     public Product getProduct() {
         return product;
     }
@@ -60,7 +50,7 @@ public class ProductPicture implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductPicture{" + "id=" + id + ", fileName=" + fileName + ", extension=" + extension + ", product=" + product + '}';
+        return "ProductPicture{" + "id=" + id + ", fileName=" + fileName + ", product=" + product + '}';
     }
 
 }

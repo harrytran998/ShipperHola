@@ -23,13 +23,13 @@ public class Account implements Serializable {
     private String email;
     private String phoneNumber;
     private String address;
-    private Long facebookId;
+    private String facebookUrl;
     private String role;
 
     public Account() {
     }
 
-    public Account(Integer id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, Long facebookId, String role) {
+    public Account(Integer id, String username, String password, String fullName, boolean gender, Date dateOfBirth, String email, String phoneNumber, String address, String facebookUrl, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -39,7 +39,7 @@ public class Account implements Serializable {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.facebookId = facebookId;
+        this.facebookUrl = facebookUrl;
         this.role = role;
     }
 
@@ -119,12 +119,12 @@ public class Account implements Serializable {
         this.address = address;
     }
 
-    public Long getFacebookId() {
-        return facebookId;
+    public String getFacebookUrl() {
+        return facebookUrl;
     }
 
-    public void setFacebookId(Long facebookId) {
-        this.facebookId = facebookId;
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
     }
 
     public String getRole() {
@@ -137,6 +137,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullName=" + fullName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", facebookId=" + facebookId + ", role=" + role + '}';
+        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullName=" + fullName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", facebookUrl=" + facebookUrl + ", role=" + role + '}';
     }
+
 }

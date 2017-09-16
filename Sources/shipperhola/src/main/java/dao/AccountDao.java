@@ -28,7 +28,7 @@ public class AccountDao extends BaseDao {
             rs.getString("email"),
             rs.getString("phoneNumber"),
             rs.getString("address"),
-            rs.getLong("facebookId"),
+            rs.getString("facebookUrl"),
             rs.getString("role")
     );
 
@@ -66,7 +66,7 @@ public class AccountDao extends BaseDao {
         params.put("email", account.getEmail());
         params.put("phoneNumber", account.getPhoneNumber());
         params.put("address", account.getAddress());
-        params.put("facebookId", account.getFacebookId());
+        params.put("facebookUrl", account.getFacebookUrl());
         params.put("role", account.getRole());
 
         Number id = simpleJdbcInsert.withTableName("Account").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
@@ -79,6 +79,6 @@ public class AccountDao extends BaseDao {
     }
 
     public boolean update(Account account) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE Account SET username = ?, password = ?, fullName =  ?, gender = ?, dateOfBirth = ?, email = ?, phoneNumber = ?, address = ?, facebookId = ?, role = ? WHERE id = ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookId(), account.getRole()) > 0;
+        return jdbcTemplate.update("UPDATE Account SET username = ?, password = ?, fullName =  ?, gender = ?, dateOfBirth = ?, email = ?, phoneNumber = ?, address = ?, facebookUrl = ?, role = ? WHERE id = ?", account.getUsername(), account.getPassword(), account.getFullName(), account.isGender(), account.getDateOfBirth(), account.getEmail(), account.getPhoneNumber(), account.getAddress(), account.getFacebookUrl(), account.getRole()) > 0;
     }
 }

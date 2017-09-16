@@ -22,7 +22,6 @@ public class ProductPictureDao extends BaseDao {
     private static final RowMapper<ProductPicture> MAPPER = (rs, rowNum) -> new ProductPicture(
             rs.getInt("id"),
             rs.getString("fileName"),
-            rs.getString("extension"),
             new Product(rs.getInt("productId"))
     );
 
@@ -45,7 +44,6 @@ public class ProductPictureDao extends BaseDao {
     public boolean add(ProductPicture productPicture) {
         Map<String, Object> params = new HashMap<>();
         params.put("fileName", productPicture.getFileName());
-        params.put("extension", productPicture.getExtension());
         params.put("productId", productPicture.getProduct().getId());
         Number id = simpleJdbcInsert.withTableName("ProductPicture").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
@@ -57,7 +55,7 @@ public class ProductPictureDao extends BaseDao {
     }
 
     public boolean update(ProductPicture productPicture) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductPicture SET fileName = ?, extension = ?, productId = ? WHERE id = ?", productPicture.getFileName(), productPicture.getExtension(), productPicture.getProduct().getId(), productPicture.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductPicture SET fileName = ?, productId = ? WHERE id = ?", productPicture.getFileName(), productPicture.getProduct().getId(), productPicture.getId()) > 0;
     }
 
     public boolean delete(int id) throws DataAccessException {
