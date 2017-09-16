@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2017 XVideos Team
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Register</h1>
+        <form action="" method="POST">
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td>
+                        <input type="text" name="usename" maxlength="50" required th:value="${username}">
+                    </td>
+                </tr> 
+
+                <tr>
+                    <td>Password</td>
+                    <td>
+                        <input type="password" name="password" maxlength="50" required th:value="${password}">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Full Name</td>
+                    <td>
+                        <input type="text" name="fullName" maxlength="50" required th:value="${fullName}">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="gender" value="true" th:checked="${gender}">male
+                        <input type="radio" name="gender" value="false" th:checked="${gender}"> female
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td><input type="date" name="dateOfBirth" required th:value="${dateOfBirth}"> </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input type="text" name="email" maxlength="30" required th:value="${email}">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Phone Number</td>
+                    <td>
+                        <input type="text" name="phoneNumber" maxlength="12" required th:value="${phoneNumber}">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Address</td>
+                    <td>
+                        <input type="text" name="address" maxlength="50" required th:value="${address}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Facebook ID</td>
+                    <td>
+                        <input type="text" name="facebookId" maxlength="50" required th:value="${facebookId}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Role</td>
+                    <td>
+                        <input type="text" name="role" maxlength="50" required th:value="${role}">
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="register">
+            <a th:href="@{~/register}"><button type="button">Back</button></a> 
+        </form>
+
+    </body>
+</html>
