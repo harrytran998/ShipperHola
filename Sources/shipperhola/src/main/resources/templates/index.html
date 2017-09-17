@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<!--
-Copyright © 2017 XVideos Team
--->
 <html>
-    <head>
-        <title>Home</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Home</h1>
-        <h2>Categories</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            <tr th:each="category : ${categories}">
-                <td th:text="${category.id}">1</td>
-                <td th:text="${category.name}">Food</td>
-                <td><a href="#" th:href="@{~/products/search(categoryId=${category.id})}">Search</a></td>
-            </tr>
-        </table>
-    </body>
+
+<head th:include="template :: commonHead('Trang chủ')">
+</head>
+
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div th:replace="template :: topHeader(${currentLoginAccount})"></div>
+                <div th:replace="template :: mainHeader"></div>
+                <div th:replace="template :: mainNavigation(${topSearchKeywords})"></div>
+            </div>
+        </header>
+        <!-- /Header -->
+        <!-- Contents -->
+        <div class="row content">
+            <!-- Main Content -->
+            <section class="main-content col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
+                <!-- Top banner -->
+                <div th:replace="template :: topBanner"></div>
+                <!-- /Top banner -->
+                <!-- Featured Products -->
+                <div th:replace="template :: productSlider"></div>
+                <!-- /Featured Products -->
+            </section>
+            <!-- /Main Content -->
+            <!-- Sidebar -->
+            <aside class="sidebar col-lg-3 col-md-3 col-sm-3 col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
+                <!-- Category -->
+                <div th:replace="template :: categoryBox(${categories})"></div>
+                <!-- /Category -->
+                <!-- Best-sellers -->
+                <div th:replace="template :: productListBox"></div>
+                <!-- /Best-sellers -->
+                <!-- Search keywords -->
+                <div th:replace="template :: searchKeywordsBox(${topSearchKeywords})"></div>
+                <!-- /Search keywords -->
+            </aside>
+            <!-- /Sidebar -->
+        </div>
+        <!-- /Content -->
+        <!-- Footer -->
+        <footer th:replace="template :: footer" />
+        <!-- Footer -->
+        <div th:replace="template :: backToTopButton" />
+    </div>
+    <!-- Container -->
+    <div th:include="template :: commonScripts">
+    </div>
+</body>
+
 </html>

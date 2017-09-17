@@ -34,16 +34,6 @@
                 <!-- Top Header -->
                 <div id="top-header" th:fragment="topHeader(currentLoginAccount)">
                     <div class="row">
-                        <!--
-                        <nav id="top-navigation" class="col-lg-7 col-md-7 col-sm-7">
-                            <ul class="pull-left">
-                                <li><a href="#" th:href="@{~/me}">Tài khoản của tôi</a></li>
-                                <li><a href="#" th:href="@{~/me/orders}">Danh sách order</a></li>
-                                <li><a href="#" th:href="@{~/about}">Về chúng tôi</a></li>
-                                <li><a href="#" th:href="@{~/contact}">Liên hệ</a></li>
-                            </ul>
-                        </nav>
-                        -->
                         <nav id="user-welcome-area" class="col-lg-5 col-md-5 col-sm-5 col-lg-push-7 col-md-push-7 col-sm-push-7" th:if="${currentLoginAccount != null}">
                             <ul class="pull-right">
                                 <li><a href="#" th:href="@{~/profile}" th:text="${'Xin chào, ' + currentLoginAccount.fullName + '!'}">Xin chào, ABC!</a></li>
