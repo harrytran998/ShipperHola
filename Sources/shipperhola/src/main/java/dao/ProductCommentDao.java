@@ -16,13 +16,13 @@ import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
- * @author Quang Hiep
+ * @author PC
  */
 public class ProductCommentDao extends BaseDao {
 
     private static final RowMapper<ProductComment> MAPPER = (rs, rowNum) -> new ProductComment(
             rs.getInt("id"),
-            rs.getDate("date"),
+            rs.getTimestamp("date"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
             new ProductComment(rs.getInt("repliedCommentId")),
@@ -62,11 +62,14 @@ public class ProductCommentDao extends BaseDao {
     }
 
     public boolean update(ProductComment productComment) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductComment SET date = ?, content = ?, accountId = ?, repliedCommentId = ?, productId = ? WHERE id = ?", productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment().getId(), productComment.getProduct().getId(), productComment.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductComment SET date = ?, content = ?, accountId = ?, repliedCommentId = ?, productId = ? WHERE id = ?", productComment.getDate(), productComment.getContent(), productComment.getAccount().getId(), productComment.getRepliedComment(), productComment.getProduct().getId(), productComment.getId()) > 0;
     }
 
-    public boolean delete(Integer id) throws DataAccessException {
+    public boolean delete(int id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM ProductComment WHERE id = ?", id) > 0;
     }
-
+    
+    public boolean deleteByProduct(int productId) throws DataAccessException {
+        return jdbcTemplate.update("DELETE FROM ProductComment WHERE productId = ?", productId) > 0;
+    }
 }

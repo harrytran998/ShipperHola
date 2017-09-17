@@ -4,7 +4,11 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
@@ -20,7 +24,13 @@ public class Product implements Serializable {
     private boolean allowOrder;
     private Category category;
     private Account seller;
-
+    
+    private List<Order> orders = new ArrayList<>();
+    private List<ProductPicture> pictures = new ArrayList<>();
+    private List<ProductComment> comments = new ArrayList<>();
+    private List<ProductReview> reviews = new ArrayList<>();
+    private List<ShippingAddress> shippingAddresses = new ArrayList<>();
+    
     public Product() {
     }
 
@@ -103,11 +113,58 @@ public class Product implements Serializable {
         this.seller = seller;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" + "id=" + id + ", date=" + date + ", name=" + name + ", description=" + description + ", currentPrice=" + currentPrice + ", allowOrder=" + allowOrder + ", category=" + category + ", seller=" + seller + '}';
+    public List<Order> getOrders() {
+        return orders;
     }
 
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<ProductPicture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<ProductPicture> pictures) {
+        this.pictures = pictures;
+    }
+
+    public List<ProductComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<ProductComment> comments) {
+        this.comments = comments;
+    }
+
+    public List<ProductReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ProductReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<ShippingAddress> getShippingAddresses() {
+        return shippingAddresses;
+    }
+
+    public void setShippingAddresses(List<ShippingAddress> shippingAddresses) {
+        this.shippingAddresses = shippingAddresses;
+    }
+
+    public int getOrderQuantityToday() {
+        Date now = new Date(System.currentTimeMillis());
+        return orders.stream().filter(order -> DateUtils.isSameDay(order.getDate(), now)).collect(Collectors.summingInt(Order::getQuantity));
+    }
     
+    public double getAverageRating() {
+        return reviews.stream().collect(Collectors.averagingDouble(ProductReview::getRating));
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", date=" + date + ", name=" + name + ", description=" + description + ", currentPrice=" + currentPrice + ", allowOrder=" + allowOrder + ", category=" + category + ", seller=" + seller + ", orders=" + orders + ", pictures=" + pictures + ", comments=" + comments + ", reviews=" + reviews + ", shippingAddresses=" + shippingAddresses + '}';
+    }
 
 }

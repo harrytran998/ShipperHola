@@ -12,20 +12,21 @@ import controller.TestController;
 import dao.AccountDao;
 import dao.CartItemDao;
 import dao.CategoryDao;
+import dao.OrderDao;
+import dao.OrderMessageDao;
+import dao.ProductCommentDao;
 import dao.ProductDao;
 import dao.ProductPictureDao;
+import dao.ProductReviewDao;
 import dao.SearchKeywordDao;
+import dao.ShippingAddressDao;
 import filter.PrepareDataFilters;
 import java.io.IOException;
 import javax.sql.DataSource;
-import model.ProductPicture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import static spark.Spark.*;
-import spark.TemplateEngine;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import util.view.IViewManager;
 import util.view.ThymeleafViewManager;
 
@@ -38,24 +39,24 @@ public class Application {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Configuration & dependencies">
     private static ApplicationConfiguration configuration;
-    private static TemplateEngine templateEngine;
     private static IViewManager viewManager;
     private static DataSource dataSource;
     private static AccountDao accountDao;
-    private static ProductDao productDao;
-    private static CategoryDao categoryDao;
-    private static SearchKeywordDao searchKeywordDao;
-    private static ProductPictureDao productPictureDao;
     private static CartItemDao cartItemDao;
+    private static CategoryDao categoryDao;
+    private static OrderDao orderDao;
+    private static OrderMessageDao orderMessageDao;
+    private static ProductDao productDao;
+    private static ProductCommentDao productCommentDao;
+    private static ProductPictureDao productPictureDao;
+    private static ProductReviewDao productReviewDao;
+    private static SearchKeywordDao searchKeywordDao;
+    private static ShippingAddressDao shippingAddressDao;
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters for dependencies">
     public static ApplicationConfiguration getConfiguration() {
         return configuration;
-    }
-
-    public static TemplateEngine getTemplateEngine() {
-        return templateEngine;
     }
 
     public static IViewManager getViewManager() {
@@ -66,31 +67,49 @@ public class Application {
         return dataSource;
     }
 
-    public static ProductDao getProductDao() {
-        return productDao;
-    }
-
     public static AccountDao getAccountDao() {
         return accountDao;
-    }
-
-    public static CategoryDao getCategoryDao() {
-        return categoryDao;
     }
 
     public static CartItemDao getCartItemDao() {
         return cartItemDao;
     }
 
+    public static CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
+
+    public static OrderDao getOrderDao() {
+        return orderDao;
+    }
+
+    public static OrderMessageDao getOrderMessageDao() {
+        return orderMessageDao;
+    }
+
+    public static ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public static ProductCommentDao getProductCommentDao() {
+        return productCommentDao;
+    }
+
     public static ProductPictureDao getProductPictureDao() {
         return productPictureDao;
     }
 
-    
+    public static ProductReviewDao getProductReviewDao() {
+        return productReviewDao;
+    }
 
     public static SearchKeywordDao getSearchKeywordDao() {
         return searchKeywordDao;
     }
+
+    public static ShippingAddressDao getShippingAddressDao() {
+        return shippingAddressDao;
+    }    
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Setup methods">
@@ -118,19 +137,19 @@ public class Application {
      * Initialize application's dependencies.
      */
     private static void initializeDependencies() {
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding("UTF-8");
-        templateEngine = new ThymeleafTemplateEngine(templateResolver);
         viewManager = new ThymeleafViewManager(null, null, configuration.isThymeleafCacheable());
         dataSource = new DriverManagerDataSource(configuration.getDataSourceUrl(), configuration.getDataSourceUser(), configuration.getDataSourcePassword());
         accountDao = new AccountDao(dataSource);
-        productDao = new ProductDao(dataSource);
-        categoryDao = new CategoryDao(dataSource);
-        searchKeywordDao = new SearchKeywordDao(dataSource);
-        productPictureDao = new ProductPictureDao(dataSource);
         cartItemDao = new CartItemDao(dataSource);
+        categoryDao = new CategoryDao(dataSource);
+        orderDao = new OrderDao(dataSource);
+        orderMessageDao = new OrderMessageDao(dataSource);
+        productDao = new ProductDao(dataSource);
+        productCommentDao = new ProductCommentDao(dataSource);
+        productPictureDao = new ProductPictureDao(dataSource);
+        productReviewDao = new ProductReviewDao(dataSource);
+        searchKeywordDao = new SearchKeywordDao(dataSource);
+        shippingAddressDao = new ShippingAddressDao(dataSource);
     }
 
     /**

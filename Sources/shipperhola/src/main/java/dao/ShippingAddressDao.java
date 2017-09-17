@@ -40,7 +40,7 @@ public class ShippingAddressDao extends BaseDao {
         }
     }
 
-    public List<ShippingAddress> getShippingAddressesByProduct(int productId) {
+    public List<ShippingAddress> getByProduct(int productId) {
         return jdbcTemplate.query("SELECT SA.id, SA.address FROM Product_ShippingAddress PSA INNER JOIN ShippingAddress SA ON PSA.shippingAddressId = SA.id WHERE PSA.productId = ?", new Object[]{productId}, MAPPER);
     }
 

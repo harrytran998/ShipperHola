@@ -22,7 +22,7 @@ public class ProductReviewDao extends BaseDao {
 
     private static final RowMapper<ProductReview> MAPPER = (rs, rowNum) -> new ProductReview(
             rs.getInt("id"),
-            rs.getDate("date"),
+            rs.getTimestamp("date"),
             rs.getDouble("rating"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
@@ -43,10 +43,6 @@ public class ProductReviewDao extends BaseDao {
 
     public List<ProductReview> getByProduct(int productId) throws DataAccessException {
         return jdbcTemplate.query("SELECT * FROM ProductReview WHERE productId = ?", new Object[]{productId}, MAPPER);
-    }
-    
-    public double getAverageRatingsByProduct(int productId) throws DataAccessException {
-        return jdbcTemplate.queryForObject("SELECT AVG(rating) FROM ProductReview WHERE productId = ?", new Object[]{productId}, Double.class);
     }
     
     public boolean add(ProductReview productReview) throws DataAccessException {

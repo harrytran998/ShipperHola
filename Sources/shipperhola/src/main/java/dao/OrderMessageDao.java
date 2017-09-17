@@ -22,7 +22,7 @@ public class OrderMessageDao extends BaseDao {
 
     private static final RowMapper<OrderMessage> MAPPER = (rs, rowNum) -> new OrderMessage(
             rs.getInt("id"),
-            rs.getDate("date"),
+            rs.getTimestamp("date"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
             new OrderMessage(rs.getInt("repliedMessageId")),

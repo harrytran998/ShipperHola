@@ -22,7 +22,7 @@ public class OrderDao extends BaseDao {
 
     private static final RowMapper<Order> MAPPER = (rs, rowNum) -> new Order(
             rs.getInt("id"),
-            rs.getDate("date"),
+            rs.getTimestamp("date"),
             rs.getInt("quantity"),
             rs.getDouble("price"),
             rs.getString("buyerAddress"),
