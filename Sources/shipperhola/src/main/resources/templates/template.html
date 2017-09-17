@@ -160,7 +160,7 @@
                                         <td class="search-column-1">
                                             <p>
                                                 <span class="grey">Top từ khóa tìm kiếm nhiều nhất</span>
-                                                <span th:each="searchKeyword, status : ${searchKeywords}"><a href="#" th:text="${searchKeyword.keyword}" th:href="@{~/products/search(keyword=${searchKeyword.keyword})}">sting</a><th:block th:if="${status.index &lt; searchKeywords.size() - 1}">,</th:block></span>
+                                                <span th:each="searchKeyword, status : ${searchKeywords}"><a href="#" th:text="${searchKeyword.keyword}" th:href="@{~/products/search(keyword=${searchKeyword.keyword})}">sting</a><th:block th:if="${status.index &lt; searchKeywords.size() - 1}">,&nbsp;</th:block></span>
                                             </p>
                                             <input type="text" name="keyword" placeholder="Nhập từ khóa tìm kiếm">
                                         </td>
