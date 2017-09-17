@@ -44,7 +44,34 @@ Copyright © 2017 XVideos Team
                     </select>
                 </td>
             </tr>
-            
+            <tr>
+                <td></td>
+                <td><input type="checkbox" name="onlyAllowOrder" value="true" th:checked="${onlyAllowOrder}">Chỉ các sản phẩm đang nhận order.</td>
+            </tr>
+            <tr>
+                <td>Xếp theo</td>
+                <td>
+                    <select name="orderBy">
+                        <option value="date_DESC" th:selected="${orderBy == 'date_DESC'}">Ngày đăng (mới đến cũ)</option>
+                        <option value="date_ASC" th:selected="${orderBy == 'date_ASC'}">Ngày đăng (cũ đến mới)</option>
+                        <option value="currentPrice_ASC" th:selected="${orderBy == 'currentPrice_ASC'}">Giá (tăng dần)</option>
+                        <option value="currentPrice_DESC" th:selected="${orderBy == 'currentPrice_DESC'}">Giá (giảm dần)</option>
+                        <option value="averageRating_ASC" th:selected="${orderBy == 'averageRating_ASC'}">Đánh giá (tăng dần)</option>
+                        <option value="averageRating_DESC" th:selected="${orderBy == 'averageRating_DESC'}">Đánh giá (giảm dần)</option>
+                        <option value="orderQuantityToday_ASC" th:selected="${orderBy == 'orderQuantityToday_ASC'}">Số lượng đặt hàng trong ngày (tăng dần)</option>
+                        <option value="orderQuantityToday_DESC" th:selected="${orderBy == 'orderQuantityToday_DESC'}">Số lượng đặt hàng trong ngày (giảm dần)</option>
+                        <option value="name_ASC" th:selected="${orderBy == 'name_ASC'}">Tên (ABC)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Bỏ qua</td>
+                <td><input type="number" name="offsetRecords" th:value="${offsetRecords}">&nbsp;kết quả</td>
+            </tr>
+            <tr>
+                <td>Hiển thị</td>
+                <td><input type="number" name="fetchRecords" th:value="${fetchRecords}">&nbsp;kết quả</td>
+            </tr>
             <tr>
                 <td><input type="submit" value="Search"></td>
             </tr>
@@ -61,6 +88,8 @@ Copyright © 2017 XVideos Team
             <th>Allow order</th>
             <th>Category ID</th>
             <th>Seller ID</th>
+            <th>Average rating</th>
+            <th>Order quantity today</th>
             <th>Action</th>
         </tr>
         <tr th:each="product : ${products}">
@@ -71,6 +100,8 @@ Copyright © 2017 XVideos Team
             <td th:text="${product.allowOrder}"></td>
             <td th:text="${product.category.id}"></td>
             <td th:text="${product.seller.id}"></td>
+            <td th:text="${product.averageRating}"></td>
+            <td th:text="${product.orderQuantityToday}"></td>
             <td><a href="#" th:href="@{~/products/detail(id=${product.id})}">Detail</a></td>
         </tr>
     </table>

@@ -3,8 +3,6 @@
  */
 package dao;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,7 @@ public class ProductDao extends BaseDao {
 
     private static final RowMapper<Product> MAPPER = (rs, rowNum) -> new Product(
             rs.getInt("id"),
-            rs.getDate("date"),
+            rs.getTimestamp("date"),
             rs.getString("name"),
             rs.getString("description"),
             rs.getDouble("currentPrice"),
@@ -77,46 +75,5 @@ public class ProductDao extends BaseDao {
 
     public boolean delete(int id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM Product WHERE id = ?", id) > 0;
-    }
-
-    public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) throws DataAccessException {
-        String sql = "SELECT * FROM Product WHERE 1 = 1";
-        List args = new ArrayList();
-        if (keyword != null) {
-            sql += " AND LOWER(name) LIKE '%' + ? + '%'";
-            args.add(keyword.toLowerCase());
-        }
-        if (minPrice != null) {
-            sql += " AND currentPrice >= ?";
-            args.add(minPrice);
-        }
-        if (maxPrice != null) {
-            sql += " AND currentPrice <= ?";
-            args.add(maxPrice);
-        }
-        if (minDate != null) {
-            sql += " AND date >= ?";
-            args.add(minDate);
-        }
-        if (maxDate != null) {
-            sql += " AND date <= ?";
-            args.add(maxDate);
-        }
-        if (categoryId != null) {
-            sql += " AND categoryId = ?";
-            args.add(categoryId);
-        }
-        if (orderColumn != null) {
-            sql += String.format(" ORDER BY %s %s", orderColumn, ascending ? "ASC" : "DESC");
-        }
-        if (offsetRecords != null) {
-            sql += " OFFSET ? ROWS";
-            args.add(offsetRecords);
-        }
-        if (fetchRecords != null) {
-            sql += " FETCH NEXT ? ROWS ONLY";
-            args.add(fetchRecords);
-        }
-        return jdbcTemplate.query(sql, args.toArray(), MAPPER);
     }
 }
