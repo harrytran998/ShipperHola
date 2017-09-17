@@ -102,16 +102,16 @@
                 <nav id="main-navigation" class="style1" th:fragment="mainNavigation(searchKeywords)">
                     <ul>
                         <li class="home-green current-item">
-                            <a>
+                            <a href="#" th:href="@{~/}">
                                 <i class="icons icon-home"></i>
                                 <span class="nav-caption">Trang chủ</span>
                                 <span class="nav-description">FU Hòa Lạc</span>
                             </a>
-                            <ul class="normal-dropdown normalAnimation">
+                            <!--<ul class="normal-dropdown normalAnimation">
                                 <li><a href="#" th:href="@{~/products/search(orderBy='date_DESC')}">Mới nhất</a></li>
                                 <li><a href="#" th:href="@{~/products/search(orderBy='averageRating_DESC')}">Đánh giá cao nhất</a></li>
                                 <li><a href="#" th:href="@{~/products/search(orderBy='orderQuantityToday_DESC')}">Order nhiều nhất trong ngày</a></li>
-                            </ul>
+                            </ul>-->
                         </li>
                         <li class="red">
                             <a href="#" th:href="@{~/products/search(categoryId=1)}">
@@ -153,7 +153,7 @@
                         </li>
                     </ul>
                     <div id="search-bar">
-                        <form action="#" method="GET" th:action="@{~/products/search}">
+                        <form id="searchForm" action="#" method="GET" th:action="@{~/products/search}">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <table id="search-bar-table">
                                     <tr>
@@ -203,11 +203,11 @@
                     </div>
                 </section>
                 <!-- Featured Products -->
-                <div class="products-row row" th:fragment="productSlider">
+                <div class="products-row row" th:fragment="productSlider(title, products)">
                     <!-- Carousel Heading -->
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="carousel-heading">
-                            <h4>Mới nhất</h4>
+                            <h4 th:text="${title}">Mới nhất</h4>
                             <div class="carousel-arrows">
                                 <i class="icons icon-left-dir"></i>
                                 <i class="icons icon-right-dir"></i>
@@ -219,33 +219,32 @@
                     <div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
                         <div class="owl-carousel" data-max-items="3">
                             <!-- Slide -->
-                            <div>
+                            <div th:each="product : ${products}">
                                 <!-- Carousel Item -->
                                 <div class="product">
                                     <div class="product-image">
-                                        <span class="product-tag-1">Ngưng order</span>
-                                        <img src="../public/resources/img/products/1.jpg" th:src="@{~/resources/img/products/1.jpg}" alt="Product 1">
-                                        <a href="#" th:href="@{~/products/detail}" class="product-hover"><i class="icons icon-eye-1"></i> Xem nhanh</a>
+                                        <span class="product-tag-1" th:class="${product.allowOrder ? 'product-tag-2' : 'product-tag-1'}" th:text="${product.allowOrder ? 'Nhận order' : 'Ngưng order'}">Ngưng order</span>
+                                        <a href="#" th:href="@{~/products/detail(id=${product.id})}"><img src="../public/resources/img/products/1.jpg" th:src="${product.pictureUrl == null ? '/resources/img/noimage.png' : product.pictureUrl}"></a>
                                     </div>
                                     <div class="product-info">
-                                        <h5><a href="#" th:href="@{~/products/detail}">Sản phẩm</a></h5>
-                                        <span class="price">25.000VND</span>
-                                        <div class="rating readonly-rating" data-score="4"></div>
+                                        <h5><a href="#" th:text="${product.name}" th:href="@{~/products/detail(id=${product.id})}">Sản phẩm</a></h5>
+                                        <span class="price" th:text="${#numbers.formatDecimal(product.currentPrice, 0, 0) + ' VNĐ'}">25.000VND</span>
+                                        <!--<div class="rating readonly-rating" data-score="4" th:attr="data-score=${product.averageRating}"></div>-->
                                     </div>
                                     <div class="product-actions">
-                                        <span class="add-to-cart">
+                                        <span class="add-to-cart" th:attr="data-product-id=${product.id}">
                                             <span class="action-wrapper">
                                                 <i class="icons icon-basket-2"></i>
                                                 <span class="action-name">Đặt hàng</span>
                                         </span>
                                         </span>
-                                        <span class="add-to-favorites">
+                                        <span class="add-to-favorites" th:attr="data-product-id=${product.id}">
                                             <span class="action-wrapper">
                                                 <i class="icons icon-heart-empty"></i>
                                                 <span class="action-name">Yêu thích</span>
                                         </span>
                                         </span>
-                                        <span class="add-to-compare">
+                                        <span class="view-detail" th:attr="data-product-id=${product.id}">
                                             <span class="action-wrapper">
                                                 <i class="icons icon-info-outline"></i>
                                                 <span class="action-name">Chi tiết</span>
@@ -256,6 +255,7 @@
                                 <!-- /Carousel Item -->
                             </div>
                             <!-- /Slide -->
+                            <!--/*-->
                             <!-- Slide -->
                             <div>
                                 <!-- Carousel Item -->
@@ -283,7 +283,7 @@
                                                     <span class="action-name">Yêu thích</span>
                                         </span>
                                         </span>
-                                        <span class="add-to-compare">
+                                        <span class="view-detail">
                                                 <span class="action-wrapper">
                                                     <i class="icons icon-info-outline"></i>
                                                     <span class="action-name">Chi tiết</span>
@@ -321,7 +321,7 @@
                                                         <span class="action-name">Yêu thích</span>
                                         </span>
                                         </span>
-                                        <span class="add-to-compare">
+                                        <span class="view-detail">
                                                     <span class="action-wrapper">
                                                         <i class="icons icon-info-outline"></i>
                                                         <span class="action-name">Chi tiết</span>
@@ -332,6 +332,7 @@
                                 <!-- /Carousel Item -->
                             </div>
                             <!-- /Slide -->
+                            <!--*/--> 
                         </div>
                     </div>
                     <!-- /Carousel -->
@@ -380,26 +381,27 @@
                 </div>
                 <!-- /Banner sidebar -->
                 <!-- Best-sellers -->
-                <div class="row sidebar-box red" th:fragment="productListBox">
+                <div class="row sidebar-box red" th:fragment="productListBox(title, products)">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="sidebar-box-heading">
                             <i class="icons icon-award"></i>
-                            <h4>Bán chạy nhất</h4>
+                            <h4 th:text="${title}">Bán chạy nhất</h4>
                         </div>
                         <div class="sidebar-box-content">
                             <table class="bestsellers-table">
-                                <tr>
+                                <tr th:each="product : ${products}">
                                     <td class="product-thumbnail">
-                                        <a href="#" th:href="@{~/products/detail}">
-                                                    <img src="../public/resources/img/products/1.jpg" th:src="@{~/resources/img/products/1.jpg}" alt="Product 1">
-                                                </a>
+                                        <a href="#" th:href="@{~/products/detail(id=${product.id})}">
+                                            <img src="../public/resources/img/products/1.jpg" th:src="${product.pictureUrl == null ? '/resources/img/noimage.png' : product.pictureUrl}" th:alt="${product.name}">
+                                        </a>
                                     </td>
                                     <td class="product-info">
-                                        <p><a href="#" th:href="@{~/products/detail}">Sản phẩm</a></p>
-                                        <div class="rating readonly-rating" data-score="4"></div>
-                                        <span class="price">25.000VND</span>
+                                        <p><a href="#" th:href="@{~/products/detail(id=${product.id})}" th:text="${product.name}">Sản phẩm</a></p>
+                                        <!--<div class="rating readonly-rating" data-score="4" th:attr="data-score=${product.averageRating}"></div>-->
+                                        <span class="price" th:text="${#numbers.formatDecimal(product.currentPrice, 0, 0) + ' VNĐ'}">25.000VND</span>
                                     </td>
                                 </tr>
+                                <!--/*-->
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#" th:href="@{~/products/detail}">
@@ -424,6 +426,7 @@
                                         <span class="price">25.000VND</span>
                                     </td>
                                 </tr>
+                                <!--*/--> 
                             </table>
                         </div>
                     </div>
@@ -476,9 +479,7 @@
                         <!-- Information -->
                         <div class="col-lg-5 col-md-5 col-sm-5">
                             <h4>Về chúng tôi</h4>
-                            <p>
-                                
-                            </p>
+                            <p>FU Market là sản phẩm được nhóm XVideos tạo ra nhằm mục đích cải thiện và thay thế trang FU Hòa Lạc trên Facebook. Cụ thể là tăng tốc độ load, dễ sử dụng và thân thiện với người dùng. Giao diện trực quan, dễ dàng tìm kiếm sản phẩm giống như các trang lazada.com , tiki.vn, ...</p>
                         </div>
                         <!-- /Information -->
                         <!-- Like us on Facebook -->

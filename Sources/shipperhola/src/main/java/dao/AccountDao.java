@@ -11,6 +11,7 @@ import model.Account;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -73,7 +74,7 @@ public class AccountDao extends BaseDao {
         params.put("facebookUrl", account.getFacebookUrl());
         params.put("role", account.getRole());
 
-        Number id = simpleJdbcInsert.withTableName("Account").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("Account").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             account.setId(id.intValue());
             return true;

@@ -4,11 +4,12 @@
 package filter;
 
 import static app.Application.*;
+import controller.ProductController;
 import static spark.Spark.*;
 import java.util.List;
-import model.CartItem;
 import model.Account;
 import model.Category;
+import model.Product;
 import model.SearchKeyword;
 import spark.Filter;
 import util.LoginUtil;
@@ -24,9 +25,11 @@ public class PrepareDataFilters {
         Account currentLoginAccount = accountId == null ? null : getAccountDao().getById(accountId);
         List<Category> categories = getCategoryDao().getAll();
         List<SearchKeyword> topSearchKeywords = getSearchKeywordDao().getTopKeywords(10);
+        // List<Product> bestSellerProducts = ProductController.search(null, null, null, null, null, null, false, "orderQuantityTotal", false, null, 3);
         request.attribute("currentLoginAccount", currentLoginAccount);
         request.attribute("categories", categories);
         request.attribute("topSearchKeywords", topSearchKeywords);
+        // request.attribute("bestSellerProducts", bestSellerProducts);
     };
 
     public static void setupFilters() {

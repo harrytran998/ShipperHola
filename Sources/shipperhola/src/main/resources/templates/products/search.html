@@ -5,106 +5,115 @@ Copyright © 2017 XVideos Team
 <html>
 
 <head>
-    <title>Search</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm sản phẩm</title>
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../public/resources/css/bootstrap.min.css" th:href="@{~/resources/css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <h1>Search</h1>
-    <h2>Search form</h2>
-    <form action="#" th:action="@{~/products/search}" method="GET">
-        <table>
-            <tr>
-                <td>Keyword</td>
-                <td><input type="text" name="keyword" th:value="${keyword}"></td>
-            </tr>
-            <tr>
-                <td>Min price</td>
-                <td><input type="number" name="minPrice" th:value="${minPrice}"></td>
-            </tr>
-            <tr>
-                <td>Max price</td>
-                <td><input type="number" name="maxPrice" th:value="${maxPrice}"></td>
-            </tr>
-            <tr>
-                <td>Min date</td>
-                <td><input type="date" name="minDate" th:value="${minDate}"></td>
-            </tr>
-            <tr>
-                <td>Max date</td>
-                <td><input type="date" name="maxDate" th:value="${maxDate}"></td>
-            </tr>
-            <tr>
-                <td>Category</td>
-                <td>
-                    <select name="categoryId">
-                        <option th:value="null" th:selected="${categoryId == null}">Tất cả</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == categoryId}">Food</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="checkbox" name="onlyAllowOrder" value="true" th:checked="${onlyAllowOrder}">Chỉ các sản phẩm đang nhận order.</td>
-            </tr>
-            <tr>
-                <td>Xếp theo</td>
-                <td>
-                    <select name="orderBy">
-                        <option value="date_DESC" th:selected="${orderBy == 'date_DESC'}">Ngày đăng (mới đến cũ)</option>
-                        <option value="date_ASC" th:selected="${orderBy == 'date_ASC'}">Ngày đăng (cũ đến mới)</option>
-                        <option value="currentPrice_ASC" th:selected="${orderBy == 'currentPrice_ASC'}">Giá (tăng dần)</option>
-                        <option value="currentPrice_DESC" th:selected="${orderBy == 'currentPrice_DESC'}">Giá (giảm dần)</option>
-                        <option value="averageRating_ASC" th:selected="${orderBy == 'averageRating_ASC'}">Đánh giá (tăng dần)</option>
-                        <option value="averageRating_DESC" th:selected="${orderBy == 'averageRating_DESC'}">Đánh giá (giảm dần)</option>
-                        <option value="orderQuantityToday_ASC" th:selected="${orderBy == 'orderQuantityToday_ASC'}">Số lượng đặt hàng trong ngày (tăng dần)</option>
-                        <option value="orderQuantityToday_DESC" th:selected="${orderBy == 'orderQuantityToday_DESC'}">Số lượng đặt hàng trong ngày (giảm dần)</option>
-                        <option value="name_ASC" th:selected="${orderBy == 'name_ASC'}">Tên (ABC)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Bỏ qua</td>
-                <td><input type="number" name="offsetRecords" th:value="${offsetRecords}">&nbsp;kết quả</td>
-            </tr>
-            <tr>
-                <td>Hiển thị</td>
-                <td><input type="number" name="fetchRecords" th:value="${fetchRecords}">&nbsp;kết quả</td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Search"></td>
-            </tr>
-        </table>
-    </form>
-    <h2>Result</h2>
-    <p th:if="${products.size() == 0}">No product match your search.</p>
-    <table th:if="${products.size() > 0}">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Current price</th>
-            <th>Allow order</th>
-            <th>Category ID</th>
-            <th>Seller ID</th>
-            <th>Average rating</th>
-            <th>Order quantity today</th>
-            <th>Action</th>
-        </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.date}"></td>
-            <td th:text="${product.currentPrice}"></td>
-            <td th:text="${product.allowOrder}"></td>
-            <td th:text="${product.category.id}"></td>
-            <td th:text="${product.seller.id}"></td>
-            <td th:text="${product.averageRating}"></td>
-            <td th:text="${product.orderQuantityToday}"></td>
-            <td><a href="#" th:href="@{~/products/detail(id=${product.id})}">Detail</a></td>
-        </tr>
-    </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <h2>Tìm kiếm sản phẩm</h2>
+                <form class="form-inline" action="#" th:action="@{~/products/search}" method="GET">
+                    <table class="table table-condensed">
+                        <tr>
+                            <td>Từ khóa tìm kiếm</td>
+                            <td><input type="text" class="form-control" name="keyword" th:value="${keyword}"></td>
+                        </tr>
+                        <tr>
+                            <td>Giá thấp nhất</td>
+                            <td><input type="number" class="form-control" name="minPrice" th:value="${minPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td>Giá cao nhất</td>
+                            <td><input type="number" class="form-control" name="maxPrice" th:value="${maxPrice}"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày thấp nhất</td>
+                            <td><input type="date" class="form-control" name="minDate" th:value="${minDate}"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày cao nhất</td>
+                            <td><input type="date" class="form-control" name="maxDate" th:value="${maxDate}"></td>
+                        </tr>
+                        <tr>
+                            <td>Thể loại sản phẩm</td>
+                            <td>
+                                <select name="categoryId" class="form-control">
+                                    <option th:value="null" th:selected="${categoryId == null}">Tất cả</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == categoryId}">Food</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="checkbox" class="checkbox-inline" name="onlyAllowOrder" value="true" th:checked="${onlyAllowOrder}"><span>&nbsp;Chỉ
+                                    lọc các sản phẩm đang nhận order.</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sắp xếp theo</td>
+                            <td>
+                                <select name="orderBy" class="form-control">
+                                            <option value="date_DESC" th:selected="${orderBy == 'date_DESC'}">Ngày đăng (mới đến cũ)</option>
+                                            <option value="date_ASC" th:selected="${orderBy == 'date_ASC'}">Ngày đăng (cũ đến mới)</option>
+                                            <option value="currentPrice_ASC" th:selected="${orderBy == 'currentPrice_ASC'}">Giá (tăng dần)</option>
+                                            <option value="currentPrice_DESC" th:selected="${orderBy == 'currentPrice_DESC'}">Giá (giảm dần)</option>
+                                            <option value="name_ASC" th:selected="${orderBy == 'name_ASC'}">Tên (ABC)</option>
+                                        </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bỏ qua</td>
+                            <td><input type="number" class="form-control" name="offsetRecords" th:value="${offsetRecords}">&nbsp;kết quả</td>
+                        </tr>
+                        <tr>
+                            <td>Hiển thị</td>
+                            <td><input type="number" class="form-control" name="fetchRecords" th:value="${fetchRecords}">&nbsp;kết quả</td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" class="btn btn-primary" value="Tìm kiếm"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                <h2>Kết quả</h2>
+                <p th:if="${products.size() == 0}">Không có sản phẩm nào thỏa mãn.</p>
+                <table class="table talbe-bordered table-responsive" th:if="${products.size() > 0}">
+                    <tr>
+                        <th></th>
+                        <th>Tên sản phẩm</th>
+                        <th>Ngày đăng</th>
+                        <th>Giá</th>
+                        <th>Cho đặt hàng</th>
+                        <th>Hành động</th>
+                    </tr>
+                    <tr th:each="product : ${products}">
+                        <td><img src="../public/resources/img/products/1.jpg" th:src="${product.pictureUrl == null ? '/resources/img/noimage.png' : product.pictureUrl}"
+                                width="72px" height="72px"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${#dates.format(product.date, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.currentPrice, 0, 0) + ' VNĐ'}"></td>
+                        <td th:text="${product.allowOrder ? 'Có' : 'Không'}"></td>
+                        <td><a href="#" th:href="@{~/products/detail(id=${product.id})}">Chi tiết</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-1">
+                <a href="#" th:href="@{~/}" class="btn btn-success">Quay về trang chủ</a>
+            </div>
+        </div>
+        <br/>
+    </div>
 </body>
 
 </html>

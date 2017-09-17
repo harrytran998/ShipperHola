@@ -35,30 +35,17 @@ INSERT INTO [ShippingAddress](address) VALUES
 (N'Dom F')
 GO
 -- Product --
-INSERT INTO [Product](date, name, description, currentPrice, allowOrder, categoryId, sellerId) VALUES
-('2017-09-15 11:00:00', N'Cơm suất', N'Cực ngon.', 25000, 0, 1, 1),
-('2017-09-15 19:30:00', N'Trà sữa socola', N'Best.', 15000, 0, 3, 1),
-('2017-09-15 20:00:00', N'Sinh tố bơ', N'Làm từ bơ chất lượng.', 20000, 0, 3, 1),
-('2017-09-16 11:20:00', N'Cơm rang thập cẩm', N'Tuyệt vời.', 25000, 0, 1, 1),
-('2017-09-16 15:30:00', N'Bánh su kem', N'Order nhanh kẻo hết.', 18000, 1, 2, 1),
-('2017-09-16 19:20:00', N'Bánh Akiko', N'Số lượng có hạn.', 16000, 1, 2, 1),
-('2017-09-16 20:00:00', N'Lót chuột Razer', N'Lướt êm ru.', 90000, 1, 4, 1),
-('2017-09-17 10:30:00', N'Bún chả', N'Nhiều thịt, nhiều bún.', 25000, 1, 1, 1),
-('2017-09-17 18:45:00', N'Nước ngọt Mountain Dew', N'Ship kèm đá.', 12000, 1, 3, 1),
-('2017-09-17 20:10:00', N'Thuốc lá Vina', N'Phê.', 20000, 1, 4, 1)
--- ProductPicture --
-INSERT INTO [ProductPicture](fileName, productId) VALUES
-('/resources/img/products/1.jpg',1),
-('/resources/img/products/2.jpg',2),
-('/resources/img/products/3.jpg',3),
-('/resources/img/products/4.jpg',1),
-('/resources/img/products/5.jpg',5),
-('/resources/img/products/6.jpg',6),
-('/resources/img/products/7.jpg',7),
-('/resources/img/products/8.jpg',8),
-('/resources/img/products/9.jpg',9),
-('/resources/img/products/10.jpg',10)
-GO
+INSERT INTO [Product](date, name, description, currentPrice, allowOrder, categoryId, sellerId, pictureUrl) VALUES
+('2017-09-15 11:00:00', N'Cơm suất', N'Cực ngon.', 25000, 0, 1, 1, '/resources/img/products/1.jpg'),
+('2017-09-15 19:30:00', N'Trà sữa socola', N'Best.', 15000, 0, 3, 1, '/resources/img/products/2.jpg'),
+('2017-09-15 20:00:00', N'Sinh tố bơ', N'Làm từ bơ chất lượng.', 20000, 0, 3, 1, '/resources/img/products/3.jpg'),
+('2017-09-16 11:20:00', N'Cơm rang thập cẩm', N'Tuyệt vời.', 25000, 0, 1, 1, '/resources/img/products/4.jpg'),
+('2017-09-16 15:30:00', N'Bánh su kem', N'Order nhanh kẻo hết.', 18000, 1, 2, 1, '/resources/img/products/5.jpg'),
+('2017-09-16 19:20:00', N'Bánh Akiko', N'Số lượng có hạn.', 16000, 1, 2, 1, '/resources/img/products/6.jpg'),
+('2017-09-16 20:00:00', N'Lót chuột Razer', N'Lướt êm ru.', 90000, 1, 4, 1, '/resources/img/products/7.jpg'),
+('2017-09-17 10:30:00', N'Bún chả', N'Nhiều thịt, nhiều bún.', 25000, 1, 1, 1, '/resources/img/products/8.jpg'),
+('2017-09-17 18:45:00', N'Nước ngọt Mountain Dew', N'Ship kèm đá.', 12000, 1, 3, 1, '/resources/img/products/9.jpg'),
+('2017-09-17 20:10:00', N'Thuốc lá Vina', N'Phê.', 20000, 1, 4, 1, '/resources/img/products/10.jpg')
 -- Order --
 INSERT INTO [Order](date, productId, quantity, price, buyerId, buyerAddress, buyerPhoneNumber, paymentMethod, status) VALUES
 ('2017-09-15 11:10:00', 1, 1, 25000, 2, N'XVideos Team', '0969696969', 'COD', 'FINISHED'),

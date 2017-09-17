@@ -6,6 +6,8 @@ package controller;
 import static app.Application.*;
 import java.sql.Date;
 import model.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.util.StringUtils;
 import spark.Request;
@@ -17,7 +19,8 @@ import static spark.Spark.*;
  * @author PC
  */
 public class RegisterController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
+    
     public static final Route VIEW_REGISTER_PAGE = (request, response) -> {
         return getViewManager().renderForRequest(request, "register");
     };
@@ -28,12 +31,13 @@ public class RegisterController {
         try {
             Account account = extractParamsAndValidate(request);
             if (getAccountDao().isUsernameExist(account.getUsername())) {
-                throw new Exception("Username already exists.");
+                throw new Exception("Tên người dùng đã tồn tại.");
             }
             registerSuccess = getAccountDao().add(account);
-            registerResultMessage = registerSuccess ? "Register successful." : "Could not register account to the database.";
+            registerResultMessage = registerSuccess ? "Đăng kí thành công." : "Không thể thêm tài khoản vào database.";
         } catch (DataAccessException ex) {
-            registerResultMessage = "Could not register account to the database.";
+            LOGGER.error(null, ex);
+            registerResultMessage = "Không thể thêm tài khoản vào database.";
         } catch (Exception ex) {
             registerResultMessage = ex.getMessage();
         }

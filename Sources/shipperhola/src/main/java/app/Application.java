@@ -16,7 +16,6 @@ import dao.OrderDao;
 import dao.OrderMessageDao;
 import dao.ProductCommentDao;
 import dao.ProductDao;
-import dao.ProductPictureDao;
 import dao.ProductReviewDao;
 import dao.SearchKeywordDao;
 import dao.ShippingAddressDao;
@@ -48,7 +47,6 @@ public class Application {
     private static OrderMessageDao orderMessageDao;
     private static ProductDao productDao;
     private static ProductCommentDao productCommentDao;
-    private static ProductPictureDao productPictureDao;
     private static ProductReviewDao productReviewDao;
     private static SearchKeywordDao searchKeywordDao;
     private static ShippingAddressDao shippingAddressDao;
@@ -93,10 +91,6 @@ public class Application {
 
     public static ProductCommentDao getProductCommentDao() {
         return productCommentDao;
-    }
-
-    public static ProductPictureDao getProductPictureDao() {
-        return productPictureDao;
     }
 
     public static ProductReviewDao getProductReviewDao() {
@@ -146,7 +140,6 @@ public class Application {
         orderMessageDao = new OrderMessageDao(dataSource);
         productDao = new ProductDao(dataSource);
         productCommentDao = new ProductCommentDao(dataSource);
-        productPictureDao = new ProductPictureDao(dataSource);
         productReviewDao = new ProductReviewDao(dataSource);
         searchKeywordDao = new SearchKeywordDao(dataSource);
         shippingAddressDao = new ShippingAddressDao(dataSource);
