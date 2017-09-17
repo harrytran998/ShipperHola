@@ -13,10 +13,12 @@ import dao.AccountDao;
 import dao.CartItemDao;
 import dao.CategoryDao;
 import dao.ProductDao;
+import dao.ProductPictureDao;
 import dao.SearchKeywordDao;
 import filter.PrepareDataFilters;
 import java.io.IOException;
 import javax.sql.DataSource;
+import model.ProductPicture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -43,7 +45,7 @@ public class Application {
     private static ProductDao productDao;
     private static CategoryDao categoryDao;
     private static SearchKeywordDao searchKeywordDao;
-    
+    private static ProductPictureDao productPictureDao;
     private static CartItemDao cartItemDao;
 
     // </editor-fold>
@@ -79,6 +81,11 @@ public class Application {
     public static CartItemDao getCartItemDao() {
         return cartItemDao;
     }
+
+    public static ProductPictureDao getProductPictureDao() {
+        return productPictureDao;
+    }
+
     
 
     public static SearchKeywordDao getSearchKeywordDao() {
@@ -122,6 +129,7 @@ public class Application {
         productDao = new ProductDao(dataSource);
         categoryDao = new CategoryDao(dataSource);
         searchKeywordDao = new SearchKeywordDao(dataSource);
+        productPictureDao = new ProductPictureDao(dataSource);
         cartItemDao = new CartItemDao(dataSource);
     }
 
