@@ -3,9 +3,6 @@ $(document).ready(function () {
 	var windowWidth = $(window).width();
 	var windowHeight = $(window).height();
 
-	/* Quick View */
-	quickViewModal($('a.product-hover'));
-
 	/* Functions */
 	dropdownsNavigation(); // DropDowns
 	searchBar(); // Search Bar
@@ -374,6 +371,9 @@ $(document).ready(function () {
 				});
 			}
 		});
+		$('#search-button').click(function() {
+			$('form#searchForm').submit();
+		});
 	}
 
 	/* Back to top button */
@@ -453,142 +453,6 @@ $(document).ready(function () {
 		for (var selector in config) {
 			$(selector).chosen(config[selector]);
 		}
-	}
-
-	/* Wuick View */
-	function quickViewModal(el) {
-		$('body').append('<div id="quick-view-modal"><div id="quick-view-content"><div id="quick-view-close"></div><div class="quick-view-content"><div class="quick-view-container col-lg-12 col-md-12 col-sm-12"></div></div></div></div>');
-		$('#quick-view-modal').hide();
-		$('#quick-view-close').click(function () {
-			$('#quick-view-modal').fadeOut(300);
-		});
-
-		/* Scroll Bar */
-		$('.quick-view-content').perfectScrollbar({
-			wheelSpeed: 40,
-			suppressScrollX: true
-		});
-
-		var elements = el;
-		elements.click(function (e) {
-			e.preventDefault();
-			var target = $(this).attr('href');
-			$('#quick-view-content .quick-view-container').load(target + ' #product-single', function () {
-				/* Rating Box */
-				$('#quick-view-modal .rating.readonly-rating').raty({
-					readOnly: true,
-					path: 'js/img',
-					score: function () {
-						return $(this).attr('data-score');
-					}
-				});
-				$('#quick-view-modal .rating.rate').raty({
-					path: 'js/img',
-					score: function () {
-						return $(this).attr('data-score');
-					}
-				});
-				/* Accordions */
-				var productButtons = $('#quick-view-content .product-actions').not('.full-width');
-				productButtons.find('>span:first-child').addClass('current');
-				productButtons.find('>span').hover(function () {
-					$(this).parent().find('>span').removeClass('current');
-					$(this).addClass('current');
-				}, function () {
-					$(this).removeClass('current');
-				});
-				productButtons.hover(function () {
-				}, function () {
-					$(this).find('>span:first-child').addClass('current');
-				});
-				/* Tabs */
-				tabsOn();
-				/* Numeric Input */
-				$('#quick-view-modal .numeric-input').each(function () {
-					var el = $(this);
-					numericInput(el);
-				});
-
-				/* Char Counter */
-				$('#quick-view-modal .char-counter').each(function () {
-					var el = $(this);
-					charCounter(el);
-				});
-
-				var po = document.createElement('script');
-				po.type = 'text/javascript';
-				po.async = true;
-				po.src = 'https://apis.google.com/js/platform.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(po, s);
-
-				/* Product Carousel */
-				$('#quick-view-modal #product-carousel').flexslider({
-					animation: "slide",
-					controlNav: false,
-					animationLoop: false,
-					directionNav: false,
-					slideshow: false,
-					itemWidth: 80,
-					itemMargin: 0,
-					start: function (slider) {
-						setActive($('#product-carousel li:first-child img'));
-						slider.find('.right-arrow').click(function () {
-							slider.flexAnimate(slider.getTarget("next"));
-						});
-						slider.find('.left-arrow').click(function () {
-							slider.flexAnimate(slider.getTarget("prev"));
-						});
-						slider.find('img').click(function () {
-							var large = $(this).attr('data-large');
-							setActive($(this));
-							$('#product-slider img').fadeOut(300, changeImg(large, $('#product-slider img')));
-						});
-						function changeImg(large, element) {
-							var element = element;
-							var large = large;
-							setTimeout(function () {
-								startF()
-							}, 300);
-							function startF() {
-								element.attr('src', large)
-								element.attr('data-large', large)
-								element.fadeIn(300);
-							}
-						}
-						function setActive(el) {
-							var element = el;
-							$('#product-carousel img').removeClass('active-item');
-							element.addClass('active-item');
-						}
-					}
-				});
-				$('#quick-view-modal').fadeIn(300);
-				/* Positioning */
-				var q_width = $('#quick-view-content').width();
-				var q_height = $('#quick-view-content').height();
-				var q_margin = ($(window).height() - q_height) / 2;
-				$('#quick-view-content').css('margin-top', q_margin + 'px');
-				/* Cloud Zoom */
-				$("#quick-view-modal .cloud-zoom").imagezoomsl({
-					zoomrange: [3, 3]
-				});
-				$('.quick-view-content').perfectScrollbar('update');
-				$('.quick-view-content').css('overflow', 'hidden');
-				$('.quick-view-content').click(function () {
-					$(this).perfectScrollbar('update');
-				});
-				/* Select Box */
-				var config = {
-					'#quick-view-content .chosen-select': {
-						disable_search_threshold: 10
-					}
-				}
-				for (var selector in config) {
-					$(selector).chosen(config[selector]);
-				}
-			});
-		});
 	}
 	/* AJAX FORMS */
 
@@ -714,5 +578,35 @@ $(document).ready(function () {
 		}).fail(function(data, textStatus, jqXHR) {
 			$('p#login-form-error-message').html(data.responseText);
 		});
+	});
+	
+	/* Product actions */
+	$('span.add-to-cart').click(function() {
+		var productId = $(this).attr('data-product-id');
+		$.post('/cart/add', { productId : productId }, function() {
+			window.location.replace('/cart');
+		});
+	});
+
+	$('span.add-to-favorites').click(function() {
+		var productId = $(this).attr('data-product-id');
+		$.post('/wishlist/add', { productId : productId }, function() {
+			window.location.replace('/wishlist');
+		});
+	});
+
+	$('span.view-detail').click(function() {
+		var productId = $(this).attr('data-product-id');
+		window.location.replace('/products/detail?id=' + productId);
+	});
+
+	$('form#registerForm').submit(function(event) {
+		var password = $(this).find('input[name="password"]').val();
+		var passwordConfirm = $(this).find('input[name="passwordConfirm"]').val();
+		var messageElement = $(this).find('p#registerFormMessage');
+		if (password !== passwordConfirm) {
+			event.preventDefault();
+			messageElement.removeClass('text-success').addClass('text-danger').html('Mật khẩu nhập lại không trùng khớp.');
+		}
 	});
 });

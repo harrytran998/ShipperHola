@@ -3,6 +3,8 @@
  */
 package dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,8 @@ public class ProductDao extends BaseDao {
             rs.getDouble("currentPrice"),
             rs.getBoolean("allowOrder"),
             new Category(rs.getInt("categoryId")),
-            new Account(rs.getInt("sellerId"))
+            new Account(rs.getInt("sellerId")),
+            rs.getString("pictureUrl")
     );
 
     public ProductDao(DataSource dataSource) {
@@ -46,7 +49,7 @@ public class ProductDao extends BaseDao {
             return null;
         }
     }
-    
+
     public List<Product> getBySeller(int sellerId) throws DataAccessException {
         return jdbcTemplate.query("SELECT * FROM Product WHERE sellerId = ?", new Object[]{sellerId}, MAPPER);
     }
@@ -60,6 +63,7 @@ public class ProductDao extends BaseDao {
         params.put("allowOrder", product.isAllowOrder());
         params.put("categoryId", product.getCategory().getId());
         params.put("sellerId", product.getSeller().getId());
+        params.put("pictureUrl", product.getPictureUrl());
         Number id = simpleJdbcInsert.withTableName("Product").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             product.setId(id.intValue());
@@ -70,10 +74,59 @@ public class ProductDao extends BaseDao {
     }
 
     public boolean update(Product product) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE Product SET date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller().getId(), product.getId()) > 0;
+        return jdbcTemplate.update("UPDATE Product SET date = ?, name = ?, description = ?, currentPrice = ?, allowOrder = ?, categoryId = ?, sellerId = ?, pictureUrl = ? WHERE id = ?", product.getDate(), product.getName(), product.getDescription(), product.getCurrentPrice(), product.isAllowOrder(), product.getCategory().getId(), product.getSeller().getId(), product.getPictureUrl(), product.getId()) > 0;
     }
 
     public boolean delete(int id) throws DataAccessException {
         return jdbcTemplate.update("DELETE FROM Product WHERE id = ?", id) > 0;
+    }
+
+    public List<Product> search(String keyword, Double minPrice, Double maxPrice, Date minDate, Date maxDate, Integer categoryId, boolean onlyAllowOrder, String orderColumn, boolean ascending, Integer offsetRecords, Integer fetchRecords) throws DataAccessException {
+        String sql = "SELECT * FROM Product WHERE 1 = 1";
+        List args = new ArrayList();
+        if (keyword != null) {
+            sql += " AND LOWER(name) LIKE '%' + ? + '%'";
+            args.add(keyword.toLowerCase());
+        }
+        if (minPrice != null) {
+            sql += " AND currentPrice >= ?";
+            args.add(minPrice);
+        }
+        if (maxPrice != null) {
+            sql += " AND currentPrice <= ?";
+            args.add(maxPrice);
+        }
+        if (minDate != null) {
+            sql += " AND date >= ?";
+            args.add(minDate);
+        }
+        if (maxDate != null) {
+            sql += " AND date <= ?";
+            args.add(maxDate);
+        }
+        if (categoryId != null) {
+            sql += " AND categoryId = ?";
+            args.add(categoryId);
+        }
+        if (onlyAllowOrder) {
+            sql += " AND allowOrder = 1";
+        }
+        if (orderColumn != null) {
+            sql += String.format(" ORDER BY %s %s", orderColumn, ascending ? "ASC" : "DESC");
+        }
+        if (fetchRecords != null) {
+            if (offsetRecords == null) {
+                offsetRecords = 0;
+            }
+        }
+        if (offsetRecords != null) {
+            sql += " OFFSET ? ROWS";
+            args.add(offsetRecords);
+        }
+        if (fetchRecords != null) {
+            sql += " FETCH NEXT ? ROWS ONLY";
+            args.add(fetchRecords);
+        }
+        return jdbcTemplate.query(sql, args.toArray(), MAPPER);
     }
 }

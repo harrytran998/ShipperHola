@@ -1,84 +1,156 @@
 <!DOCTYPE html>
-<!--
-Copyright © 2017 XVideos Team
--->
 <html>
-    <head>
-        <title>Register</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            .success {
-                color: green;
-            }
-            .failed {
-                color: red;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Register</h1>
-        <form action="" method="POST">
-            <table>
-                <tr>
-                    <td>Username</td>
-                    <td>
-                        <input type="text" name="username" maxlength="30" required th:value="${username}">
-                    </td>
-                </tr> 
-                <tr>
-                    <td>Password</td>
-                    <td>
-                        <input type="password" name="password" maxlength="30" required th:value="${password}">
-                    </td>
-                </tr> 
-                <tr>
-                    <td>Full Name</td>
-                    <td>
-                        <input type="text" name="fullName" maxlength="50" required th:value="${fullName}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gender</td>
-                    <td>
-                        <input type="radio" name="gender" value="true" th:checked="${gender}">male
-                        <input type="radio" name="gender" value="false" th:checked="${!gender}"> female
-                    </td>
-                </tr> 
-                <tr>
-                    <td>Date Of Birth</td>
-                    <td><input type="date" name="dateOfBirth" th:value="${dateOfBirth}"> </td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>
-                        <input type="text" name="email" maxlength="255" th:value="${email}">
-                    </td>
-                </tr> 
-                <tr>
-                    <td>Phone Number</td>
-                    <td>
-                        <input type="text" name="phoneNumber" maxlength="20" th:value="${phoneNumber}">
-                    </td>
-                </tr> 
-                <tr>
-                    <td>Address</td>
-                    <td>
-                        <textarea name="address" rows="3" cols="80" th:text="${address}">
-                        </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Facebook URL</td>
-                    <td>
-                        <input type="url" name="facebookUrl" th:value="${facebookUrl}">
-                    </td>
-                </tr>
-            </table>
-            <p th:class="${registerSuccess ? 'success' : 'failed'}" th:text="${registerResultMessage}"></p>
-            <input type="submit" value="Register">
-            <input type="reset" value="Clear">
-        </form>
 
-    </body>
+<head th:include="template :: commonHead('Đăng kí')">
+</head>
+
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div th:replace="template :: topHeader(${currentLoginAccount})"></div>
+                <div th:replace="template :: mainHeader"></div>
+                <div th:replace="template :: mainNavigation(${topSearchKeywords})"></div>
+            </div>
+        </header>
+        <!-- /Header -->
+        <!-- Contents -->
+        <div class="row content">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="breadcrumbs">
+                    <p><a href="#" th:href="@{~/}">Trang chủ</a><i class="icons icon-right-dir"></i> Đăng ký tài khoản</p>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <section class="main-content col-lg-9 col-md-9 col-sm-9">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 register-account">
+                        <div class="carousel-heading no-margin">
+                            <h4>Đăng kí</h4>
+                        </div>
+                        <div class="page-content">
+                            <form id="registerForm" action="#" th:action="@{~/register}" method="POST">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 col-sm-4">
+                                        <p>Tên người dùng *</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="text" name="username" maxlength="30" th:value="${username}" required pattern="^[A-Za-z0-9]{1,30}$" title="Tên người dùng chỉ được chứa chữ cái và chữ số.">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Mật khẩu *</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="password" name="password" maxlength="30" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Nhập lại mật khẩu *</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="password" name="passwordConfirm" maxlength="30" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Họ và tên *</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="text" name="fullName" maxlength="50" required th:value="${fullName}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Giới tính *</p>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-4">
+                                        <select name="gender" required>
+                                            <option value="true" th:selected="${gender == null ? true : gender}">Nam</option>
+                                            <option value="false" th:selected="${gender == null ? false : !gender}">Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Ngày sinh *</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="date" name="dateOfBirth" th:value="${dateOfBirth}" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Email</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="email" name="email" maxlength="255" th:value="${email}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Số điện thoại</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="text" name="phoneNumber" maxlength="12" pattern="^\d{10,12}$" title="Số điện thoại chỉ được chứa chữ số và có độ dài từ 10 đến 12 kí tự." th:value="${phoneNumber}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Địa chỉ</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <textarea name="address" th:text="${address}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4">
+                                        <p>Facebook URL</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-8">
+                                        <input type="url" name="facebookUrl" th:value="${facebookUrl}"
+                                        pattern="^(?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:.+\/)*([\w\.\-]+)$"
+                                        title="URL không phải là một URL Facebook.">
+                                    </div>
+                                </div>
+                                <p id="registerFormMessage" th:class="${registerSuccess ? 'text-success' : 'text-danger'}" th:text="${registerResultMessage}">Thông báo lỗi.</p>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <input class="big orange" type="submit" value="Đăng kí">
+                                        <input class="big" type="reset" value="Xóa">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /Main Content -->
+            <!-- Sidebar -->
+            <aside class="sidebar col-lg-3 col-md-3 col-sm-3">
+                <!-- Category -->
+                <div th:replace="template :: categoryBox(${categories})"></div>
+                <!-- /Category -->
+                <!-- Search keywords -->
+                <div th:replace="template :: searchKeywordsBox(${topSearchKeywords})"></div>
+                <!-- /Search keywords -->
+            </aside>
+            <!-- /Sidebar -->
+        </div>
+        <!-- /Content -->
+        <!-- Footer -->
+        <footer th:replace="template :: footer" />
+        <!-- Footer -->
+        <div th:replace="template :: backToTopButton" />
+    </div>
+    <!-- Container -->
+    <div th:include="template :: commonScripts">
+    </div>
+</body>
+
 </html>

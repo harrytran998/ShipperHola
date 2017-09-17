@@ -2534,6 +2534,13 @@ span.action-wrapper{
 	white-space:nowrap;
 }
 
+span.product-tag-1{
+	background: #ff0000;
+}
+span.product-tag-2{
+	background: #22f32c;
+}
+
 span.add-to-cart{
 	background:#f5791f;
 }
@@ -2554,11 +2561,11 @@ span.add-to-favorites:hover{
 	background:#c0392b;	
 }
 
-span.add-to-compare{
+span.view-detail{
 	background:#3498db;
 }
 
-span.add-to-compare:hover{
+span.view-detail:hover{
 	background:#2980b9;	
 }
 
@@ -3118,7 +3125,13 @@ a .banner-item{
 	font-size:14px;	
 }
 
-.page-content input[type="text"], .page-content select{
+.page-content input[type="text"],input[type="date"],input[type="email"],input[type="url"] {
+	width:100%;
+	background:#f7f7f7;
+	font-size:14px;
+}
+
+.page-content select {
 	width:100%;
 	background:#f7f7f7;
 	font-size:14px;
@@ -4387,7 +4400,7 @@ table.coupon-table td.fit-cell{
     color:#7a8188;
 }
 
-input[type="text"], input[type="password"], select{
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="url"], select{
 	padding:5px 10px;
 	border:1px solid #e6e6e6;
 	height:40px;
@@ -5116,4 +5129,3 @@ input[type="checkbox"]:checked + label:before{
   #main-navigation>ul { display: none }
   
 }
-

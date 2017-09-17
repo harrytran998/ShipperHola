@@ -24,7 +24,7 @@
                 <div th:replace="template :: topBanner"></div>
                 <!-- /Top banner -->
                 <!-- Featured Products -->
-                <div th:replace="template :: productSlider"></div>
+                <div th:replace="template :: productSlider('Mới nhất', ${latestProducts})"></div>
                 <!-- /Featured Products -->
             </section>
             <!-- /Main Content -->
@@ -33,9 +33,6 @@
                 <!-- Category -->
                 <div th:replace="template :: categoryBox(${categories})"></div>
                 <!-- /Category -->
-                <!-- Best-sellers -->
-                <div th:replace="template :: productListBox"></div>
-                <!-- /Best-sellers -->
                 <!-- Search keywords -->
                 <div th:replace="template :: searchKeywordsBox(${topSearchKeywords})"></div>
                 <!-- /Search keywords -->

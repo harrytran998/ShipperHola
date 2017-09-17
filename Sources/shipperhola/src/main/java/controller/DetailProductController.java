@@ -3,11 +3,7 @@
  */
 package controller;
 
-import static spark.Spark.*;
 import static app.Application.*;
-import java.util.List;
-import model.Product;
-import model.ProductPicture;
 import spark.Request;
 import spark.Route;
 import spark.utils.StringUtils;
@@ -15,18 +11,7 @@ import spark.utils.StringUtils;
 public class DetailProductController {
 
     public static final Route VIEW_DETAIL_PRODUCT_PAGE = (request, response) -> {
-        try {
-            extractParamsAndValidate(request);
-            List<ProductPicture> productPictures = getProductPictureDao().getByProduct(request.<Integer>attribute("pictureProductId"));
-
-            request.attribute("productPictures", productPictures);
-
-            return getViewManager().renderForRequest(request, "products/detail");
-
-        } catch (Exception e) {
-            response.status(400);
-            return e.getMessage();
-        }
+        return getViewManager().renderForRequest(request, "products/detail");
     };
 
     private static void extractParamsAndValidate(Request request) {

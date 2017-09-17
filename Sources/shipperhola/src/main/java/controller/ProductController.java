@@ -8,18 +8,9 @@ import filter.PrepareDataFilters;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import model.Order;
 import model.Product;
-import model.ProductComment;
-import model.ProductPicture;
-import model.ProductReview;
-import model.ShippingAddress;
-import org.apache.commons.lang3.time.DateUtils;
+import model.SearchKeyword;
 import spark.Request;
 import spark.Route;
 import static spark.Spark.*;
@@ -34,7 +25,18 @@ public class ProductController {
     public static final Route VIEW_SEARCH_PAGE = (request, response) -> {
         try {
             extractParamsAndValidate(request);
-            List<Product> products = search(
+            String keyword = request.<String>attribute("keyword");
+            if (!StringUtils.isEmpty(keyword)) {
+                if (!keyword.matches("\\s+")) {
+                    SearchKeyword searchKeyword = getSearchKeywordDao().getByKeyword(keyword);
+                    if (searchKeyword == null) {
+                        getSearchKeywordDao().add(new SearchKeyword(keyword, 1));
+                    } else {
+                        getSearchKeywordDao().increaseCount(keyword);
+                    }
+                }
+            }
+            List<Product> products = getProductDao().search(
                     request.<String>attribute("keyword"),
                     request.<Double>attribute("minPrice"),
                     request.<Double>attribute("maxPrice"),
@@ -101,6 +103,14 @@ public class ProductController {
         request.attribute("fetchRecords", fetchRecords);
     }
 
+    public static void setupRoutes() {
+        path("/products", () -> {
+            before(PrepareDataFilters.EMBED_COMMON_DATA_INTO_REQUEST);
+            get("/search", VIEW_SEARCH_PAGE);
+        });
+    }
+
+    /*
     private static void fetchForeignProperties(Product product) {
         List<Order> orders = getOrderDao().getByProduct(product.getId());
         List<ProductComment> comments = getProductCommentDao().getByProduct(product.getId());
@@ -175,12 +185,5 @@ public class ProductController {
         }
         return productStream.collect(Collectors.toList());
     }
-
-    public static void setupRoutes() {
-        path("/products", () -> {
-            before(PrepareDataFilters.EMBED_COMMON_DATA_INTO_REQUEST);
-            get("/search", VIEW_SEARCH_PAGE);
-        });
-    }
-
+     */
 }

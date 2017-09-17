@@ -87,7 +87,7 @@
                 <version>1.2.0</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
-                    <appName>shipperhola</appName> 
+                    <appName>fumarket</appName> 
                     <processTypes>
                         <web>java -jar ./target/shipperhola.jar</web>
                     </processTypes>

@@ -28,12 +28,12 @@ public class RegisterController {
         try {
             Account account = extractParamsAndValidate(request);
             if (getAccountDao().isUsernameExist(account.getUsername())) {
-                throw new Exception("Username already exists.");
+                throw new Exception("Tên người dùng đã tồn tại.");
             }
             registerSuccess = getAccountDao().add(account);
-            registerResultMessage = registerSuccess ? "Register successful." : "Could not register account to the database.";
+            registerResultMessage = registerSuccess ? "Đăng kí thành công." : "Không thể thêm tài khoản vào database.";
         } catch (DataAccessException ex) {
-            registerResultMessage = "Could not register account to the database.";
+            registerResultMessage = "Không thể thêm tài khoản vào database.";
         } catch (Exception ex) {
             registerResultMessage = ex.getMessage();
         }
