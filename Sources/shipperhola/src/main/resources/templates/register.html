@@ -4,9 +4,17 @@ Copyright © 2017 XVideos Team
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Register</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .success {
+                color: green;
+            }
+            .failed {
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <h1>Register</h1>
@@ -15,14 +23,13 @@ Copyright © 2017 XVideos Team
                 <tr>
                     <td>Username</td>
                     <td>
-                        <input type="text" name="usename" maxlength="50" required th:value="${username}">
+                        <input type="text" name="username" maxlength="30" required th:value="${username}">
                     </td>
                 </tr> 
-
                 <tr>
                     <td>Password</td>
                     <td>
-                        <input type="password" name="password" maxlength="50" required th:value="${password}">
+                        <input type="password" name="password" maxlength="30" required th:value="${password}">
                     </td>
                 </tr> 
                 <tr>
@@ -30,51 +37,47 @@ Copyright © 2017 XVideos Team
                     <td>
                         <input type="text" name="fullName" maxlength="50" required th:value="${fullName}">
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>Gender</td>
                     <td>
                         <input type="radio" name="gender" value="true" th:checked="${gender}">male
-                        <input type="radio" name="gender" value="false" th:checked="${gender}"> female
+                        <input type="radio" name="gender" value="false" th:checked="${!gender}"> female
                     </td>
                 </tr> 
                 <tr>
                     <td>Date Of Birth</td>
-                    <td><input type="date" name="dateOfBirth" required th:value="${dateOfBirth}"> </td>
+                    <td><input type="date" name="dateOfBirth" th:value="${dateOfBirth}"> </td>
                 </tr>
                 <tr>
                     <td>Email</td>
                     <td>
-                        <input type="text" name="email" maxlength="30" required th:value="${email}">
+                        <input type="text" name="email" maxlength="255" th:value="${email}">
                     </td>
                 </tr> 
                 <tr>
                     <td>Phone Number</td>
                     <td>
-                        <input type="text" name="phoneNumber" maxlength="12" required th:value="${phoneNumber}">
+                        <input type="text" name="phoneNumber" maxlength="20" th:value="${phoneNumber}">
                     </td>
                 </tr> 
                 <tr>
                     <td>Address</td>
                     <td>
-                        <input type="text" name="address" maxlength="50" required th:value="${address}">
+                        <textarea name="address" rows="3" cols="80" th:text="${address}">
+                        </textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td>Facebook ID</td>
+                    <td>Facebook URL</td>
                     <td>
-                        <input type="text" name="facebookId" maxlength="50" required th:value="${facebookId}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Role</td>
-                    <td>
-                        <input type="text" name="role" maxlength="50" required th:value="${role}">
+                        <input type="url" name="facebookUrl" th:value="${facebookUrl}">
                     </td>
                 </tr>
             </table>
-            <input type="submit" value="register">
-            <a th:href="@{~/register}"><button type="button">Back</button></a> 
+            <p th:class="${registerSuccess ? 'success' : 'failed'}" th:text="${registerResultMessage}"></p>
+            <input type="submit" value="Register">
+            <input type="reset" value="Clear">
         </form>
 
     </body>

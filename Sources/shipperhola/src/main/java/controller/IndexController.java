@@ -10,8 +10,6 @@ public class IndexController {
     };
     
     public static void setupRoutes() {
-        path("/", () -> {
-            get("", VIEW_INDEX_PAGE);
-        });
+        get("/", VIEW_INDEX_PAGE);
     }
 }
