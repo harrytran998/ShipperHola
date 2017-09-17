@@ -1,4 +1,6 @@
-﻿EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?'
+﻿USE [ShipperHola]
+GO
+EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?'
 GO
 EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'
 GO
@@ -91,14 +93,14 @@ INSERT INTO [ProductReview](date, productId, accountId, rating, content) VALUES
 GO
 -- SearchKeyword --
 INSERT INTO [SearchKeyword](keyword, searchCount) VALUES
-('cơm', 7),
-('trà sữa', 3),
-('sinh tố', 4),
-('bánh', 4),
-('pad chuột', 1),
-('lót chuột', 2),
-('phở', 1),
-('bún', 8),
-('nước ngọt', 3),
-('thuốc lá', 2)
+(N'cơm', 7),
+(N'trà sữa', 3),
+(N'sinh tố', 4),
+(N'bánh', 4),
+(N'pad chuột', 1),
+(N'lót chuột', 2),
+(N'phở', 1),
+(N'bún', 8),
+(N'nước ngọt', 3),
+(N'thuốc lá', 2)
 GO
