@@ -22,6 +22,7 @@ public class ProductReviewDao extends BaseDao {
 
     private static final RowMapper<ProductReview> MAPPER = (rs, rowNum) -> new ProductReview(
             rs.getInt("id"),
+            rs.getDate("date"),
             rs.getDouble("rating"),
             rs.getString("content"),
             new Account(rs.getInt("accountId")),
@@ -50,6 +51,7 @@ public class ProductReviewDao extends BaseDao {
     
     public boolean add(ProductReview productReview) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
+        params.put("date", productReview.getDate());
         params.put("rating", productReview.getRating());
         params.put("content", productReview.getContent());
         params.put("accountId", productReview.getAccount().getId());
@@ -64,7 +66,7 @@ public class ProductReviewDao extends BaseDao {
     }
 
     public boolean update(ProductReview productReview) throws DataAccessException {
-        return jdbcTemplate.update("UPDATE ProductReview SET rating = ?, content = ?, accountId = ?, productId = ? WHERE id = ?", productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
+        return jdbcTemplate.update("UPDATE ProductReview SET date = ?, rating = ?, content = ?, accountId = ?, productId = ? WHERE id = ?", productReview.getDate(), productReview.getRating(), productReview.getContent(), productReview.getAccount().getId(), productReview.getProduct().getId(), productReview.getId()) > 0;
     }
 
     public boolean delete(int id) throws DataAccessException {

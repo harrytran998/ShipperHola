@@ -34,16 +34,6 @@
                 <!-- Top Header -->
                 <div id="top-header" th:fragment="topHeader(currentLoginAccount)">
                     <div class="row">
-                        <!--
-                        <nav id="top-navigation" class="col-lg-7 col-md-7 col-sm-7">
-                            <ul class="pull-left">
-                                <li><a href="#" th:href="@{~/me}">Tài khoản của tôi</a></li>
-                                <li><a href="#" th:href="@{~/me/orders}">Danh sách order</a></li>
-                                <li><a href="#" th:href="@{~/about}">Về chúng tôi</a></li>
-                                <li><a href="#" th:href="@{~/contact}">Liên hệ</a></li>
-                            </ul>
-                        </nav>
-                        -->
                         <nav id="user-welcome-area" class="col-lg-5 col-md-5 col-sm-5 col-lg-push-7 col-md-push-7 col-sm-push-7" th:if="${currentLoginAccount != null}">
                             <ul class="pull-right">
                                 <li><a href="#" th:href="@{~/profile}" th:text="${'Xin chào, ' + currentLoginAccount.fullName + '!'}">Xin chào, ABC!</a></li>
@@ -120,7 +110,7 @@
                             <ul class="normal-dropdown normalAnimation">
                                 <li><a href="#" th:href="@{~/products/search(orderBy='date_DESC')}">Mới nhất</a></li>
                                 <li><a href="#" th:href="@{~/products/search(orderBy='averageRating_DESC')}">Đánh giá cao nhất</a></li>
-                                <li><a href="#" th:href="@{~/products/search(orderBy='numberOfOrdersToday_DESC')}">Order nhiều nhất trong ngày</a></li>
+                                <li><a href="#" th:href="@{~/products/search(orderBy='orderCountToday_DESC')}">Order nhiều nhất trong ngày</a></li>
                             </ul>
                         </li>
                         <li class="red">
@@ -170,7 +160,7 @@
                                         <td class="search-column-1">
                                             <p>
                                                 <span class="grey">Top từ khóa tìm kiếm nhiều nhất</span>
-                                                <span th:each="searchKeyword, status : ${searchKeywords}"><a href="#" th:text="${searchKeyword.keyword}" th:href="@{~/products/search(keyword=${searchKeyword.keyword})}">sting</a><th:block th:if="${status.index &lt; searchKeywords.size() - 1}">,</th:block></span>
+                                                <span th:each="searchKeyword, status : ${searchKeywords}"><a href="#" th:text="${searchKeyword.keyword}" th:href="@{~/products/search(keyword=${searchKeyword.keyword})}">sting</a><th:block th:if="${status.index &lt; searchKeywords.size() - 1}">,&nbsp;</th:block></span>
                                             </p>
                                             <input type="text" name="keyword" placeholder="Nhập từ khóa tìm kiếm">
                                         </td>
@@ -234,7 +224,7 @@
                                 <div class="product">
                                     <div class="product-image">
                                         <span class="product-tag-1">Ngưng order</span>
-                                        <img src="../public/resources/img/products/sample1.jpg" th:src="@{~/resources/img/products/sample1.jpg}" alt="Product 1">
+                                        <img src="../public/resources/img/products/1.jpg" th:src="@{~/resources/img/products/1.jpg}" alt="Product 1">
                                         <a href="#" th:href="@{~/products/detail}" class="product-hover"><i class="icons icon-eye-1"></i> Xem nhanh</a>
                                     </div>
                                     <div class="product-info">
@@ -272,7 +262,7 @@
                                 <div class="product">
                                     <div class="product-image">
                                         <span class="product-tag-2">Ngưng order</span>
-                                        <img src="../public/resources/img/products/sample2.jpg" th:src="@{~/resources/img/products/sample2.jpg}" alt="Product 1">
+                                        <img src="../public/resources/img/products/2.jpg" th:src="@{~/resources/img/products/2.jpg}" alt="Product 1">
                                         <a href="#" th:href="@{~/products/detail}" class="product-hover"><i class="icons icon-eye-1"></i> Xem nhanh</a>
                                     </div>
                                     <div class="product-info">
@@ -310,7 +300,7 @@
                                 <div class="product">
                                     <div class="product-image">
                                         <span class="product-tag-2">Ngưng order</span>
-                                        <img src="../public/resources/img/products/sample3.jpg" th:src="@{~/resources/img/products/sample3.jpg}" alt="Product 1">
+                                        <img src="../public/resources/img/products/3.jpg" th:src="@{~/resources/img/products/3.jpg}" alt="Product 1">
                                         <a href="#" th:href="@{~/products/detail}" class="product-hover"><i class="icons icon-eye-1"></i> Xem nhanh</a>
                                     </div>
                                     <div class="product-info">
@@ -401,7 +391,7 @@
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#" th:href="@{~/products/detail}">
-                                                    <img src="../public/resources/img/products/sample1.jpg" th:src="@{~/resources/img/products/sample1.jpg}" alt="Product 1">
+                                                    <img src="../public/resources/img/products/1.jpg" th:src="@{~/resources/img/products/1.jpg}" alt="Product 1">
                                                 </a>
                                     </td>
                                     <td class="product-info">
@@ -413,7 +403,7 @@
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#" th:href="@{~/products/detail}">
-                                                    <img src="../public/resources/img/products/sample2.jpg" th:src="@{~/resources/img/products/sample2.jpg}" alt="Product 2">
+                                                    <img src="../public/resources/img/products/2.jpg" th:src="@{~/resources/img/products/2.jpg}" alt="Product 2">
                                                 </a>
                                     </td>
                                     <td class="product-info">
@@ -425,7 +415,7 @@
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#" th:href="@{~/products/detail}">
-                                                    <img src="../public/resources/img/products/sample3.jpg" th:src="@{~/resources/img/products/sample3.jpg}" alt="Product 3">
+                                                    <img src="../public/resources/img/products/3.jpg" th:src="@{~/resources/img/products/3.jpg}" alt="Product 3">
                                                 </a>
                                     </td>
                                     <td class="product-info">

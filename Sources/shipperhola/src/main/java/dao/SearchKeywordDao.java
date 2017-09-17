@@ -30,7 +30,7 @@ public class SearchKeywordDao extends BaseDao {
     }
 
     public List<SearchKeyword> getTopKeywords(int count) throws DataAccessException {
-        return jdbcTemplate.query("SELECT TOP(?) * FROM SearchKeyword ORDER BY searchCount DESC", new Object[]{count}, MAPPER);
+        return jdbcTemplate.query("SELECT TOP(?) * FROM SearchKeyword ORDER BY searchCount DESC, keyword ASC", new Object[]{count}, MAPPER);
     }
 
     public SearchKeyword getByKeyword(String keyword) throws DataAccessException {

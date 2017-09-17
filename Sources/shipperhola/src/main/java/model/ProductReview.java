@@ -4,14 +4,16 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  *
  * @author Quang Hiep
  */
-public class ProductReview {
+public class ProductReview implements Serializable {
 
     private Integer id;
+    private Date date = new Date(System.currentTimeMillis());
     private double rating;
     private String content;
     private Account account;
@@ -28,12 +30,29 @@ public class ProductReview {
         this.product = product;
     }
 
+    public ProductReview(Integer id, Date date, double rating, String content, Account account, Product product) {
+        this.id = id;
+        this.date = date;
+        this.rating = rating;
+        this.content = content;
+        this.account = account;
+        this.product = product;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public double getRating() {
@@ -70,7 +89,7 @@ public class ProductReview {
 
     @Override
     public String toString() {
-        return "ProductReview{" + "id=" + id + ", rating=" + rating + ", content=" + content + ", account=" + account + ", product=" + product + '}';
+        return "ProductReview{" + "id=" + id + ", date=" + date + ", rating=" + rating + ", content=" + content + ", account=" + account + ", product=" + product + '}';
     }
-
+    
 }
