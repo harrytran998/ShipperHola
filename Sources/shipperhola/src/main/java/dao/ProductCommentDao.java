@@ -13,6 +13,7 @@ import model.ProductComment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -52,7 +53,7 @@ public class ProductCommentDao extends BaseDao {
         params.put("accountId", productComment.getAccount().getId());
         params.put("repliedCommentId", productComment.getRepliedComment().getId());
         params.put("productId", productComment.getProduct().getId());
-        Number id = simpleJdbcInsert.withTableName("ProductComment").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("ProductComment").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             productComment.setId(id.intValue());
             return true;

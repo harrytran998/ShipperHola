@@ -11,6 +11,7 @@ import model.Category;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -44,7 +45,7 @@ public class CategoryDao extends BaseDao {
         Map<String, Object> params = new HashMap<>();
         params.put("name", category.getName());
         params.put("description", category.getDescription());
-        Number id = simpleJdbcInsert.withTableName("Category").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("Category").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             category.setId(id.intValue());
             return true;

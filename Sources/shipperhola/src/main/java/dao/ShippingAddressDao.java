@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -47,7 +48,7 @@ public class ShippingAddressDao extends BaseDao {
     public boolean add(ShippingAddress shippingAddress) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("address", shippingAddress.getAddress());
-        Number id = simpleJdbcInsert.withTableName("ShippingAddress").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("ShippingAddress").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             shippingAddress.setId(id.intValue());
             return true;

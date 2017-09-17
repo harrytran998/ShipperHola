@@ -15,6 +15,7 @@ import model.Product;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -64,7 +65,7 @@ public class ProductDao extends BaseDao {
         params.put("categoryId", product.getCategory().getId());
         params.put("sellerId", product.getSeller().getId());
         params.put("pictureUrl", product.getPictureUrl());
-        Number id = simpleJdbcInsert.withTableName("Product").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("Product").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             product.setId(id.intValue());
             return true;

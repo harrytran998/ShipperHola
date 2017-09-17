@@ -13,6 +13,7 @@ import model.OrderMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -52,7 +53,7 @@ public class OrderMessageDao extends BaseDao {
         params.put("accountId", orderMessage.getAccount().getId());
         params.put("repliedMessageId", orderMessage.getRepliedMessage().getId());
         params.put("orderId", orderMessage.getOrder().getId());
-        Number id = simpleJdbcInsert.withTableName("OrderMessage").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("OrderMessage").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             orderMessage.setId(id.intValue());
             return true;

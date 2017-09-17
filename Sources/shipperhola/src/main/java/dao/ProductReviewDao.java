@@ -13,6 +13,7 @@ import model.ProductReview;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  *
@@ -52,7 +53,7 @@ public class ProductReviewDao extends BaseDao {
         params.put("content", productReview.getContent());
         params.put("accountId", productReview.getAccount().getId());
         params.put("productId", productReview.getProduct().getId());
-        Number id = simpleJdbcInsert.withTableName("ProductReview").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
+        Number id = new SimpleJdbcInsert(jdbcTemplate).withTableName("ProductReview").usingGeneratedKeyColumns("id").executeAndReturnKey(params);
         if (id != null) {
             productReview.setId(id.intValue());
             return true;

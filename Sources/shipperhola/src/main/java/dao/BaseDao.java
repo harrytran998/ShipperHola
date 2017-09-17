@@ -5,7 +5,6 @@ package dao;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 /**
  * Abstract class for quick construction of DAO classes.
@@ -15,10 +14,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 public class BaseDao {
 
     protected final JdbcTemplate jdbcTemplate;
-    protected final SimpleJdbcInsert simpleJdbcInsert;
 
     public BaseDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
     }
 }
